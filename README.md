@@ -13,11 +13,9 @@ OpenACC NVPTX-offload supported GCC with CUDA 11
 | Ubuntu   | 20.04   |
 | GCC      | 9.3     |
 | CUDA     | 11.0    |
+| OpenBLAS | 3.8.0   |
 
-allgebra/frontend
-------------------
-
-Additional packages for interactive purpose based on `allgebra` image:
+Additional packages for analysis purpose:
 
 | Software       | Version |
 |:---------------|:--------|
