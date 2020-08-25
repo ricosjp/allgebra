@@ -33,7 +33,7 @@ These trace commands may need `--privileged` option for `docker run`
 allgebra/mkl
 --------------
 
-Add Intel-MKL using [apt](intel-apt) on `allgebra` image:
+Add Intel-MKL using [apt][intel-apt] on `allgebra` image:
 
 | Software     | Version               |
 |:-------------|:----------------------|
