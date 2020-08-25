@@ -16,7 +16,7 @@ stages:
 docker_test:
   stage: test
   script:
-    - make test
+    - make test test-nsys test-mkl
 
 docker:
   stage: push
