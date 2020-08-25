@@ -1,10 +1,9 @@
 REGISTRY  := registry.ritc.jp/ricos/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
-.PHONY: test allgebra 
+.PHONY: allgebra allgebra-frontend test test-nsys in
 
-
-all: allgebra
+all: allgebra-frontend
 
 login:
 ifeq ($(CI_BUILD_TOKEN),)
@@ -14,7 +13,10 @@ else
 endif
 
 allgebra: Dockerfile
-	docker build -t $(REGISTRY):$(CI_COMMIT_REF_NAME) . -f Dockerfile
+	docker build -t $(REGISTRY):$(CI_COMMIT_REF_NAME) . --target=base-devel
+
+allgebra-frontend: allgebra
+	docker build -t $(REGISTRY)/frontend:$(CI_COMMIT_REF_NAME) . --target=frontend
 
 push: login allgebra
 	docker push $(REGISTRY):$(CI_COMMIT_REF_NAME)
@@ -23,8 +25,33 @@ ifeq ($(CI_COMMIT_REF_NAME),master)
 	docker push $(REGISTRY):latest
 endif
 
-in:  
-	docker run -it --gpus all --privileged --mount type=bind,src=$(PWD)/test,dst=/test $(REGISTRY):$(CI_COMMIT_REF_NAME)
+in: allgebra
+	docker run -it \
+		-u `id -u`:`id -g` \
+		--gpus all \
+		-v $(PWD)/test:/test \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME)
 
-test:  
-	docker run --gpus all --privileged $(REGISTRY):$(CI_COMMIT_REF_NAME) bash -c "cd /test; make test"
+frontend: allgebra-frontend
+	docker run -it \
+		-u `id -u`:`id -g` \
+		--gpus all \
+		--privileged \
+		-v $(PWD)/test:/test \
+		$(REGISTRY)/frontend:$(CI_COMMIT_REF_NAME)
+
+test: allgebra
+	docker run \
+		-u `id -u`:`id -g` \
+		--gpus all \
+		-v $(PWD)/test:/test \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		make -C /test test
+
+test-nsys: allgebra-frontend
+	docker run \
+		-u `id -u`:`id -g` \
+		--gpus all \
+		-v $(PWD)/test:/test \
+		$(REGISTRY)/frontend:$(CI_COMMIT_REF_NAME) \
+		make -C /test test-nsys
