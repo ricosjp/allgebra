@@ -27,42 +27,35 @@ endif
 
 in: allgebra
 	docker run -it \
-		-u `id -u`:`id -g` \
 		--gpus all \
-		-v $(PWD)/test:/test \
+		--privileged \
+		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME)
 
 in-mkl: allgebra-mkl
 	docker run -it \
-		-u `id -u`:`id -g` \
 		--gpus all \
-		-v $(PWD)/test:/test \
+		--privileged \
+		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY)/mkl:$(CI_COMMIT_REF_NAME)
 
 test: allgebra
 	docker run \
-		-u `id -u`:`id -g` \
 		--gpus all \
-		-v $(PWD)/test:/test \
+		--privileged \
+		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		make -C /test test
 
 test-nsys: allgebra
 	docker run \
-		-u `id -u`:`id -g` \
 		--gpus all \
-		-v $(PWD)/test:/test \
+		--privileged \
+		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		make -C /test test-nsys
 
 test-mkl: allgebra-mkl
 	docker run \
-		-u `id -u`:`id -g` \
 		$(REGISTRY)/mkl:$(CI_COMMIT_REF_NAME) \
 		pkg-config --exists mkl-static-lp64-seq
-
-test-mkl-python: allgebra-mkl
-	docker run \
-		-u `id -u`:`id -g` \
-		$(REGISTRY)/mkl:$(CI_COMMIT_REF_NAME) \
-		python3 --version
