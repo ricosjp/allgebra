@@ -35,9 +35,9 @@ allgebra/mkl
 
 Add Intel-MKL using [apt](intel-apt) on `allgebra` image:
 
-| Software     | Version      |
-|:-------------|:-------------|
-| Intel MKL    | 2020.0.166-1 |
-| Intel Python | 2020.2       |
+| Software     | Version               |
+|:-------------|:----------------------|
+| Intel MKL    | 2020.0.166-1          |
+| Intel Python | 2020.2 (Python 3.7.7) |
 
 [intel-apt]: https://software.intel.com/content/www/us/en/develop/articles/installing-intel-free-libs-and-python-apt-repo.html

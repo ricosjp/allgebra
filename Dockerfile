@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-# Install MKL
+# Install MKL with Python
 # https://software.intel.com/content/www/us/en/develop/articles/installing-intel-free-libs-and-python-apt-repo.html
 FROM base-devel as mkl
 RUN curl -sfL https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB | apt-key add -
@@ -26,3 +26,4 @@ RUN apt-get update \
     intel-mkl intelpython3 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+ENV PATH /opt/intel/intelpython3/bin:$PATH
