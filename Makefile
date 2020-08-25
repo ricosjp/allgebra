@@ -18,6 +18,9 @@ allgebra: Dockerfile
 allgebra-frontend: allgebra
 	docker build -t $(REGISTRY)/frontend:$(CI_COMMIT_REF_NAME) . --target=frontend
 
+allgebra-mkl: allgebra
+	docker build -t $(REGISTRY)/mkl:$(CI_COMMIT_REF_NAME) . --target=mkl
+
 push: login allgebra
 	docker push $(REGISTRY):$(CI_COMMIT_REF_NAME)
 ifeq ($(CI_COMMIT_REF_NAME),master)

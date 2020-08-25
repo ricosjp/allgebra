@@ -29,3 +29,15 @@ Additional packages for interactive purpose based on `allgebra` image:
 | valgrind       | 3.15.0  |
 
 These trace commands may need `--privileged` option for `docker run`
+
+allgebra/mkl
+--------------
+
+Add Intel-MKL using [apt](intel-apt) on `allgebra` image:
+
+| Software     | Version      |
+|:-------------|:-------------|
+| Intel MKL    | 2020.0.166-1 |
+| Intel Python | 2020.2       |
+
+[intel-apt]: https://software.intel.com/content/www/us/en/develop/articles/installing-intel-free-libs-and-python-apt-repo.html
