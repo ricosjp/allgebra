@@ -28,7 +28,9 @@ in: allgebra
 		--privileged \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME)
 
-test: allgebra
+test: test-openacc test-nsys test-mkl test-perf
+
+test-openacc: allgebra
 	docker run \
 		--gpus all \
 		--privileged \
@@ -46,3 +48,8 @@ test-mkl: allgebra
 	docker run \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		pkg-config --exists mkl-static-lp64-seq
+
+test-perf: allgebra
+	docker run \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		perf --version

@@ -15,5 +15,8 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+# Add perf into PATH
+ENV PATH /usr/lib/linux-tools/5.4.0-45-generic:$PATH
+
 # To validate container is well-constructed
 COPY test/ /test
