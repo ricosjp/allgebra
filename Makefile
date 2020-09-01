@@ -26,14 +26,12 @@ in: allgebra
 	docker run -it \
 		--gpus all \
 		--privileged \
-		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME)
 
 test: allgebra
 	docker run \
 		--gpus all \
 		--privileged \
-		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		make -C /test test
 
@@ -41,7 +39,6 @@ test-nsys: allgebra
 	docker run \
 		--gpus all \
 		--privileged \
-		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		make -C /test test-nsys
 

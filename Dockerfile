@@ -19,3 +19,6 @@ RUN apt-get update && apt-get install -y \
     intel-mkl \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+# To validate container is well-constructed
+COPY test/ /test
