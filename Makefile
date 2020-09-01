@@ -1,9 +1,9 @@
 REGISTRY  := registry.ritc.jp/ricos/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
-.PHONY: allgebra allgebra-mkl test test-nsys in
+.PHONY: allgebra test test-nsys test-mkl in
 
-all: allgebra-mkl
+all: allgebra
 
 login:
 ifeq ($(CI_BUILD_TOKEN),)
@@ -13,10 +13,7 @@ else
 endif
 
 allgebra: Dockerfile
-	docker build -t $(REGISTRY):$(CI_COMMIT_REF_NAME) . --target=base-devel
-
-allgebra-mkl: allgebra
-	docker build -t $(REGISTRY)/mkl:$(CI_COMMIT_REF_NAME) . --target=mkl
+	docker build -t $(REGISTRY):$(CI_COMMIT_REF_NAME) .
 
 push: login allgebra
 	docker push $(REGISTRY):$(CI_COMMIT_REF_NAME)
@@ -31,13 +28,6 @@ in: allgebra
 		--privileged \
 		--mount type=bind,src=$(PWD)/test,dst=/test \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME)
-
-in-mkl: allgebra-mkl
-	docker run -it \
-		--gpus all \
-		--privileged \
-		--mount type=bind,src=$(PWD)/test,dst=/test \
-		$(REGISTRY)/mkl:$(CI_COMMIT_REF_NAME)
 
 test: allgebra
 	docker run \
@@ -55,7 +45,7 @@ test-nsys: allgebra
 		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		make -C /test test-nsys
 
-test-mkl: allgebra-mkl
+test-mkl: allgebra
 	docker run \
-		$(REGISTRY)/mkl:$(CI_COMMIT_REF_NAME) \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		pkg-config --exists mkl-static-lp64-seq
