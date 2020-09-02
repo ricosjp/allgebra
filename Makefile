@@ -1,7 +1,7 @@
 REGISTRY  := registry.ritc.jp/ricos/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
-.PHONY: allgebra test test-nsys test-mkl in
+.PHONY: allgebra test test-cmake test-nsys test-mkl in
 
 all: allgebra
 
@@ -28,7 +28,7 @@ in: allgebra
 		--privileged \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME)
 
-test: test-openacc test-nsys test-mkl test-perf
+test: test-openacc test-cmake test-nsys test-mkl test-perf
 
 test-openacc: allgebra
 	docker run \
@@ -36,6 +36,13 @@ test-openacc: allgebra
 		--privileged \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
 		make -C /test test
+
+test-cmake: allgebra
+	docker run \
+		--gpus all \
+		--privileged \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		/test/cmake.sh
 
 test-nsys: allgebra
 	docker run \
