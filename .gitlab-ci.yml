@@ -2,7 +2,6 @@ default:
   image: docker:latest
   before_script:
     - apk add make
-    - make allgebra
   services:
     - docker:dind
   tags:
@@ -13,12 +12,18 @@ stages:
   - test
   - push
 
-docker_test:
+test_cuda11_0:
   stage: test
   script:
-    - make test
+    - make -C cuda11_0 test
+
+test_cuda10_2:
+  stage: test
+  script:
+    - make -C cuda10_2 test
 
 docker:
   stage: push
   script:
-    - make push
+    - make -C cuda11_0 push
+    - make -C cuda10_2 push
