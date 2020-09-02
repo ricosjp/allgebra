@@ -1,8 +1,7 @@
 REGISTRY  := registry.ritc.jp/ricos/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
-.PHONY: test allgebra 
-
+.PHONY: allgebra test test-cmake test-nsys test-mkl in
 
 all: allgebra
 
@@ -14,7 +13,7 @@ else
 endif
 
 allgebra: Dockerfile
-	docker build -t $(REGISTRY):$(CI_COMMIT_REF_NAME) . -f Dockerfile
+	docker build -t $(REGISTRY):$(CI_COMMIT_REF_NAME) .
 
 push: login allgebra
 	docker push $(REGISTRY):$(CI_COMMIT_REF_NAME)
@@ -23,8 +22,41 @@ ifeq ($(CI_COMMIT_REF_NAME),master)
 	docker push $(REGISTRY):latest
 endif
 
-in:  
-	docker run -it --gpus all --privileged --mount type=bind,src=$(PWD)/test,dst=/test $(REGISTRY):$(CI_COMMIT_REF_NAME)
+in: allgebra
+	docker run -it \
+		--gpus all \
+		--privileged \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME)
 
-test:  
-	docker run --gpus all --privileged $(REGISTRY):$(CI_COMMIT_REF_NAME) bash -c "cd /test; make test"
+test: test-openacc test-cmake test-nsys test-mkl test-perf
+
+test-openacc: allgebra
+	docker run \
+		--gpus all \
+		--privileged \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		make -C /test test
+
+test-cmake: allgebra
+	docker run \
+		--gpus all \
+		--privileged \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		/test/cmake.sh
+
+test-nsys: allgebra
+	docker run \
+		--gpus all \
+		--privileged \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		make -C /test test-nsys
+
+test-mkl: allgebra
+	docker run \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		pkg-config --exists mkl-static-lp64-seq
+
+test-perf: allgebra
+	docker run \
+		$(REGISTRY):$(CI_COMMIT_REF_NAME) \
+		perf --version
