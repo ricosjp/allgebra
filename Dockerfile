@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     make \
-    gcc-9-offload-nvptx nvptx-tools g++-9 gfortran-9 \
+    gcc-offload-nvptx nvptx-tools g++ gfortran \
     cuda-nsight-systems-11-0 \
     libopenblas-openmp-dev \
     python3 python3-yaml python3-numpy \
@@ -23,7 +23,6 @@ RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.
 
 # Add perf into PATH
 ENV PATH /usr/lib/linux-tools/5.4.0-45-generic:$PATH
-ENV FC /usr/bin/gfortran-9
 
 # To validate container is well-constructed
 COPY test/ /test
