@@ -25,5 +25,4 @@ test_cuda10_2:
 docker:
   stage: push
   script:
-    - make -C cuda11_0 push
-    - make -C cuda10_2 push
+    - make push
