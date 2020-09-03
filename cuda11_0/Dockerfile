@@ -24,5 +24,11 @@ RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.
 # Add perf into PATH
 ENV PATH /usr/lib/linux-tools/5.4.0-45-generic:$PATH
 
+# CUDA 11.0 environements
+ENV CPATH              /usr/local/cuda-11.0/include
+ENV C_INCLUDE_PATH     /usr/local/cuda-11.0/include
+ENV CPLUS_INCLUDE_PATH /usr/local/cuda-11.0/include
+ENV LIBRARY_PATH       /usr/local/cuda-11.0/lib64
+
 # To validate container is well-constructed
 COPY test/ /test
