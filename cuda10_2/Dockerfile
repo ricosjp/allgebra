@@ -7,8 +7,8 @@ COPY ubuntu2004.list /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    make cmake \
-    gcc-9-offload-nvptx nvptx-tools g++-9 gfortran-9 \
+    make curl \
+    gcc-offload-nvptx nvptx-tools g++ gfortran \
     cuda-nsight-systems-10-2 \
     libopenblas-openmp-dev \
     python3 python3-yaml python3-numpy \
@@ -17,8 +17,20 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.18.2-Linux-x86_64.tar.gz \
+ && tar xf cmake-3.18.2-Linux-x86_64.tar.gz \
+ && mv cmake-3.18.2-Linux-x86_64/bin/* /usr/bin/ \
+ && mv cmake-3.18.2-Linux-x86_64/share/cmake-3.18 /usr/share/ \
+ && rm cmake-3.18.2-Linux-x86_64.tar.gz
+
 # Add perf into PATH
 ENV PATH /usr/lib/linux-tools/5.4.0-45-generic:$PATH
+
+# CUDA 10.2 environements
+ENV CPATH              /usr/local/cuda-10.2/include
+ENV C_INCLUDE_PATH     /usr/local/cuda-10.2/include
+ENV CPLUS_INCLUDE_PATH /usr/local/cuda-10.2/include
+ENV LIBRARY_PATH       /usr/local/cuda-10.2/lib64
 
 # To validate container is well-constructed
 COPY test/ /test
