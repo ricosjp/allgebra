@@ -19,7 +19,7 @@ RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.
  && tar xf cmake-3.18.2-Linux-x86_64.tar.gz \
  && mv cmake-3.18.2-Linux-x86_64/bin/* /usr/bin/ \
  && mv cmake-3.18.2-Linux-x86_64/share/cmake-3.18 /usr/share/ \
- && rm cmake-3.18.2-Linux-x86_64.tar.gz
+ && rm -rf cmake-3.18.2-Linux-x86_64*
 
 # Add perf into PATH
 ENV PATH /usr/lib/linux-tools/5.4.0-45-generic:$PATH
