@@ -23,7 +23,7 @@ allgebra: Dockerfile
 push: login allgebra
 	docker push $(REGISTRY):$(CI_COMMIT_REF_NAME)
 ifeq ($(CI_COMMIT_REF_NAME),master)
-	docker build -t $(REGISTRY):latest . -f Dockerfile
+	docker build -t $(REGISTRY):$(CI_COMMIT_REF_NAME) .. -f $(CURDIR)/Dockerfile
 	docker push $(REGISTRY):latest
 endif
 
