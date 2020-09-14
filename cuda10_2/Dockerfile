@@ -7,6 +7,7 @@ COPY ubuntu2004.list /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
+    zsh tmux \
     make curl \
     gcc-offload-nvptx nvptx-tools g++ gfortran \
     nsight-systems-2020.3.2 \
