@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     zsh tmux \
     make curl \
     gcc-offload-nvptx nvptx-tools g++ gfortran \
+    ninja-build \
     nsight-systems-2020.3.2 \
     libopenblas-openmp-dev \
     python3 python3-yaml python3-numpy \
