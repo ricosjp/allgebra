@@ -7,7 +7,7 @@ COPY ubuntu2004.list /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    zsh tmux \
+    git zsh tmux \
     make curl \
     gcc-offload-nvptx nvptx-tools g++ gfortran \
     ninja-build \

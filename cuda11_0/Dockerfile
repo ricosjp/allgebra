@@ -5,7 +5,7 @@ LABEL maintainer "Toshiaki Hishinuma <hishinuma.toshiaki@gmail.com>"
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    zsh tmux \
+    git zsh tmux \
     make \
     gcc-offload-nvptx nvptx-tools g++ gfortran \
     ninja-build \
