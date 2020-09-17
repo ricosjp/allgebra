@@ -6,7 +6,7 @@
 
 CI_COMMIT_REF_NAME ?= manual_deploy
 
-.PHONY: allgebra test test-nsys test-mkl in
+.PHONY: allgebra test test-nsys test-mkl test-perf in
 
 all: allgebra
 
@@ -33,7 +33,7 @@ in: allgebra
 		--privileged \
 		$(REGISTRY):$(CI_COMMIT_REF_NAME)
 
-test: test-openacc test-nsys test-mkl test-perf
+test: test-openacc test-nsys test-mkl
 
 test-openacc: allgebra
 	docker run \
