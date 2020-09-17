@@ -5,8 +5,6 @@ LABEL maintainer "Toshiki Teramura <toshiki.teramura@gmail.com>"
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    git clang-format \
+    git doxygen graphviz \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
-
-COPY check-format.sh /usr/bin
