@@ -23,7 +23,7 @@ Images
 OpenACC NVPTX-offload supported GCC with CUDA 10.2
 
 ```
-docker pull registry.ritc.jp/ricos/allgebra/cuda10_2:latest
+docker pull ghcr.io/ricosjp/allgebra/cuda10_2:latest
 ```
 
 | Software  | Version    |
@@ -39,7 +39,7 @@ docker pull registry.ritc.jp/ricos/allgebra/cuda10_2:latest
 OpenACC NVPTX-offload supported GCC with CUDA 11.0
 
 ```
-docker pull registry.ritc.jp/ricos/allgebra/cuda11_0:latest
+docker pull ghcr.io/ricosjp/allgebra/cuda11_0:latest
 ```
 
 | Software  | Version    |
@@ -55,7 +55,7 @@ docker pull registry.ritc.jp/ricos/allgebra/cuda11_0:latest
 Container for reproducible code formatting
 
 ```
-docker pull registry.ritc.jp/ricos/allgebra/clang-format:latest
+docker pull ghcr.io/ricosjp/allgebra/clang-format:latest
 ```
 
 ### allgebra/doxygen
@@ -63,5 +63,5 @@ docker pull registry.ritc.jp/ricos/allgebra/clang-format:latest
 Container for reproducible document generation
 
 ```
-docker pull registry.ritc.jp/ricos/allgebra/doxygen:latest
+docker pull ghcr.io/ricosjp/allgebra/doxygen:latest
 ```

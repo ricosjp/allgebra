@@ -1,2 +1,2 @@
-REGISTRY := registry.ritc.jp/ricos/allgebra/cuda11_0
+REGISTRY := ghcr.io/ricosjp/allgebra/cuda11_0
 include ../common.mk

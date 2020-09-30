@@ -1,4 +1,4 @@
-REGISTRY := registry.ritc.jp/ricos/allgebra/doxygen
+REGISTRY := ghcr.io/ricosjp/allgebra/doxygen
 CI_COMMIT_REF_NAME ?= manual_deploy
 
 .PHONY: doxygen

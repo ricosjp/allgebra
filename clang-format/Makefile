@@ -1,4 +1,4 @@
-REGISTRY := registry.ritc.jp/ricos/allgebra/clang-format
+REGISTRY := ghcr.io/ricosjp/allgebra/clang-format
 CI_COMMIT_REF_NAME ?= manual_deploy
 
 .PHONY: clang-format
