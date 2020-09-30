@@ -12,17 +12,13 @@ stages:
   - test
   - push
 
-test_cuda11_0:
+test:
   stage: test
   script:
-    - make -C cuda11_0 test
+    - make test
 
-test_cuda10_2:
-  stage: test
-  script:
-    - make -C cuda10_2 test
-
-docker:
+push:
   stage: push
   script:
+    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY_IMAGE}
     - make push
