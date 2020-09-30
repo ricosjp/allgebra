@@ -1,6 +1,6 @@
 # Get from GitLab CI environmental variables
 # See also https://docs.gitlab.com/ee/ci/variables/
-CI_REGISTRY_IMAGE  ?= registry.ritc.jp/ricos/allgebra
+CI_REGISTRY_IMAGE  ?= ghcr.io/ricosjp/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
 CUDA_TARGETS := cuda10_2 cuda11_0
