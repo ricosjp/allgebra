@@ -26,7 +26,7 @@ test: $(TARGET)
 	./acc.out 1000000
 	./acc_cublas.out 1000000
 
-prof:
+prof: $(TARGET)
 	nsys nvprof ./acc_cublas.out 1000000
 
 clean:

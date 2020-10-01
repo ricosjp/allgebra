@@ -14,7 +14,11 @@ TARGETS := doxygen clang-format $(CUDA_TARGETS)
 .PHONY: $(TARGETS)
 all: $(TARGETS)
 push: $(foreach TARGET,$(TARGETS),$(TARGET)-push)
-test: $(foreach TARGET,$(CUDA_TARGETS),$(TARGET)-test-openacc $(TARGET)-test-nsys $(TARGET)-test-mkl)
+test: $(foreach TARGET,$(CUDA_TARGETS),\
+	$(TARGET)-test-gcc-openacc \
+	$(TARGET)-test-gfortran-openacc \
+	$(TARGET)-test-nsys \
+	$(TARGET)-test-mkl)
 
 define docker_commands
 $(1): $(1).Dockerfile
@@ -29,12 +33,19 @@ endef
 $(foreach TARGET,$(TARGETS),$(eval $(call docker_commands,$(TARGET))))
 
 define test_commands
-$(1)-test-openacc: $(1)
+$(1)-test-gcc-openacc: $(1)
 	docker run \
 		--gpus all \
 		--privileged \
 		$(REGISTRY)/$(1):$(CI_COMMIT_REF_NAME) \
 		make -C /examples/gcc-openacc test
+
+$(1)-test-gfortran-openacc: $(1)
+	docker run \
+		--gpus all \
+		--privileged \
+		$(REGISTRY)/$(1):$(CI_COMMIT_REF_NAME) \
+		make -C /examples/gfortran-openacc test
 
 $(1)-test-nsys: $(1)
 	docker run \
