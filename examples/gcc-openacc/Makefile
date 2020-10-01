@@ -39,5 +39,10 @@ test: $(TARGET)
 prof:
 	docker run --rm $(DOCKER_FLAGS) $(DOCKER_IMAGE) nsys nvprof ./acc_cublas.out 1000000
 
+# Trigger for cmake
+cmake:
+	docker run --rm $(DOCKER_FLAGS) $(DOCKER_IMAGE) \
+		bash -c "cmake -Bbuild .; cmake --build build"
+
 clean:
-	rm *.out
+	rm -rf *.out build/
