@@ -30,6 +30,7 @@ docker pull ghcr.io/ricosjp/allgebra/cuda10_2:latest
 |:----------|:------------------------------|
 | Ubuntu    | 20.04                         |
 | GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
+| cmake     | 3.18.2                        |
 | CUDA      | 10.2                          |
 | OpenBLAS  | 3.8.0                         |
 | Intel MKL | 2020.0.166                    |
@@ -46,6 +47,7 @@ docker pull ghcr.io/ricosjp/allgebra/cuda11_0:latest
 |:----------|:------------------------------|
 | Ubuntu    | 20.04                         |
 | GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
+| cmake     | 3.18.2                        |
 | CUDA      | 11.0                          |
 | OpenBLAS  | 3.8.0                         |
 | Intel MKL | 2020.0.166                    |
