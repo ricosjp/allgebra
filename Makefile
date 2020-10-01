@@ -34,14 +34,14 @@ $(1)-test-openacc: $(1)
 		--gpus all \
 		--privileged \
 		$(REGISTRY)/$(1):$(CI_COMMIT_REF_NAME) \
-		make -C /test test
+		make -C /examples/gcc-openacc test
 
 $(1)-test-nsys: $(1)
 	docker run \
 		--gpus all \
 		--privileged \
 		$(REGISTRY)/$(1):$(CI_COMMIT_REF_NAME) \
-		make -C /test test-nsys
+		make -C /examples/gcc-openacc prof
 
 $(1)-test-mkl: $(1)
 	docker run \

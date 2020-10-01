@@ -33,4 +33,4 @@ ENV CPLUS_INCLUDE_PATH /usr/local/cuda-11.0/include
 ENV LIBRARY_PATH       /usr/local/cuda-11.0/lib64
 
 # To validate container is well-constructed
-COPY test/ /test
+COPY examples/ /examples
