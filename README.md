@@ -26,13 +26,13 @@ OpenACC NVPTX-offload supported GCC with CUDA 10.2
 docker pull ghcr.io/ricosjp/allgebra/cuda10_2:latest
 ```
 
-| Software  | Version    |
-|:----------|:-----------|
-| Ubuntu    | 20.04      |
-| GCC       | 9.3        |
-| CUDA      | 10.2       |
-| OpenBLAS  | 3.8.0      |
-| Intel MKL | 2020.0.166 |
+| Software  | Version                       |
+|:----------|:------------------------------|
+| Ubuntu    | 20.04                         |
+| GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
+| CUDA      | 10.2                          |
+| OpenBLAS  | 3.8.0                         |
+| Intel MKL | 2020.0.166                    |
 
 ### allgebra/cuda11_0
 
@@ -42,13 +42,13 @@ OpenACC NVPTX-offload supported GCC with CUDA 11.0
 docker pull ghcr.io/ricosjp/allgebra/cuda11_0:latest
 ```
 
-| Software  | Version    |
-|:----------|:-----------|
-| Ubuntu    | 20.04      |
-| GCC       | 9.3        |
-| CUDA      | 11.0       |
-| OpenBLAS  | 3.8.0      |
-| Intel MKL | 2020.0.166 |
+| Software  | Version                       |
+|:----------|:------------------------------|
+| Ubuntu    | 20.04                         |
+| GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
+| CUDA      | 11.0                          |
+| OpenBLAS  | 3.8.0                         |
+| Intel MKL | 2020.0.166                    |
 
 ### allgebra/clang-format
 
