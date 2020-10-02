@@ -70,3 +70,20 @@ Container for reproducible document generation
 ```
 docker pull ghcr.io/ricosjp/allgebra/doxygen:latest
 ```
+
+License
+--------
+
+Copyright 2020 RICOS Co. Ltd.
+
+ricosjp/allgebra itself is distributed under Apache-2.0. See [LICENSE](./LICENSE).
+
+Be sure that you need to accept [end user license agreements of CUDA][EULA_CUDA],
+and [Intel Simplified Software License][ISSL] to use these containers.
+You can find patched source code of GPL applications
+derived from [nvidia/cuda container][nvidia/cuda] at [nvidia/OpenSource][nvidia/OpenSource].
+
+[nvidia/cuda]: https://hub.docker.com/r/nvidia/cuda/
+[nvidia/OpenSource]: https://developer.download.nvidia.com/compute/cuda/opensource/
+[EULA_CUDA]: https://docs.nvidia.com/cuda/eula/index.html
+[ISSL]: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html

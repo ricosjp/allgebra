@@ -1,5 +1,10 @@
+# Copyright 2020 RICOS Co. Ltd.
+#
+# This file is a part of ricosjp/allgebra, distributed under Apache-2.0 License
+# https://github.com/ricosjp/allgebra
+#
+
 FROM nvidia/cuda:11.0-devel-ubuntu20.04
-LABEL maintainer "Toshiaki Hishinuma <hishinuma.toshiaki@gmail.com>"
 
 # workaround for tzdata
 ENV DEBIAN_FRONTEND=noninteractive

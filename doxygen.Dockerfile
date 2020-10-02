@@ -1,5 +1,10 @@
+# Copyright 2020 RICOS Co. Ltd.
+#
+# This file is a part of ricosjp/allgebra, distributed under Apache-2.0 License
+# https://github.com/ricosjp/allgebra
+#
+
 FROM ubuntu:20.04
-LABEL maintainer "Toshiki Teramura <toshiki.teramura@gmail.com>"
 
 # workaround for tzdata
 ENV DEBIAN_FRONTEND=noninteractive
