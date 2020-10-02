@@ -13,8 +13,7 @@ COPY ubuntu2004.list /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    git zsh tmux \
-    make curl \
+    curl git zsh tmux pkg-config make \
     gcc-offload-nvptx nvptx-tools g++ gfortran \
     ninja-build \
     nsight-systems-2020.3.2 \

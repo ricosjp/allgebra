@@ -103,10 +103,5 @@ $(1)-$(2)-test-nsys: $(1)-$(2)
 		--privileged \
 		$(REGISTRY)/$(1)/$(2):$(CI_COMMIT_REF_NAME) \
 		make -C /examples/gcc-openacc prof
-
-$(1)-$(2)-test-mkl: $(1)-$(2)
-	docker run \
-		$(REGISTRY)/$(1)/$(2):$(CI_COMMIT_REF_NAME) \
-		pkg-config --exists mkl-dynamic-lp64-iomp
 endef
 $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS),$(eval $(call cuda_target,$(CUDA),$(MATH)))))

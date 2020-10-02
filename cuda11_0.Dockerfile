@@ -10,8 +10,7 @@ FROM nvidia/cuda:11.0-devel-ubuntu20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    git zsh tmux \
-    make \
+    curl git zsh tmux pkg-config make \
     gcc-offload-nvptx nvptx-tools g++ gfortran \
     ninja-build \
     cuda-nsight-systems-11-0 \
