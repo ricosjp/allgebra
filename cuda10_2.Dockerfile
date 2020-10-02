@@ -4,9 +4,30 @@
 # https://github.com/ricosjp/allgebra
 #
 
-# Force to use Ubuntu 20.04 registry because CUDA 10.2 is not distributed with Ubuntu 20.04
+# Force to use Ubuntu 20.04 registry for using officially-distributed MKL
+# (CUDA 10.2 is not distributed with Ubuntu 20.04)
 FROM nvidia/cuda:10.2-devel-ubuntu18.04
 COPY ubuntu2004.list /etc/apt/sources.list
+
+#
+# Variables set in Makefile
+#
+ARG ALLGEBRA_VERSION
+ARG BUILD_DATE
+ARG GIT_HASH
+
+#
+# Annotations based on OCI specification
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#
+LABEL org.opencontainers.image.created=$BUILD_DATE
+LABEL org.opencontainers.image.authors="Toshiki Teramura <teramura@ricos.co.jp>"
+LABEL org.opencontainers.image.url="https://github.com/ricosjp/allgebra"
+LABEL org.opencontainers.image.documentation="Base container for developing C++ and Fortran HPC applications"
+LABEL org.opencontainers.image.source="https://github.com/ricosjp/allgebra/blob/latest/cuda10_2.Dockerfile"
+LABEL org.opencontainers.image.version=$ALLGEBRA_VERSION
+LABEL org.opencontainers.image.revision=$GIT_HASH
+LABEL org.opencontainers.image.vendor="RICOS Co. Ltd."
 
 # workaround for tzdata
 ENV DEBIAN_FRONTEND=noninteractive
