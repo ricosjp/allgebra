@@ -57,7 +57,9 @@ test: $(foreach TARGET,$(CUDA_TARGETS),\
 #
 define docker_commands
 $(1): $(1).Dockerfile
-	docker build $(DOCKER_BUILD_ARGS) -t $(REGISTRY)/$(1):$(CI_COMMIT_REF_NAME) . -f $(1).Dockerfile
+	cat $(1).Dockerfile annotations.Dockerfile > $(1)-tmp.Dockerfile
+	docker build $(DOCKER_BUILD_ARGS) -t $(REGISTRY)/$(1):$(CI_COMMIT_REF_NAME) . -f $(1)-tmp.Dockerfile
+	rm $(1)-tmp.Dockerfile
 
 $(1)-in: $(1)
 	docker run -it --rm $(REGISTRY)/$(1):$(CI_COMMIT_REF_NAME)
