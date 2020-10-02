@@ -1,7 +1,7 @@
 default:
   image: docker:latest
   before_script:
-    - apk add make
+    - apk add coreutils git make
   services:
     - docker:dind
   tags:

@@ -4,7 +4,8 @@
 # https://github.com/ricosjp/allgebra
 #
 
-# Force to use Ubuntu 20.04 registry because CUDA 10.2 is not distributed with Ubuntu 20.04
+# Force to use Ubuntu 20.04 registry for using officially-distributed MKL
+# (CUDA 10.2 is not distributed with Ubuntu 20.04)
 FROM nvidia/cuda:10.2-devel-ubuntu18.04
 COPY ubuntu2004.list /etc/apt/sources.list
 
