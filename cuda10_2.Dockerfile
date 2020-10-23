@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     gcc-offload-nvptx nvptx-tools g++ gfortran \
     ninja-build \
     nsight-systems-2020.3.2 \
-    python3 python3-yaml python3-numpy \
+    python3 python3-yaml python3-numpy python3-pandas \
     strace trace-cmd valgrind gdb \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
