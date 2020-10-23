@@ -24,3 +24,6 @@ LABEL maintainer="RICOS Co. Ltd." \
       org.opencontainers.image.version=$ALLGEBRA_VERSION \
       org.opencontainers.image.revision=$GIT_HASH \
       org.opencontainers.image.vendor="RICOS Co. Ltd."
+
+# To validate container is well-constructed
+COPY examples/ /examples

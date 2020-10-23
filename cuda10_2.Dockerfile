@@ -22,17 +22,14 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.18.2-Linux-x86_64.tar.gz \
- && tar xf cmake-3.18.2-Linux-x86_64.tar.gz \
- && mv cmake-3.18.2-Linux-x86_64/bin/* /usr/bin/ \
- && mv cmake-3.18.2-Linux-x86_64/share/cmake-3.18 /usr/share/ \
- && rm -rf cmake-3.18.2-Linux-x86_64*
+RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.4/cmake-3.18.4-Linux-x86_64.tar.gz \
+ && tar xf cmake-3.18.4-Linux-x86_64.tar.gz \
+ && mv cmake-3.18.4-Linux-x86_64/bin/* /usr/bin/ \
+ && mv cmake-3.18.4-Linux-x86_64/share/cmake-3.18 /usr/share/ \
+ && rm -rf cmake-3.18.4-Linux-x86_64*
 
 # CUDA 10.2 environements
 ENV CPATH              /usr/local/cuda-10.2/include
 ENV C_INCLUDE_PATH     /usr/local/cuda-10.2/include
 ENV CPLUS_INCLUDE_PATH /usr/local/cuda-10.2/include
 ENV LIBRARY_PATH       /usr/local/cuda-10.2/lib64
-
-# To validate container is well-constructed
-COPY examples/ /examples
