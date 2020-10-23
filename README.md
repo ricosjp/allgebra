@@ -41,7 +41,7 @@ docker pull ghcr.io/ricosjp/allgebra/cuda10_2/mkl:20.10.0
 |:----------|:------------------------------|
 | Ubuntu    | 20.04                         |
 | GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.2                        |
+| cmake     | 3.18.4                        |
 | CUDA      | 10.2                          |
 | Intel MKL | 2020.0.166                    |
 
@@ -57,7 +57,7 @@ docker pull ghcr.io/ricosjp/allgebra/cuda11_0/mkl:20.10.0
 |:----------|:------------------------------|
 | Ubuntu    | 20.04                         |
 | GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.2                        |
+| cmake     | 3.18.4                        |
 | CUDA      | 11.0                          |
 | Intel MKL | 2020.0.166                    |
 
@@ -73,7 +73,7 @@ docker pull ghcr.io/ricosjp/allgebra/cuda10_2/oss:20.10.0
 |:----------|:------------------------------|
 | Ubuntu    | 20.04                         |
 | GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.2                        |
+| cmake     | 3.18.4                        |
 | CUDA      | 10.2                          |
 | OpenBLAS  | 3.8.0                         |
 
@@ -89,7 +89,7 @@ docker pull ghcr.io/ricosjp/allgebra/cuda11_0/oss:20.10.0
 |:----------|:------------------------------|
 | Ubuntu    | 20.04                         |
 | GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.2                        |
+| cmake     | 3.18.4                        |
 | CUDA      | 11.0                          |
 | OpenBLAS  | 3.8.0                         |
 
