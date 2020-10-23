@@ -6,7 +6,7 @@
 
 # GCC OpenACC Settings
 CXX       := g++
-CXX_FLAGS := -O3 -std=c++11
+CXX_FLAGS := -O3 -std=c++11 -fcf-protection=none
 ACC_FLAGS := -fopenacc -foffload=nvptx-none="-misa=sm_35"
 
 # Additional CUDA libraries for cuBLAS example
