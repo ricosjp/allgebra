@@ -1,3 +1,8 @@
+Be sure that **it is not a [semantic versioning][semver]**. Every release can be broken.
+Each release will be named as `{year}.{month}.{patch}` format.
+
+[semver]: https://semver.org/
+
 20.10.1 - 2020/10/24
 =====================
 
