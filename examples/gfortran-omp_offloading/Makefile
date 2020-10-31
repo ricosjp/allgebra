@@ -7,14 +7,14 @@
 # GCC-Fortran OpenACC Settings
 FC        := gfortran
 FC_FLAGS  := -O3 -std=f2018
-ACC_FLAGS := -fopenmp -foffload=nvptx-none="-O3"
+ACC_FLAGS := -fopenmp -fno-stack-protector -foffload=nvptx-none="-O3 -misa=sm_35"
 
 TARGET = omp_offloading.out
 
 all: $(TARGET)
 
 omp_offloading.out: omp_offloading.f90
-	$(FC) $(ACC_FLAGS) $(FC_FLAGS) $< -o $@
+	$(FC) $(OMP_FLAGS) $(FC_FLAGS) $< -o $@
 
 test: $(TARGET)
 	./omp_offloading.out 1000000
