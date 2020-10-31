@@ -5,6 +5,9 @@ Each release will be named as `{year}.{month}.{patch}` format.
 
 Unreleased
 ==========
+
+Added
+------
 - add OpenMP Offloading examples https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/22
 
 
