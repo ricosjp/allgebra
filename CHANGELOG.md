@@ -3,6 +3,11 @@ Each release will be named as `{year}.{month}.{patch}` format.
 
 [semver]: https://semver.org/
 
+Unreleased
+==========
+- add OpenMP Offloading examples https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/22
+
+
 20.10.1 - 2020/10/24
 =====================
 
