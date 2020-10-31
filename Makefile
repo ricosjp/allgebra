@@ -43,7 +43,7 @@ CUDA_TARGETS    := cuda10_2 cuda11_0
 MATH_TARGETS    := mkl oss
 TARGETS         := $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS),$(CUDA)-$(MATH)))
 SUPPORT_TARGETS := doxygen clang-format
-TESTS           := gcc-openacc gfortran-openacc nsys
+TESTS           := gcc-openacc gfortran-openacc gcc-omp_offloading gfortran-omp_offloading nsys
 
 .PHONY: $(TARGETS) $(SUPPORT_TARGETS)
 all: $(TARGETS) $(SUPPORT_TARGETS)
@@ -96,6 +96,20 @@ $(1)-$(2)-test-gfortran-openacc: $(1)-$(2)
 		--privileged \
 		$(REGISTRY)/$(1)/$(2):$(CI_COMMIT_REF_NAME) \
 		make -C /examples/gfortran-openacc test
+
+$(1)-$(2)-test-gcc-omp_offloading: $(1)-$(2)
+	docker run \
+		--gpus all \
+		--privileged \
+		$(REGISTRY)/$(1)/$(2):$(CI_COMMIT_REF_NAME) \
+		make -C /examples/gcc-omp_offloading test
+
+$(1)-$(2)-test-gfortran-omp_offloading: $(1)-$(2)
+	docker run \
+		--gpus all \
+		--privileged \
+		$(REGISTRY)/$(1)/$(2):$(CI_COMMIT_REF_NAME) \
+		make -C /examples/gfortran-omp_offloading test
 
 $(1)-$(2)-test-nsys: $(1)-$(2)
 	docker run \
