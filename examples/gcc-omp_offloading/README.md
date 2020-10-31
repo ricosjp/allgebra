@@ -1,8 +1,10 @@
-# OpenACC Example for C++
+# OpenMP Offloading Example for C++
 
-|Example                           | Description                         |
-|:---------------------------------|:------------------------------------|
-|[acc.cpp](./acc.cpp)              | Minimal example for testing OpenACC |
-|[acc_cublas.cpp](./acc_cublas.cpp)| Use OpenACC with CUDA libraries     |
+|Example                                                 | Description                                   |
+|:-------------------------------------------------------|:----------------------------------------------|
+|[omp_offloading.cpp](./omp_offloading.cpp)              | Minimal example for testing OpenMP Offloading |
+|[omp_offloading_cublas.cpp](./omp_offloading_cublas.cpp)| Use OpenMP Offloading with CUDA libraries     |
 
-See comments in [Makefile](./Makefile) and [CMakeLists.txt](./CMakeLists.txt) for detail.
+See comments in [Makefile](./Makefile) for detail.
+
+Link: [GCC Wiki OpenMP Offloading](https://gcc.gnu.org/wiki/Offloading)
