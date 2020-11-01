@@ -111,7 +111,7 @@ $(1)_$(2)_test_gfortran_omp_offloading: $(1)_$(2)
 		$(REGISTRY)/$(1)/$(2):$(CI_COMMIT_REF_NAME) \
 		make -C /examples/gfortran_omp_offloading test
 
-$(1)-$(2)-test-nsys: $(1)_$(2)
+$(1)_$(2)_test_nsys: $(1)_$(2)
 	docker run \
 		--gpus all \
 		--privileged \
