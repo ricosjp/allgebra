@@ -6,7 +6,7 @@
 
 # GCC OpenMP Offloading Settings
 CXX       := g++
-CXX_FLAGS := -O3 -std=c++11
+CXX_FLAGS := -O3 -std=c++11 -lm
 CXX_FLAGS += -fcf-protection=none  # cf-protection is not supported for omp_offloading
 OMP_FLAGS := -fopenmp -fno-stack-protector -foffload=nvptx-none="-O3 -misa=sm_35 -lm"
 
