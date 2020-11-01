@@ -41,7 +41,7 @@ CI_COMMIT_REF_NAME ?= manual_deploy
 #
 CUDA_TARGETS    := cuda10_2 cuda11_0
 MATH_TARGETS    := mkl oss
-TARGETS         := $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS),$(CUDA)-$(MATH)))
+TARGETS         := $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS),$(CUDA)_$(MATH)))
 SUPPORT_TARGETS := doxygen clang-format
 TESTS           := gcc_openacc gfortran_openacc gcc_omp_offloading gfortran_omp_offloading nsys
 
