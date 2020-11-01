@@ -4,10 +4,10 @@
 # https://github.com/ricosjp/allgebra
 #
 
-# GCC-Fortran OpenACC Settings
+# GCC-Fortran OpenMP Offloading Settings
 FC        := gfortran
 FC_FLAGS  := -O3 -std=f2018
-ACC_FLAGS := -fopenmp -fno-stack-protector -foffload=nvptx-none="-O3 -misa=sm_35"
+OMP_FLAGS := -fopenmp -fno-stack-protector -foffload=nvptx-none="-O3 -misa=sm_35"
 
 TARGET = omp_offloading.out
 
