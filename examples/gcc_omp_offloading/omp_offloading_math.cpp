@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
       ret += std::sin(x[i]);
   }
 
-  if (std::abs(ret - std::sin(2.0) * size) > 1.0e-8) {
+  if (std::abs(ret - std::sin(2.0) * size) > 1.0e-6) {
     std::cout << "ret = " << ret << std::endl;
     std::cout << "error!" << std::endl;
     return 1;
