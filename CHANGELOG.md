@@ -10,6 +10,10 @@ Added
 ------
 - add OpenMP Offloading examples https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/22
 
+Changes
+--------
+- change `-` to `_` in all files (expect `clang-format` ) https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/22
+
 
 20.10.1 - 2020/10/24
 =====================
