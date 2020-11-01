@@ -8,6 +8,7 @@ Unreleased
 
 Added
 ------
+- add OpenMP Offloading math function examples https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/24
 - add OpenMP Offloading examples https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/22
 
 Changes
