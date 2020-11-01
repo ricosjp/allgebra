@@ -20,7 +20,8 @@ all: $(TARGET)
 
 omp_offloading.out: omp_offloading.cpp
 	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@
-omp_offloading_cublas.out: omp_offloading.cpp
+
+omp_offloading_cublas.out: omp_offloading_cublas.cpp
 	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ $(CUDA_LIBS)
 
 test: $(TARGET)

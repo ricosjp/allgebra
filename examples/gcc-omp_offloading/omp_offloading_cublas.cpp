@@ -7,6 +7,7 @@
 
 #include <cstdlib> // atoi, malloc
 #include <iostream>
+#include <cublas_v2.h>
 
 int main(int argc, char **argv) {
   int size = 0;
@@ -28,10 +29,11 @@ int main(int argc, char **argv) {
   double dot = 0.0;
 
   cublasHandle_t h;
-  check(cublasCreate(&h));
+  cublasCreate(&h);
 
+#pragma omp target enter data map (to: x[0:size], y[0:size])
 #pragma omp target data use_device_ptr(x, y)
-  dot = cublasDdot(size, x, 1, y, 1);
+  cublasDdot(h, size, x, 1, y, 1, &dot);
 
   cublasDestroy(h);
 
