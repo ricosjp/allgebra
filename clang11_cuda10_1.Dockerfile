@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     curl git pkg-config make \
-    gcc-8 g++-8 libelf-dev ninja-build \
+    libelf-dev ninja-build \
     python3 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
