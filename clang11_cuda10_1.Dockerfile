@@ -37,6 +37,11 @@ RUN wget https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/l
 && tar -Jxf llvm-project-11.0.0.tar.xz \
 && rm llvm-project-11.0.0.tar.xz
 
+# get device compute capability
+COPY util/allgebra_get_device_cc.cu /
+RUN nvcc allgebra_get_device_cc.cu -o /usr/local/allgebra_get_decice_cc \
+&& rm allgebra_get_device_cc.cu
+
 # clang11
 RUN cd llvm-project-11.0.0 \
 && mkdir build && cd build \
@@ -50,7 +55,7 @@ RUN cd llvm-project-11.0.0 \
 		  -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
 		  -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;openmp" \
 		  -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
-		  -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,52,60,61,70,75 \
+		  -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
 		  ../llvm/ \
 && ninja -j$(nproc); ninja -j$(nproc) install
 
@@ -65,7 +70,7 @@ RUN cd llvm-project-11.0.0 \
 		  -DCMAKE_C_COMPILER=/usr/local/llvm/bin/clang \
 		  -DCMAKE_CXX_COMPILER=/usr/local/llvm/bin/clang++ \
 		  -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
-		  -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,52,60,61,70,75 \
+		  -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
 		  ../openmp/ \
 && ninja -j$(nproc); ninja -j$(nproc) install \
 && cd .. \
