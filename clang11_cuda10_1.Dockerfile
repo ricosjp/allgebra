@@ -40,20 +40,15 @@ RUN cd llvm-project-11.0.0 \
  && cmake -Bbuild -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-11.0.0/ \
-    -DCMAKE_C_COMPILER=/usr/bin/gcc-8 \
-    -DCMAKE_CXX_COMPILER=/usr/bin/g++-8 \
     -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
-    -DLLVM_ENABLE_PROJECTS="clang;openmp" \
+    -DLLVM_ENABLE_PROJECTS=clang \
     -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
-    -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
     llvm \
  && cmake --build build/ --target install
 
 RUN cd llvm-project-11.0.0 \
- && cmake -Bbuild_omp \
+ && cmake -Bbuild_omp -G Ninja \
     -DCMAKE_BUILD_TYPE=Debug \
-    -DCMAKE_MAKE_PROGRAM=ninja \
-    -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-11.0.0/ \
     -DCMAKE_C_COMPILER=/usr/local/llvm-11.0.0/bin/clang \
     -DCMAKE_CXX_COMPILER=/usr/local/llvm-11.0.0/bin/clang++ \
