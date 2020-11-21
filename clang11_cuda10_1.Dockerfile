@@ -49,7 +49,8 @@ RUN cd llvm-project-11.0.0 \
     llvm \
  && cmake --build build/ --target install
 
-RUN cmake -Bbuild_omp \
+RUN cd llvm-project-11.0.0 \
+ && cmake -Bbuild_omp \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_MAKE_PROGRAM=ninja \
     -G Ninja \
