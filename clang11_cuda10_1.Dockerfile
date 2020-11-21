@@ -80,6 +80,5 @@ ENV CPATH /usr/local/llvm/include:$CPATH
 ENV PATH  /usr/local/llvm/bin/:$PATH
 
 # get device compute capability
-COPY util/allgebra_get_device_cc.cu /
-RUN nvcc allgebra_get_device_cc.cu -o /usr/local/bin/allgebra_get_device_cc \
-&& rm /allgebra_get_device_cc.cu
+COPY utilities /utilities
+RUN make -C /utilities install
