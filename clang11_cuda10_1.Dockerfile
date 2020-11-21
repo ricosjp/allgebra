@@ -37,11 +37,6 @@ RUN wget https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/l
 && tar -Jxf llvm-project-11.0.0.tar.xz \
 && rm llvm-project-11.0.0.tar.xz
 
-# get device compute capability
-COPY util/allgebra_get_device_cc.cu /
-RUN nvcc allgebra_get_device_cc.cu -o /usr/local/allgebra_get_decice_cc \
-&& rm allgebra_get_device_cc.cu
-
 # clang11
 RUN cd llvm-project-11.0.0 \
 && mkdir build && cd build \
@@ -83,3 +78,8 @@ ENV CPLUS_INCLUDE_PATH=/usr/local/llvm/include:$CPLUS_INCLUDE_PATH
 ENV LD_LIBRARY_PATH /usr/local/llvm/lib:$LD_LIBRARY_PATH
 ENV CPATH /usr/local/llvm/include:$CPATH
 ENV PATH  /usr/local/llvm/bin/:$PATH
+
+# get device compute capability
+COPY util/allgebra_get_device_cc.cu /
+RUN nvcc allgebra_get_device_cc.cu -o /usr/local/bin/allgebra_get_device_cc \
+&& rm /allgebra_get_device_cc.cu
