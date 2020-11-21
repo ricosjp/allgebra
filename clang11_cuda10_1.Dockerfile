@@ -35,11 +35,11 @@ RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0
  && tar xf llvm-project-11.0.0.tar.xz \
  && rm llvm-project-11.0.0.tar.xz
 
-# clang11
+# Install LLVM 11.0.0 into /usr/local/llvm-11.0.0
 RUN cd llvm-project-11.0.0 \
  && cmake -Bbuild -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr/local/llvm/ \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-11.0.0/ \
     -DCMAKE_C_COMPILER=/usr/bin/gcc-8 \
     -DCMAKE_CXX_COMPILER=/usr/bin/g++-8 \
     -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
@@ -48,28 +48,24 @@ RUN cd llvm-project-11.0.0 \
     -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
     llvm \
  && cmake --build build/ --target install
-
 RUN cd llvm-project-11.0.0 \
  && cmake -Bbuild_omp \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_MAKE_PROGRAM=ninja \
     -G Ninja \
-    -DCMAKE_INSTALL_PREFIX=/usr/local/llvm/ \
-    -DCMAKE_C_COMPILER=/usr/local/llvm/bin/clang \
-    -DCMAKE_CXX_COMPILER=/usr/local/llvm/bin/clang++ \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-11.0.0/ \
+    -DCMAKE_C_COMPILER=/usr/local/llvm-11.0.0/bin/clang \
+    -DCMAKE_CXX_COMPILER=/usr/local/llvm-11.0.0/bin/clang++ \
     -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
     -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
     openmp \
  && cmake --build build_omp --target install \
  && rm -rf /llvm-project-11.0.0
 
-# clang11 environments
-ENV CPATH=/usr/local/llvm/include:$CPATH
-ENV C_INCLUDE_PATH=/usr/local/llvm/include:$C_INCLUDE_PATH
-ENV CPLUS_INCLUDE_PATH=/usr/local/llvm/include:$CPLUS_INCLUDE_PATH
-ENV LD_LIBRARY_PATH /usr/local/llvm/lib:$LD_LIBRARY_PATH
-ENV CPATH /usr/local/llvm/include:$CPATH
-ENV PATH  /usr/local/llvm/bin/:$PATH
+# LLVM 11.0.0 environements
+RUN echo "/usr/local/llvm-11.0.0/lib" > /etc/ld.so.conf.d/llvm-11.0.0.conf \
+ && ldconfig
+ENV PATH /usr/local/llvm-11.0.0/bin:$PATH
 
 # get device compute capability
 COPY utilities /utilities
