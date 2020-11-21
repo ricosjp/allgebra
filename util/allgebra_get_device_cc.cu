@@ -3,16 +3,16 @@
 
 int main()
 {
-	cudaDeviceProp prp;
+	cudaDeviceProp prop;
 	cudaError_t cudaStatus;
 
-	cudaStatus = cudaGetDeviceProperties(&prp, /*device=*/0);
+	cudaStatus = cudaGetDeviceProperties(&prop, 0); // 0 is device number
 	if (cudaStatus != cudaSuccess) {
 		printf("cudaGetDeviceProperties error");
 		return 1;
 	}
 
-	printf("%d%d\n", prp.major, prp.minor);
+	printf("%d%d\n", prop.major, prop.minor);
 
 	return 0;
 }
