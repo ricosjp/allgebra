@@ -1,4 +1,4 @@
-# OpenMP Offloading Example for C++
+# OpenMP Offloading Example for C++, clang
 
 |Example                                                 | Description                                   |
 |:-------------------------------------------------------|:----------------------------------------------|
@@ -7,5 +7,3 @@
 |[omp_offloading_math.cpp](./omp_offloading_math.cpp)    | Use OpenMP Offloading with math libraries     |
 
 See comments in [Makefile](./Makefile) for detail.
-
-Link: [GCC Wiki OpenMP Offloading](https://gcc.gnu.org/wiki/Offloading)

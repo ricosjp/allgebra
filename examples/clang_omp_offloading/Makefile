@@ -7,7 +7,8 @@
 # GCC OpenMP Offloading Settings
 CXX       := clang++
 CXX_FLAGS := -O3 -std=c++11 -lm
-OMP_FLAGS := -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70 
+SM ?= $(shell allgebra_get_device_cc)
+OMP_FLAGS := -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_$(SM)
 
 # Additional CUDA libraries for cuBLAS example
 CUDA_LIBS := -lcuda -lcublas -lcudart
