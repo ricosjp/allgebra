@@ -13,11 +13,9 @@ COPY ubuntu2004.list /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    curl git zsh tmux pkg-config make wget \
+    curl git pkg-config make \
     gcc-8 g++-8 libelf-dev ninja-build \
-    nsight-systems-2020.3.2 \
-    python3 python3-yaml python3-numpy python3-pandas \
-    strace trace-cmd valgrind gdb \
+    python3 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -33,43 +31,36 @@ ENV C_INCLUDE_PATH     /usr/local/cuda-10.1/include
 ENV CPLUS_INCLUDE_PATH /usr/local/cuda-10.1/include
 ENV LIBRARY_PATH       /usr/local/cuda-10.1/lib64
 
-RUN wget https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/llvm-project-11.0.0.tar.xz \
-&& tar -Jxf llvm-project-11.0.0.tar.xz \
-&& rm llvm-project-11.0.0.tar.xz
+RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/llvm-project-11.0.0.tar.xz \
+ && tar xf llvm-project-11.0.0.tar.xz \
+ && rm llvm-project-11.0.0.tar.xz
 
 # clang11
 RUN cd llvm-project-11.0.0 \
-&& mkdir build && cd build \
-&& cmake \
-		  -DCMAKE_BUILD_TYPE=Release \
-		  -DCMAKE_INSTALL_PREFIX=/usr/local/llvm/ \
-		  -DCMAKE_MAKE_PROGRAM=ninja \
-		  -G Ninja \
-		  -DCMAKE_C_COMPILER=/usr/bin/gcc-8 \
-		  -DCMAKE_CXX_COMPILER=/usr/bin/g++-8 \
-		  -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
-		  -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;openmp" \
-		  -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
-		  -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
-		  ../llvm/ \
-&& ninja -j$(nproc); ninja -j$(nproc) install
+ && cmake -Bbuild -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/llvm/ \
+    -DCMAKE_C_COMPILER=/usr/bin/gcc-8 \
+    -DCMAKE_CXX_COMPILER=/usr/bin/g++-8 \
+    -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
+    -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;openmp" \
+    -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
+    -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
+    llvm \
+ && cmake --build build/ --target install
 
-# clang11 openmp
-RUN cd llvm-project-11.0.0 \
-&& mkdir build_omp && cd build_omp \
-&& cmake \
-		  -DCMAKE_BUILD_TYPE=Debug \
-		  -DCMAKE_MAKE_PROGRAM=ninja \
-		  -G Ninja \
-		  -DCMAKE_INSTALL_PREFIX=/usr/local/llvm/ \
-		  -DCMAKE_C_COMPILER=/usr/local/llvm/bin/clang \
-		  -DCMAKE_CXX_COMPILER=/usr/local/llvm/bin/clang++ \
-		  -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
-		  -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
-		  ../openmp/ \
-&& ninja -j$(nproc); ninja -j$(nproc) install \
-&& cd .. \
-&& rm -rf /llvm-project-11.0.0
+RUN cmake -Bbuild_omp \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DCMAKE_MAKE_PROGRAM=ninja \
+    -G Ninja \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/llvm/ \
+    -DCMAKE_C_COMPILER=/usr/local/llvm/bin/clang \
+    -DCMAKE_CXX_COMPILER=/usr/local/llvm/bin/clang++ \
+    -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
+    -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
+    openmp \
+ && cmake --build build_omp --target install \
+ && rm -rf /llvm-project-11.0.0
 
 # clang11 environments
 ENV CPATH=/usr/local/llvm/include:$CPATH
