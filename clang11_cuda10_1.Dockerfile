@@ -57,7 +57,6 @@ RUN cd llvm-project-11.0.0 \
     -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-11.0.0/ \
     -DCMAKE_C_COMPILER=/usr/local/llvm-11.0.0/bin/clang \
     -DCMAKE_CXX_COMPILER=/usr/local/llvm-11.0.0/bin/clang++ \
-    -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_35 \
     -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=35,37,50,52,53,60,61,62,70,75 \
     openmp \
  && cmake --build build_omp --target install \
