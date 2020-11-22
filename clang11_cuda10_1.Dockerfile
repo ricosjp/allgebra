@@ -6,7 +6,7 @@
 
 # Force to use Ubuntu 20.04 registry for using officially-distributed MKL
 # (CUDA 10.1 is not distributed with Ubuntu 20.04)
-FROM nvidia/cuda:10.1-devel-ubuntu18.04
+FROM nvidia/cuda:10.1-devel-ubuntu18.04 AS cuda10_1
 COPY ubuntu2004.list /etc/apt/sources.list
 
 # workaround for tzdata
@@ -30,6 +30,8 @@ ENV CPATH              /usr/local/cuda-10.1/include
 ENV C_INCLUDE_PATH     /usr/local/cuda-10.1/include
 ENV CPLUS_INCLUDE_PATH /usr/local/cuda-10.1/include
 ENV LIBRARY_PATH       /usr/local/cuda-10.1/lib64
+
+FROM cuda10_1 AS clang11_build
 
 RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/llvm-project-11.0.0.tar.xz \
  && tar xf llvm-project-11.0.0.tar.xz \
@@ -56,6 +58,10 @@ RUN cd llvm-project-11.0.0 \
     openmp \
  && cmake --build build_omp --target install \
  && rm -rf /llvm-project-11.0.0
+
+FROM cuda10_1 AS clang11
+
+COPY --from=clang11_build /usr/local/llvm-11.0.0 /usr/local/llvm-11.0.0
 
 # LLVM 11.0.0 environements
 RUN echo "/usr/local/llvm-11.0.0/lib" > /etc/ld.so.conf.d/llvm-11.0.0.conf \
