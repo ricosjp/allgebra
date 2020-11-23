@@ -45,7 +45,7 @@ TARGETS         := $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS)
 SUPPORT_TARGETS := doxygen clang-format
 TESTS           := gcc_openacc gfortran_openacc gcc_omp_offloading gfortran_omp_offloading nsys
 
-.PHONY: $(TARGETS) $(SUPPORT_TARGETS)
+.PHONY: $(TARGETS) $(SUPPORT_TARGETS) clang11gcc7/cuda10_1/mkl
 all: $(TARGETS) $(SUPPORT_TARGETS)
 push: $(foreach TARGET,$(TARGETS) $(SUPPORT_TARGETS),$(TARGET)_push)
 test: $(foreach TARGET,$(TARGETS),$(foreach TEST,$(TESTS),$(TARGET)_test_$(TEST)))
@@ -119,3 +119,6 @@ $(1)_$(2)_test_nsys: $(1)_$(2)
 		make -C /examples/gcc_openacc prof
 endef
 $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS),$(eval $(call cuda_target,$(CUDA),$(MATH)))))
+
+clang11gcc7/cuda10_1/mkl:
+	docker build $(DOCKER_BUILD_ARGS) -f $@/Dockerfile . -t $(REGISTRY)/$@:$(CI_COMMIT_REF_NAME) --target=release

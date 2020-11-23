@@ -31,7 +31,7 @@ ENV C_INCLUDE_PATH     /usr/local/cuda-10.1/include
 ENV CPLUS_INCLUDE_PATH /usr/local/cuda-10.1/include
 ENV LIBRARY_PATH       /usr/local/cuda-10.1/lib64
 
-FROM cuda10_1 AS clang11_build
+FROM cuda10_1 AS build
 
 RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/llvm-project-11.0.0.tar.xz \
  && tar xf llvm-project-11.0.0.tar.xz \
@@ -61,9 +61,9 @@ RUN cd llvm-project-11.0.0 \
  && cmake --build build_omp --target install \
  && rm -rf /llvm-project-11.0.0
 
-FROM cuda10_1 AS clang11
+FROM cuda10_1 AS release
 
-COPY --from=clang11_build /usr/local/llvm-11.0.0 /usr/local/llvm-11.0.0
+COPY --from=build /usr/local/llvm-11.0.0 /usr/local/llvm-11.0.0
 
 # LLVM 11.0.0 environements
 RUN echo "/usr/local/llvm-11.0.0/lib" > /etc/ld.so.conf.d/llvm-11.0.0.conf \
@@ -73,3 +73,33 @@ ENV PATH /usr/local/llvm-11.0.0/bin:$PATH
 # get device compute capability
 COPY utilities /utilities
 RUN make -C /utilities install
+
+# Intel MKL
+RUN apt-get update && apt-get install -y \
+    intel-mkl \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+#
+# Variables set in Makefile
+#
+ARG ALLGEBRA_VERSION
+ARG BUILD_DATE
+ARG GIT_HASH
+
+#
+# Annotations based on OCI specification
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#
+LABEL maintainer="RICOS Co. Ltd." \
+      org.opencontainers.image.created=$BUILD_DATE \
+      org.opencontainers.image.authors="RICOS Co. Ltd." \
+      org.opencontainers.image.url="https://github.com/ricosjp/allgebra" \
+      org.opencontainers.image.documentation="Base container for developing C++ and Fortran HPC applications" \
+      org.opencontainers.image.source="https://github.com/ricosjp/allgebra/blob/latest/cuda10_2.Dockerfile" \
+      org.opencontainers.image.version=$ALLGEBRA_VERSION \
+      org.opencontainers.image.revision=$GIT_HASH \
+      org.opencontainers.image.vendor="RICOS Co. Ltd."
+
+# To validate container is well-constructed
+COPY examples/ /examples
