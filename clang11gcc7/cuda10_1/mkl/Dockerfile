@@ -14,6 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     curl git pkg-config make \
+    gfortran-7 \
     libelf-dev ninja-build \
     python3 \
  && apt-get clean \
