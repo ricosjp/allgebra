@@ -122,3 +122,6 @@ $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS),$(eval $(call cuda
 
 clang11gcc7/cuda10_1/mkl:
 	docker build $(DOCKER_BUILD_ARGS) -f $@/Dockerfile . -t $(REGISTRY)/$@:$(CI_COMMIT_REF_NAME) --target=release
+
+clang11gcc7/cuda10_1/mkl-push: clang11gcc7/cuda10_1/mkl
+	docker push $(REGISTRY)/clang11gcc7/cuda10_1/mkl:$(CI_COMMIT_REF_NAME)
