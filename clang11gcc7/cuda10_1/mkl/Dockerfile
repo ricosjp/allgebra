@@ -20,6 +20,10 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+# GCC-Fortran
+RUN ln -s /usr/bin/gfortran-7 /usr/bin/gfortran
+ENV FC /usr/bin/gfortran
+
 RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.4/cmake-3.18.4-Linux-x86_64.tar.gz \
  && tar xf cmake-3.18.4-Linux-x86_64.tar.gz \
  && mv cmake-3.18.4-Linux-x86_64/bin/* /usr/bin/ \
@@ -70,6 +74,13 @@ COPY --from=build /usr/local/llvm-11.0.0 /usr/local/llvm-11.0.0
 RUN echo "/usr/local/llvm-11.0.0/lib" > /etc/ld.so.conf.d/llvm-11.0.0.conf \
  && ldconfig
 ENV PATH /usr/local/llvm-11.0.0/bin:$PATH
+ENV CC   /usr/local/llvm-11.0.0/bin/clang
+ENV CXX  /usr/local/llvm-11.0.0/bin/clang++
+
+# Skip CPATH because this path should be treated as system directory
+# See GCC manual for detail https://gcc.gnu.org/onlinedocs/cpp/Environment-Variables.html
+ENV C_INCLUDE_PATH     /usr/local/llvm-11.0.0/include:$C_INCLUDE_PATH
+ENV CPLUS_INCLUDE_PATH /usr/local/llvm-11.0.0/include:$CPLUS_INCLUDE_PATH
 
 # get device compute capability
 COPY utilities /utilities
