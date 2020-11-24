@@ -12,8 +12,16 @@ DOCKER_BUILD_ARGS := $(foreach ARG,ALLGEBRA_VERSION GIT_HASH BUILD_DATE TARGET,-
 TARGET_DIR      := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell readlink -f $(TARGET_DIR)/../../..)
 
+IMAGE := $(REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME)
+
 build:
-	docker build $(DOCKER_BUILD_ARGS) -f $(TARGET_DIR)/Dockerfile -t $(REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME) --target=release $(ALLGEBRA_TOPDIR)
+	docker build $(DOCKER_BUILD_ARGS) -f $(TARGET_DIR)/Dockerfile -t $(IMAGE) --target=release $(ALLGEBRA_TOPDIR)
 
 push: build
-	docker push $(REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME)
+	docker push $(IMAGE)
+
+test: build
+	docker run --rm --gpus all -v $(ALLGEBRA_TOPDIR):/allgebra -w /allgebra $(IMAGE) /allgebra/$(TARGET)/test.sh
+
+in: build
+	docker run -it --rm --gpus all -v $(ALLGEBRA_TOPDIR):/allgebra -w /allgebra $(IMAGE) bash
