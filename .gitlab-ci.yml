@@ -25,6 +25,7 @@ clang11gcc7-cuda10_1-mkl:
   tags:
     - docker
     - cpu-ge-8
+    - mem-ge-32gb
 
 push:
   stage: push
@@ -36,3 +37,4 @@ push:
   tags:
     - docker
     - cpu-ge-8
+    - mem-ge-32gb
