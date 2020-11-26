@@ -21,6 +21,9 @@ clang11gcc7-cuda10_1-mkl:
   stage: test
   script:
     - make -C clang11gcc7/cuda10_1/mkl test
+  timeout: 3 hours
+  tags: 
+    - cpu-ge-8
 
 push:
   stage: push
