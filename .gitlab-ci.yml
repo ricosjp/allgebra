@@ -20,6 +20,8 @@ test:
 clang11gcc7-cuda10_1-mkl:
   stage: test
   script:
+    - ls
+    - ls clang11gcc7/cuda10_1/mkl/
     - make -C clang11gcc7/cuda10_1/mkl test
   timeout: 3 hours
 
