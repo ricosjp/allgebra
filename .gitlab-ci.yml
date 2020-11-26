@@ -4,21 +4,37 @@ default:
     - apk add coreutils git make
   services:
     - docker:dind
+
+stages:
+  - build
+  - push
+
+gcc-cuda:
+  stage: build
+  script:
+    - make test
   tags:
     - docker
     - gpu
 
-stages:
-  - test
-  - push
-
-test:
-  stage: test
+clang11gcc7-cuda10_1-mkl:
+  stage: build
   script:
-    - make test
+    - make -C clang11gcc7/cuda10_1/mkl build
+  timeout: 3 hours
+  tags:
+    - docker
+    - cpu-ge-8
+    - mem-ge-32gb
 
 push:
   stage: push
   script:
     - docker login -u termoshtt -p ${GITHUB_PACKAGE_TOKEN_TERMOSHTT} ghcr.io/ricosjp
     - make push
+    - make -C clang11gcc7/cuda10_1/mkl push
+  timeout: 3 hours
+  tags:
+    - docker
+    - cpu-ge-8
+    - mem-ge-32gb
