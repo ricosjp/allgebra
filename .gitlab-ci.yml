@@ -24,7 +24,7 @@ clang11gcc7-cuda10_1-mkl:
   timeout: 3 hours
   tags:
     - docker
-    - core-8-ge
+    - cpu-ge-8
 
 push:
   stage: push
@@ -35,4 +35,4 @@ push:
   timeout: 3 hours
   tags:
     - docker
-    - core-8-ge
+    - cpu-ge-8
