@@ -22,9 +22,8 @@ gcc-cuda:
 clang11gcc7-cuda10_1-mkl-build:
   extends: .dind
   stage: build
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - make -C clang11gcc7/cuda10_1/mkl push
   timeout: 3 hours
   tags:
