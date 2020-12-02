@@ -7,6 +7,7 @@ default:
 
 stages:
   - build
+  - test
   - push
 
 gcc-cuda:
@@ -17,15 +18,24 @@ gcc-cuda:
     - docker
     - gpu
 
-clang11gcc7-cuda10_1-mkl:
+clang11gcc7-cuda10_1-mkl-build:
   stage: build
   script:
     - make -C clang11gcc7/cuda10_1/mkl build
+    - make -C clang11gcc7/cuda10_1/mkl push
   timeout: 3 hours
   tags:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
+
+clang11gcc7-cuda10_1-mkl-test:
+  stage: test
+  image: registry.ritc.jp/ricos/allgebra/clang11gcc7/cuda10_1/mkl:${CI_COMMIT_REF_NAME}
+  script:
+    - ls /examples
+  tags:
+    - gpu
 
 push:
   stage: push
