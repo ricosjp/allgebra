@@ -22,9 +22,9 @@ gcc-cuda:
 clang11gcc7-cuda10_1-mkl-build:
   extends: .dind
   stage: build
-  script:
+  before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make -C clang11gcc7/cuda10_1/mkl build
+  script:
     - make -C clang11gcc7/cuda10_1/mkl push
   timeout: 3 hours
   tags:
@@ -35,16 +35,19 @@ clang11gcc7-cuda10_1-mkl-build:
     - docker:dind
 
 clang11gcc7-cuda10_1-mkl-test:
+  stage: test
   needs:
     - clang11gcc7-cuda10_1-mkl-build
-  stage: test
   image: ${CI_REGISTRY_IMAGE}/clang11gcc7-cuda10_1-mkl:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
   script:
-    - ls /examples
+    - cd /examples/clang_omp_offloading
+    - make test
   tags:
     - gpu
 
-push:
+release:
   extends: .dind
   stage: push
   script:
@@ -56,3 +59,5 @@ push:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
+  only:
+    - tags
