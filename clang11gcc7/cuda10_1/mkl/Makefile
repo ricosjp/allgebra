@@ -1,5 +1,5 @@
 PUBLIC_REGISTRY    := ghcr.io/ricosjp/allgebra
-CACHE_REGISTRY     := registry.ritc.jp/ricos/allgebra
+CI_REGISTRY_IMAGE  ?= registry.ritc.jp/ricos/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
 ALLGEBRA_VERSION := 20.11.0
@@ -13,7 +13,7 @@ DOCKER_BUILD_ARGS := $(foreach ARG,ALLGEBRA_VERSION GIT_HASH BUILD_DATE TARGET,-
 TARGET_DIR      := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell readlink -f $(TARGET_DIR)/../../..)
 
-IMAGE         := $(CACHE_REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME)
+IMAGE         := $(CI_REGISTRY_IMAGE)/$(TARGET):$(CI_COMMIT_REF_NAME)
 RELEASE_IMAGE := $(PUBLIC_REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME)
 
 build:

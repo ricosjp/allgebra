@@ -21,6 +21,7 @@ gcc-cuda:
 clang11gcc7-cuda10_1-mkl-build:
   stage: build
   script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - make -C clang11gcc7/cuda10_1/mkl build
     - make -C clang11gcc7/cuda10_1/mkl push
   timeout: 3 hours
@@ -31,7 +32,7 @@ clang11gcc7-cuda10_1-mkl-build:
 
 clang11gcc7-cuda10_1-mkl-test:
   stage: test
-  image: registry.ritc.jp/ricos/allgebra/clang11gcc7/cuda10_1/mkl:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/clang11gcc7/cuda10_1/mkl:${CI_COMMIT_REF_NAME}
   script:
     - ls /examples
   tags:
