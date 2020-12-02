@@ -98,7 +98,6 @@ RUN apt-get update && apt-get install -y \
 ARG ALLGEBRA_VERSION
 ARG BUILD_DATE
 ARG GIT_HASH
-ARG TARGET
 
 #
 # Annotations based on OCI specification
@@ -109,7 +108,6 @@ LABEL maintainer="RICOS Co. Ltd." \
       org.opencontainers.image.authors="RICOS Co. Ltd." \
       org.opencontainers.image.url="https://github.com/ricosjp/allgebra" \
       org.opencontainers.image.documentation="Base container for developing C++ and Fortran HPC applications" \
-      org.opencontainers.image.source="https://github.com/ricosjp/allgebra/blob/latest/$TARGET/Dockerfile" \
       org.opencontainers.image.version=$ALLGEBRA_VERSION \
       org.opencontainers.image.revision=$GIT_HASH \
       org.opencontainers.image.vendor="RICOS Co. Ltd."

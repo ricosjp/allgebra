@@ -5,10 +5,10 @@ CI_COMMIT_REF_NAME ?= manual_deploy
 ALLGEBRA_VERSION := 20.11.0
 GIT_HASH         := $(shell git rev-parse HEAD)
 BUILD_DATE       := $(shell date --rfc-3339=ns)
-TARGET           := clang11gcc7/cuda10_1/mkl
+TARGET           := clang11gcc7-cuda10_1-mkl
 
 # Generate `--build-arg="ARG=$(ARG)"` options
-DOCKER_BUILD_ARGS := $(foreach ARG,ALLGEBRA_VERSION GIT_HASH BUILD_DATE TARGET,--build-arg="$(ARG)=$($(ARG))")
+DOCKER_BUILD_ARGS := $(foreach ARG,ALLGEBRA_VERSION GIT_HASH BUILD_DATE,--build-arg="$(ARG)=$($(ARG))")
 
 TARGET_DIR      := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell readlink -f $(TARGET_DIR)/../../..)
