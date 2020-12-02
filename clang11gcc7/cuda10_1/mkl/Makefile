@@ -22,14 +22,5 @@ build:
 push: build
 	docker push $(IMAGE)
 
-release-build:
-	docker build $(DOCKER_BUILD_ARGS) -f $(TARGET_DIR)/Dockerfile -t $(RELEASE_IMAGE) --target=release $(ALLGEBRA_TOPDIR)
-
-release-push: release-build
-	docker push $(RELEASE_IMAGE)
-
-test: build
-	docker run --rm --gpus all -v $(ALLGEBRA_TOPDIR):/allgebra -w /allgebra $(IMAGE) /allgebra/$(TARGET)/test.sh
-
 in: build
 	docker run -it --rm --gpus all -v $(ALLGEBRA_TOPDIR):/allgebra -w /allgebra $(IMAGE) bash
