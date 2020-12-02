@@ -51,6 +51,7 @@ release:
     - docker login -u termoshtt -p ${GITHUB_PACKAGE_TOKEN_TERMOSHTT} ghcr.io/ricosjp
     - make push
     - make -C clang11gcc7/cuda10_1/mkl release-push
+  timeout: 3 hours
   tags:
     - docker
     - cpu-ge-8
