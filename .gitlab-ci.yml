@@ -1,4 +1,4 @@
-default:
+.dind:
   image: docker:latest
   before_script:
     - apk add coreutils git make
@@ -11,6 +11,7 @@ stages:
   - push
 
 gcc-cuda:
+  extends: .dind
   stage: build
   script:
     - make test
@@ -19,6 +20,7 @@ gcc-cuda:
     - gpu
 
 clang11gcc7-cuda10_1-mkl-build:
+  extends: .dind
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
@@ -29,16 +31,21 @@ clang11gcc7-cuda10_1-mkl-build:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
+  services:
+    - docker:dind
 
 clang11gcc7-cuda10_1-mkl-test:
+  needs:
+    - clang11gcc7-cuda10_1-mkl-build
   stage: test
-  image: ${CI_REGISTRY_IMAGE}/clang11gcc7/cuda10_1/mkl:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/clang11gcc7-cuda10_1-mkl:${CI_COMMIT_REF_NAME}
   script:
     - ls /examples
   tags:
     - gpu
 
 push:
+  extends: .dind
   stage: push
   script:
     - docker login -u termoshtt -p ${GITHUB_PACKAGE_TOKEN_TERMOSHTT} ghcr.io/ricosjp
