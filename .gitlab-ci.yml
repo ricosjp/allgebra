@@ -1,4 +1,4 @@
-default:
+.dind:
   image: docker:latest
   before_script:
     - apk add coreutils git make
@@ -7,9 +7,11 @@ default:
 
 stages:
   - build
+  - test
   - push
 
 gcc-cuda:
+  extends: .dind
   stage: build
   script:
     - make test
@@ -17,22 +19,38 @@ gcc-cuda:
     - docker
     - gpu
 
-clang11gcc7-cuda10_1-mkl:
+clang11gcc7-cuda10_1-mkl-build:
+  extends: .dind
   stage: build
   script:
-    - make -C clang11gcc7/cuda10_1/mkl build
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make -C clang11gcc7/cuda10_1/mkl push
   timeout: 3 hours
   tags:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
 
-push:
+clang11gcc7-cuda10_1-mkl-test:
+  stage: test
+  needs:
+    - clang11gcc7-cuda10_1-mkl-build
+  image: ${CI_REGISTRY_IMAGE}/clang11gcc7-cuda10_1-mkl:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - cd /examples/clang_omp_offloading
+    - make test
+  tags:
+    - gpu
+
+release:
+  extends: .dind
   stage: push
   script:
     - docker login -u termoshtt -p ${GITHUB_PACKAGE_TOKEN_TERMOSHTT} ghcr.io/ricosjp
     - make push
-    - make -C clang11gcc7/cuda10_1/mkl push
+    - make -C clang11gcc7/cuda10_1/mkl release-push
   timeout: 3 hours
   tags:
     - docker
