@@ -57,6 +57,58 @@ cuda10_1-clang11gcc7-oss-test:
   tags:
     - gpu
 
+cuda10_2-gcc10-oss-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda10_2-gcc10-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/gcc_omp_offloading test
+    - make -C /examples/gcc_openacc test
+    - make -C /examples/gfortran_omp_offloading test
+    - make -C /examples/gfortran_openacc test
+  tags:
+    - gpu
+
+cuda10_2-gcc10-mkl-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda10_2-gcc10-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/gcc_omp_offloading test
+    - make -C /examples/gcc_openacc test
+    - make -C /examples/gfortran_omp_offloading test
+    - make -C /examples/gfortran_openacc test
+  tags:
+    - gpu
+
+cuda11_0-gcc10-oss-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda11_0-gcc10-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/gcc_omp_offloading test
+    - make -C /examples/gcc_openacc test
+    - make -C /examples/gfortran_omp_offloading test
+    - make -C /examples/gfortran_openacc test
+  tags:
+    - gpu
+
+cuda11_0-gcc10-mkl-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda11_0-gcc10-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/gcc_omp_offloading test
+    - make -C /examples/gcc_openacc test
+    - make -C /examples/gfortran_omp_offloading test
+    - make -C /examples/gfortran_openacc test
+  tags:
+    - gpu
+
 keep-changelog:
   image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
   stage: build
