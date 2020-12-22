@@ -82,6 +82,38 @@ release/cuda10_1/clang11gcc7/oss:
 		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/oss:$(CI_COMMIT_REF_NAME) \
 		$(ALLGEBRA_TOPDIR)
 
+release/cuda10_2/gcc10/mkl:
+	docker build \
+		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_2-gcc10-mkl" \
+		-f release.Dockerfile \
+		-t $(PUBLIC_REGISTRY)/cuda10_2/gcc10/mkl:$(CI_COMMIT_REF_NAME) \
+		$(ALLGEBRA_TOPDIR)
+
+release/cuda10_2/gcc10/oss:
+	docker build \
+		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_2-gcc10-oss" \
+		-f release.Dockerfile \
+		-t $(PUBLIC_REGISTRY)/cuda10_2/gcc10/oss:$(CI_COMMIT_REF_NAME) \
+		$(ALLGEBRA_TOPDIR)
+
+release/cuda11_0/gcc10/mkl:
+	docker build \
+		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda11_0-gcc10-mkl" \
+		-f release.Dockerfile \
+		-t $(PUBLIC_REGISTRY)/cuda11_0/gcc10/mkl:$(CI_COMMIT_REF_NAME) \
+		$(ALLGEBRA_TOPDIR)
+
+release/cuda11_0/gcc10/oss:
+	docker build \
+		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda11_0-gcc10-oss" \
+		-f release.Dockerfile \
+		-t $(PUBLIC_REGISTRY)/cuda11_0/gcc10/oss:$(CI_COMMIT_REF_NAME) \
+		$(ALLGEBRA_TOPDIR)
+
 release: $(RELEASE_TARGETS)
 	docker push $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/mkl:$(CI_COMMIT_REF_NAME)
 	docker push $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/oss:$(CI_COMMIT_REF_NAME)
+	docker push $(PUBLIC_REGISTRY)/cuda10_2/gcc10/mkl:$(CI_COMMIT_REF_NAME)
+	docker push $(PUBLIC_REGISTRY)/cuda10_2/gcc10/oss:$(CI_COMMIT_REF_NAME)
+	docker push $(PUBLIC_REGISTRY)/cuda11_0/gcc10/mkl:$(CI_COMMIT_REF_NAME)
+	docker push $(PUBLIC_REGISTRY)/cuda11_0/gcc10/oss:$(CI_COMMIT_REF_NAME)
