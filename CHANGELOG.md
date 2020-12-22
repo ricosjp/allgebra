@@ -4,7 +4,10 @@ Each release will be named as `{year}.{month}.{patch}` format.
 [semver]: https://semver.org/
 
 Unreleased
-==========
+===========
+
+20.12.0 - 2020/12/22
+=====================
 
 Added
 ------
@@ -21,7 +24,6 @@ Changes
   - Push intermidiate containers to CI registry
   - Share base images between mkl and oss containers
 - change `-` to `_` in all files (expect `clang-format` ) https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/22
-
 
 20.10.1 - 2020/10/24
 =====================
