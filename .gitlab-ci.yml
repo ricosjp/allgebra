@@ -31,6 +31,21 @@ cuda10_1-clang11gcc7:
     - cpu-ge-8
     - mem-ge-32gb
 
+cuda10_1-clang11gcc7-release:
+  extends: .dind
+  needs:
+    - cuda10_1-clang11gcc7
+  stage: deploy
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login -u termoshtt -p ${GITHUB_PACKAGE_TOKEN_TERMOSHTT} ghcr.io/ricosjp
+    - make -f clang11gcc7.mk release
+  tags:
+    - docker
+  only:
+    - latest
+    - tags
+
 cuda10_1-clang11gcc7-mkl-test:
   stage: test
   needs:
