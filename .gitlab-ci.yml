@@ -45,6 +45,7 @@ cuda10_1-clang11gcc7-release:
   only:
     - latest
     - tags
+    - refactor_clang_build
 
 cuda10_1-clang11gcc7-mkl-test:
   stage: test
