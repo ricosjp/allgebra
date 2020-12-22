@@ -19,4 +19,4 @@ cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7
 	$(MAKE) -C $@
 
 push: $(TARGETS)
-	$(foreach TARGET,$(TARGETS),docker push $(CI_REGISTRY_IMAGE)/$(TARGET):$(CI_COMMIT_REF_NAME);)
+	$(foreach TARGET,$(subst /,-,$(TARGETS)),docker push $(CI_REGISTRY_IMAGE)/$(TARGET):$(CI_COMMIT_REF_NAME);)
