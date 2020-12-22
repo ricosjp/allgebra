@@ -39,7 +39,7 @@ CI_COMMIT_REF_NAME ?= manual_deploy
 # - test         : Test all container
 # - push         : Push all container
 #
-CUDA_TARGETS    := cuda10_2 cuda11_0
+CUDA_TARGETS    := cuda11_0
 MATH_TARGETS    := mkl oss
 TARGETS         := $(foreach CUDA,$(CUDA_TARGETS),$(foreach MATH,$(MATH_TARGETS),$(CUDA)_$(MATH)))
 SUPPORT_TARGETS := doxygen clang-format
