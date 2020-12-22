@@ -96,12 +96,11 @@ release_oss:
     - mem-ge-32gb
 
 keep-changelog:
-    image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
-    stage: build
-    script:
-        - bash -c "! git diff --exit-code origin/master CHANGELOG.md"
-    allow_failure: true
-    except:
-        - master
-        - latest
-        - tags
+  image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
+  stage: build
+  script:
+    - "! git diff --exit-code origin/latest CHANGELOG.md"
+  allow_failure: true
+  except:
+    - latest
+    - tags
