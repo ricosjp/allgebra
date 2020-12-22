@@ -10,12 +10,10 @@ FROM nvidia/cuda:11.0-devel-ubuntu20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    curl git zsh tmux pkg-config make \
-    gcc-offload-nvptx nvptx-tools g++ gfortran \
+    curl git pkg-config make \
     ninja-build \
-    cuda-nsight-systems-11-0 \
-    python3 python3-yaml python3-numpy python3-pandas \
-    strace trace-cmd valgrind gdb \
+    python3 \
+ && apt-get autoremove \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -30,3 +28,10 @@ ENV CPATH              /usr/local/cuda-11.0/include
 ENV C_INCLUDE_PATH     /usr/local/cuda-11.0/include
 ENV CPLUS_INCLUDE_PATH /usr/local/cuda-11.0/include
 ENV LIBRARY_PATH       /usr/local/cuda-11.0/lib64
+
+# To validate container is well-constructed
+COPY examples/ /examples
+
+# Utility for allgebra
+COPY utilities /utilities
+RUN make -C /utilities install

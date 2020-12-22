@@ -6,6 +6,13 @@ Each release will be named as `{year}.{month}.{patch}` format.
 Unreleased
 ===========
 
+Changes
+--------
+- Rewrite gcc9 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/31
+  - Upgrade to gcc10
+  - Add compiler name to container URI
+  - Rewrite Makefile system like clang11gcc7
+
 20.12.0 - 2020/12/22
 =====================
 

@@ -18,13 +18,21 @@ Images
 
 Named in `allgebra/{CUDA}/{Compiler}/{Math}` format:
 
-| Image name                                                                    | CUDA | Compiler         | Math      |
-|:------------------------------------------------------------------------------|:----:|:----------------:|:---------:|
-| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/mkl][cuda10_1/clang11gcc7/mkl] | 10.1 | clang 11 + gcc 7 | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/oss][cuda10_1/clang11gcc7/oss] | 10.1 | clang 11 + gcc 7 | OpenBLAS  |
+| Image name                                                                    | CUDA | Compiler                   | Math      |
+|:------------------------------------------------------------------------------|:----:|:--------------------------:|:---------:|
+| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/mkl][cuda10_1/clang11gcc7/mkl] | 10.1 | clang 11, gcc 7, nvcc 10.1 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/oss][cuda10_1/clang11gcc7/oss] | 10.1 | clang 11, gcc 7, nvcc 10.1 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/mkl][cuda10_2/gcc10/mkl]             | 10.2 | gcc 10.2, nvcc 10.2        | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/oss][cuda10_2/gcc10/oss]             | 10.2 | gcc 10.2, nvcc 10.2        | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/mkl][cuda11_0/gcc10/mkl]             | 11.0 | gcc 10.2, nvcc 11.0        | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/oss][cuda11_0/gcc10/oss]             | 11.0 | gcc 10.2, nvcc 11.0        | OpenBLAS  |
 
 [cuda10_1/clang11gcc7/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang11gcc7%2Fmkl
 [cuda10_1/clang11gcc7/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang11gcc7%2Foss
+[cuda10_2/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_2%2Fgcc10%2Fmkl
+[cuda10_2/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_2%2Fgcc10%2Foss
+[cuda11_0/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Fmkl
+[cuda11_0/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Foss
 
 Support Images
 ---------------

@@ -4,14 +4,12 @@
 # https://github.com/ricosjp/allgebra
 #
 
-#
-# This file must be combined with cuda*.Dockerfiles like following:
-#
-# ```
-# cat cuda10_2.Dockerfiles oss.Dockerfiles annotations.Dockerfiles > cuda10_2-oss.Dockerfiles
-# docker build -f cuda10_2-oss.Dockerfiles
-# ```
-#
+ARG REGISTRY
+ARG TAG
+
+FROM ${REGISTRY}/cuda10_2-gcc10:${TAG}
+
+# OSS OpenBLAS
 RUN apt-get update && apt-get install -y \
     libopenblas-openmp-dev \
  && apt-get clean \
