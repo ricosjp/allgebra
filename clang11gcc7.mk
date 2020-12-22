@@ -21,10 +21,10 @@ cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7
 	$(MAKE) -C $@
 
 push: $(TARGETS)
-	docker push $(PUBLIC_REGISTRY)/cuda10_1:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda10_1-clang11gcc7:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda10_1-clang11gcc7-mkl:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda10_1-clang11gcc7-oss:$(CI_COMMIT_REF_NAME)
+	docker push $(CI_REGISTRY_IMAGE)/cuda10_1:$(CI_COMMIT_REF_NAME)
+	docker push $(CI_REGISTRY_IMAGE)/cuda10_1-clang11gcc7:$(CI_COMMIT_REF_NAME)
+	docker push $(CI_REGISTRY_IMAGE)/cuda10_1-clang11gcc7-mkl:$(CI_COMMIT_REF_NAME)
+	docker push $(CI_REGISTRY_IMAGE)/cuda10_1-clang11gcc7-oss:$(CI_COMMIT_REF_NAME)
 
 #
 # Release to GitHub container registry (ghcr.io)
