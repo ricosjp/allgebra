@@ -16,6 +16,10 @@ Added
 
 Changes
 --------
+- Rewrite clang11gcc7 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/30
+  - Rename clang11gcc7/cuda10_1/mkl -> cuda10_1/clang11gcc7/mkl
+  - Push intermidiate containers to CI registry
+  - Share base images between mkl and oss containers
 - change `-` to `_` in all files (expect `clang-format` ) https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/22
 
 

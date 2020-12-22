@@ -16,82 +16,15 @@ Following image tags are pushed from GitLab CI:
 Images
 --------
 
-Named in `allgebra/{CUDA}/{MATH}` format:
+Named in `allgebra/{CUDA}/{Compiler}/{Math}` format:
 
-Supported CUDA Versions:
+| Image name                                                                    | CUDA | Compiler         | Math      |
+|:------------------------------------------------------------------------------|:----:|:----------------:|:---------:|
+| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/mkl][cuda10_1/clang11gcc7/mkl] | 10.1 | clang 11 + gcc 7 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/oss][cuda10_1/clang11gcc7/oss] | 10.1 | clang 11 + gcc 7 | OpenBLAS  |
 
-- 10.2
-- 11.0
-
-Supported mathematical library backends:
-
-- Intel(R) MKL (mkl)
-- Combine OSS libraries (oss)
-  - OpenBLAS, ...
-
-### allgebra/cuda10_2/mkl
-
-OpenACC NVPTX-offload supported GCC with CUDA 10.2
-
-```
-docker pull ghcr.io/ricosjp/allgebra/cuda10_2/mkl:20.10.0
-```
-
-| Software  | Version                       |
-|:----------|:------------------------------|
-| Ubuntu    | 20.04                         |
-| GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.4                        |
-| CUDA      | 10.2                          |
-| Intel MKL | 2020.0.166                    |
-
-### allgebra/cuda11_0/mkl
-
-OpenACC NVPTX-offload supported GCC with CUDA 11.0
-
-```
-docker pull ghcr.io/ricosjp/allgebra/cuda11_0/mkl:20.10.0
-```
-
-| Software  | Version                       |
-|:----------|:------------------------------|
-| Ubuntu    | 20.04                         |
-| GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.4                        |
-| CUDA      | 11.0                          |
-| Intel MKL | 2020.0.166                    |
-
-### allgebra/cuda10_2/oss
-
-OpenACC NVPTX-offload supported GCC with CUDA 10.2
-
-```
-docker pull ghcr.io/ricosjp/allgebra/cuda10_2/oss:20.10.0
-```
-
-| Software  | Version                       |
-|:----------|:------------------------------|
-| Ubuntu    | 20.04                         |
-| GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.4                        |
-| CUDA      | 10.2                          |
-| OpenBLAS  | 3.8.0                         |
-
-### allgebra/cuda11_0/oss
-
-OpenACC NVPTX-offload supported GCC with CUDA 11.0
-
-```
-docker pull ghcr.io/ricosjp/allgebra/cuda11_0/oss:20.10.0
-```
-
-| Software  | Version                       |
-|:----------|:------------------------------|
-| Ubuntu    | 20.04                         |
-| GCC       | 9.3 (OpenMP 4.5, OpenACC 2.0) |
-| cmake     | 3.18.4                        |
-| CUDA      | 11.0                          |
-| OpenBLAS  | 3.8.0                         |
+[cuda10_1/clang11gcc7/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang11gcc7%2Fmkl
+[cuda10_1/clang11gcc7/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang11gcc7%2Foss
 
 Support Images
 ---------------
