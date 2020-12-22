@@ -33,8 +33,6 @@ cuda10_1-clang11gcc7:
 
 cuda10_1-clang11gcc7-release:
   extends: .dind
-  needs:
-    - cuda10_1-clang11gcc7
   stage: deploy
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
