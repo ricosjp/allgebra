@@ -43,21 +43,21 @@ release/cuda10_1:
 
 release/cuda10_1/clang11gcc7:
 	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1/clang11gcc7" \
+		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1-clang11gcc7" \
 		-f release.Dockerfile \
 		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7:$(CI_COMMIT_REF_NAME) \
 		$(ALLGEBRA_TOPDIR)
 
 release/cuda10_1/clang11gcc7/mkl:
 	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1/clang11gcc7/mkl" \
+		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1-clang11gcc7-mkl" \
 		-f release.Dockerfile \
 		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/mkl:$(CI_COMMIT_REF_NAME) \
 		$(ALLGEBRA_TOPDIR)
 
 release/cuda10_1/clang11gcc7/oss:
 	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1/clang11gcc7/oss" \
+		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1-clang11gcc7-oss" \
 		-f release.Dockerfile \
 		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/oss:$(CI_COMMIT_REF_NAME) \
 		$(ALLGEBRA_TOPDIR)
