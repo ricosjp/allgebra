@@ -61,6 +61,7 @@ keep-changelog:
   image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
   stage: build
   script:
+    - git fetch
     - "! git diff --exit-code origin/latest CHANGELOG.md"
   allow_failure: true
   except:
