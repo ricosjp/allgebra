@@ -52,7 +52,3 @@ ENV CXX  /usr/local/llvm-11.0.0/bin/clang++
 # See GCC manual for detail https://gcc.gnu.org/onlinedocs/cpp/Environment-Variables.html
 ENV C_INCLUDE_PATH     /usr/local/llvm-11.0.0/include:$C_INCLUDE_PATH
 ENV CPLUS_INCLUDE_PATH /usr/local/llvm-11.0.0/include:$CPLUS_INCLUDE_PATH
-
-# get device compute capability
-COPY utilities /utilities
-RUN make -C /utilities install

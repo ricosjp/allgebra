@@ -35,3 +35,29 @@ ENV CPATH              /usr/local/cuda-10.1/include
 ENV C_INCLUDE_PATH     /usr/local/cuda-10.1/include
 ENV CPLUS_INCLUDE_PATH /usr/local/cuda-10.1/include
 ENV LIBRARY_PATH       /usr/local/cuda-10.1/lib64
+
+#
+# Variables set in Makefile
+#
+ARG ALLGEBRA_VERSION
+ARG BUILD_DATE
+ARG GIT_HASH
+
+#
+# Annotations based on OCI specification
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#
+LABEL maintainer="RICOS Co. Ltd." \
+      org.opencontainers.image.authors="RICOS Co. Ltd." \
+      org.opencontainers.image.url="https://github.com/ricosjp/allgebra" \
+      org.opencontainers.image.documentation="Base container for developing C++ and Fortran HPC applications" \
+      org.opencontainers.image.version=$ALLGEBRA_VERSION \
+      org.opencontainers.image.revision=$GIT_HASH \
+      org.opencontainers.image.created=$BUILD_DATE
+
+# To validate container is well-constructed
+COPY examples/ /examples
+
+# Utility for allgebra
+COPY utilities /utilities
+RUN make -C /utilities install

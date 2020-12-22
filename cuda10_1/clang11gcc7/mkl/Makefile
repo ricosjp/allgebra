@@ -1,9 +1,7 @@
-PUBLIC_REGISTRY    := ghcr.io/ricosjp/allgebra
-CI_REGISTRY_IMAGE  ?= registry.ritc.jp/ricos/allgebra
-CI_COMMIT_REF_NAME ?= manual_deploy
-
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
+
+include $(ALLGEBRA_TOPDIR)/common.mk
 
 TARGET := cuda10_1/clang11gcc7/mkl
 IMAGE  := $(CI_REGISTRY_IMAGE)/$(subst /,-,$(TARGET)):$(CI_COMMIT_REF_NAME)
