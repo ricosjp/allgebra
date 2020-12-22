@@ -19,23 +19,23 @@ gcc-cuda:
     - docker
     - gpu
 
-clang11gcc7-cuda10_1-mkl-build:
+cuda10_1-clang11gcc7:
   extends: .dind
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make -C clang11gcc7/cuda10_1/mkl push
+    - make -f clang11gcc7.mk push
   timeout: 3 hours
   tags:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
 
-clang11gcc7-cuda10_1-mkl-test:
+cuda10_1-clang11gcc7-mkl-test:
   stage: test
   needs:
-    - clang11gcc7-cuda10_1-mkl-build
-  image: ${CI_REGISTRY_IMAGE}/clang11gcc7-cuda10_1-mkl:${CI_COMMIT_REF_NAME}
+    - cuda10_1-clang11gcc7
+  image: ${CI_REGISTRY_IMAGE}/cuda10_1-clang11gcc7-mkl:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
@@ -44,36 +44,11 @@ clang11gcc7-cuda10_1-mkl-test:
   tags:
     - gpu
 
-release_mkl:
-  extends: .dind
-  stage: push
-  script:
-    - docker login -u termoshtt -p ${GITHUB_PACKAGE_TOKEN_TERMOSHTT} ghcr.io/ricosjp
-    - make push
-    - make -C clang11gcc7/cuda10_1/mkl release-push
-  timeout: 3 hours
-  tags:
-    - docker
-    - cpu-ge-8
-    - mem-ge-32gb
-
-clang11gcc7-cuda10_1-oss-build:
-  extends: .dind
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make -C clang11gcc7/cuda10_1/oss push
-  timeout: 3 hours
-  tags:
-    - docker
-    - cpu-ge-8
-    - mem-ge-32gb
-
-clang11gcc7-cuda10_1-oss-test:
+cuda10_1-clang11gcc7-oss-test:
   stage: test
   needs:
-    - clang11gcc7-cuda10_1-oss-build
-  image: ${CI_REGISTRY_IMAGE}/clang11gcc7-cuda10_1-oss:${CI_COMMIT_REF_NAME}
+    - cuda10_1-clang11gcc7
+  image: ${CI_REGISTRY_IMAGE}/cuda10_1-clang11gcc7-oss:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
@@ -81,19 +56,6 @@ clang11gcc7-cuda10_1-oss-test:
     - make test
   tags:
     - gpu
-
-release_oss:
-  extends: .dind
-  stage: push
-  script:
-    - docker login -u termoshtt -p ${GITHUB_PACKAGE_TOKEN_TERMOSHTT} ghcr.io/ricosjp
-    - make push
-    - make -C clang11gcc7/cuda10_1/oss release-push
-  timeout: 3 hours
-  tags:
-    - docker
-    - cpu-ge-8
-    - mem-ge-32gb
 
 keep-changelog:
   image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
