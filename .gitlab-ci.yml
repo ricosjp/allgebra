@@ -8,7 +8,7 @@
 stages:
   - build
   - test
-  - push
+  - deploy
 
 gcc-cuda:
   extends: .dind
