@@ -34,28 +34,28 @@ push: $(TARGETS)
 DOCKER_BUILD_ARGS := $(foreach ARG,ALLGEBRA_VERSION GIT_HASH BUILD_DATE,--build-arg="$(ARG)=$($(ARG))")
 DOCKER_BUILD_ARGS += --build-arg="REGISTRY=$(CI_REGISTRY_IMAGE)" --build-arg="TAG=$(CI_COMMIT_REF_NAME)"
 
-release/cuda10_1: cuda10_1
+release/cuda10_1:
 	docker build \
 		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1" \
 		-f release.Dockerfile \
 		-t $(PUBLIC_REGISTRY)/cuda10_1:$(CI_COMMIT_REF_NAME) \
 		$(ALLGEBRA_TOPDIR)
 
-release/cuda10_1/clang11gcc7: cuda10_1/clang11gcc7
+release/cuda10_1/clang11gcc7:
 	docker build \
 		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1/clang11gcc7" \
 		-f release.Dockerfile \
 		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7:$(CI_COMMIT_REF_NAME) \
 		$(ALLGEBRA_TOPDIR)
 
-release/cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7/mkl
+release/cuda10_1/clang11gcc7/mkl:
 	docker build \
 		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1/clang11gcc7/mkl" \
 		-f release.Dockerfile \
 		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/mkl:$(CI_COMMIT_REF_NAME) \
 		$(ALLGEBRA_TOPDIR)
 
-release/cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7/oss
+release/cuda10_1/clang11gcc7/oss:
 	docker build \
 		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1/clang11gcc7/oss" \
 		-f release.Dockerfile \
