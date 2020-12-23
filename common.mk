@@ -8,6 +8,6 @@ PUBLIC_REGISTRY    := ghcr.io/ricosjp/allgebra
 CI_REGISTRY_IMAGE  ?= registry.ritc.jp/ricos/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
-ALLGEBRA_VERSION := 20.12.0
+ALLGEBRA_VERSION := 20.12.1
 GIT_HASH         := $(shell git rev-parse HEAD)
 BUILD_DATE       := $(shell date --rfc-3339=ns)
