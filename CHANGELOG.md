@@ -6,6 +6,9 @@ Each release will be named as `{year}.{month}.{patch}` format.
 Unreleased
 ===========
 
+20.12.1 - 2020/12/23
+=====================
+
 Changes
 --------
 - Rewrite gcc9 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/31
