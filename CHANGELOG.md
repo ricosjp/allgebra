@@ -6,6 +6,10 @@ Each release will be named as `{year}.{month}.{patch}` format.
 Unreleased
 ===========
 
+Added
+------
+- add liblapacke-dev in OSS containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/32
+
 20.12.1 - 2020/12/23
 =====================
 
