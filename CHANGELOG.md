@@ -1,10 +1,14 @@
-Be sure that **it is not a [semantic versioning][semver]**. Every release can be broken.
-Each release will be named as `{year}.{month}.{patch}` format.
+Be sure that **it is not a [semantic versioning][semver]**. Every release can be a breaking change.
+You should use containers with a fixed tag.
+Each release will be tagged as calendar versioning `{year}.{month}.{patch}` format.
 
 [semver]: https://semver.org/
 
 Unreleased
 ===========
+
+20.12.2 - 2020/12/29
+=====================
 
 Added
 ------
