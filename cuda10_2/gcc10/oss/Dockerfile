@@ -12,5 +12,6 @@ FROM ${REGISTRY}/cuda10_2-gcc10:${TAG}
 # OSS OpenBLAS
 RUN apt-get update && apt-get install -y \
     libopenblas-openmp-dev \
+    liblapacke-dev \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*

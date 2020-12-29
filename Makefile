@@ -9,6 +9,7 @@ TARGETS := cuda10_1 cuda10_1/clang11gcc7 cuda10_1/clang11gcc7/mkl cuda10_1/clang
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
 
 .PHONY: $(TARGETS) $(RELEASE_TARGETS)
+all: $(TARGETS)
 
 cuda10_1:
 	$(MAKE) -C $@
