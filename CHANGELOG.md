@@ -7,6 +7,10 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Added
+------
+- README for utilities/allgebra_get_device_cc
+
 20.12.2 - 2020/12/29
 =====================
 
