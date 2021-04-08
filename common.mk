@@ -16,27 +16,24 @@ BUILD_DATE       := $(shell date --rfc-3339=ns)
 # Following definitions assumes $(TARGET) is defined in parent Makefile
 #
 
-ESCAPED       := $(subst /,-,$(TARGET))
-IMAGE         := $(CI_REGISTRY_IMAGE)/$(ESCAPED):$(CI_COMMIT_REF_NAME)
-RELEASE_IMAGE := $(PUBLIC_REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME)
+ESCAPED       = $(subst /,-,$(TARGET))
+IMAGE         = $(CI_REGISTRY_IMAGE)/$(ESCAPED):$(CI_COMMIT_REF_NAME)
+RELEASE_IMAGE = $(PUBLIC_REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME)
 
 DOCKER_BUILD_ARGS := --build-arg="REGISTRY=$(CI_REGISTRY_IMAGE)" --build-arg="TAG=$(CI_COMMIT_REF_NAME)"
 
-build:
+build/$(TARGET):
 	docker build $(DOCKER_BUILD_ARGS) -f $(HERE)/Dockerfile -t $(IMAGE) $(ALLGEBRA_TOPDIR)
 
-push: build
+push/$(TARGET): build/$(TARGET)
 	docker push $(IMAGE)
 
-in: build
-	docker run -it --rm --gpus all -v $(ALLGEBRA_TOPDIR):/allgebra -w /allgebra $(IMAGE) bash
-
-release/build:
+release/build/$(TARGET):
 	docker build \
 		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=$(ESCAPED)" \
 		-f $(ALLGEBRA_TOPDIR)/release.Dockerfile \
 		-t $(RELEASE_IMAGE) \
 		$(ALLGEBRA_TOPDIR)
 
-release/push:
+release/push/$(TARGET):
 	docker push $(RELEASE_IMAGE)
