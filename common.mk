@@ -22,18 +22,18 @@ RELEASE_IMAGE = $(PUBLIC_REGISTRY)/$(TARGET):$(CI_COMMIT_REF_NAME)
 
 DOCKER_BUILD_ARGS := --build-arg="REGISTRY=$(CI_REGISTRY_IMAGE)" --build-arg="TAG=$(CI_COMMIT_REF_NAME)"
 
-build/$(TARGET):
+build:
 	docker build $(DOCKER_BUILD_ARGS) -f $(HERE)/Dockerfile -t $(IMAGE) $(ALLGEBRA_TOPDIR)
 
-push/$(TARGET): build/$(TARGET)
+push: build
 	docker push $(IMAGE)
 
-release/build/$(TARGET):
+release/build:
 	docker build \
 		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=$(ESCAPED)" \
 		-f $(ALLGEBRA_TOPDIR)/release.Dockerfile \
 		-t $(RELEASE_IMAGE) \
 		$(ALLGEBRA_TOPDIR)
 
-release/push/$(TARGET):
+release/push: release/build
 	docker push $(RELEASE_IMAGE)
