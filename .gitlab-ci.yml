@@ -148,6 +148,18 @@ cuda11_0-gcc10-mkl-test:
   tags:
     - gpu
 
+clang-format-version:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/clang-format:${CI_COMMIT_REF_NAME}
+  script:
+    - clang-format --version
+
+doxygen-version:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/doxygen:${CI_COMMIT_REF_NAME}
+  script:
+    - doxygen --version
+
 keep-changelog:
   image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
   stage: build
