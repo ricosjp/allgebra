@@ -7,7 +7,8 @@ REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang11gcc7 \
 
 TARGETS := cuda10_1/clang11gcc7/mkl cuda10_1/clang11gcc7/oss \
            cuda10_2/gcc10/mkl cuda10_2/gcc10/oss \
-           cuda11_0/gcc10/mkl cuda11_0/gcc10/oss
+           cuda11_0/gcc10/mkl cuda11_0/gcc10/oss \
+           clang-format doxygen
 
 PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
@@ -58,6 +59,12 @@ cuda11_0/gcc10/mkl: cuda11_0/gcc10
 cuda11_0/gcc10/oss: cuda11_0/gcc10
 	$(MAKE) -C $@ build
 
+clang-format:
+	$(MAKE) -C $@ build
+
+doxygen:
+	$(MAKE) -C $@ build
+
 #
 # Push containers to GitLab registry on RICOS (registry.ritc.jp/ricos/allgebra)
 #
@@ -84,6 +91,12 @@ push/cuda11_0/gcc10/mkl: cuda11_0/gcc10/mkl
 push/cuda11_0/gcc10/oss: cuda11_0/gcc10/oss
 	$(MAKE) -C $< push
 
+push/clang-format: clang-format
+	$(MAKE) -C $< push
+
+push/doxygen: doxygen
+	$(MAKE) -C $< push
+
 push: $(PUSH_TARGETS)
 
 #
@@ -106,6 +119,12 @@ release/cuda11_0/gcc10/mkl: cuda11_0/gcc10/mkl
 	$(MAKE) -C $< release/push
 
 release/cuda11_0/gcc10/oss: cuda11_0/gcc10/oss
+	$(MAKE) -C $< release/push
+
+release/clang-format: clang-format
+	$(MAKE) -C $< release/push
+
+release/doxygen: doxygen
 	$(MAKE) -C $< release/push
 
 release: $(RELEASE_TARGETS)
