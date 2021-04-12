@@ -43,6 +43,24 @@ build-cuda11_0:
   tags:
     - docker
 
+build-clang-format:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/clang-format
+  tags:
+    - docker
+
+build-doxygen:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/doxygen
+  tags:
+    - docker
+
 release:
   extends: .dind
   stage: deploy
