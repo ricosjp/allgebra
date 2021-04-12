@@ -25,6 +25,9 @@ DOCKER_BUILD_ARGS := --build-arg="REGISTRY=$(CI_REGISTRY_IMAGE)" --build-arg="TA
 build:
 	docker build $(DOCKER_BUILD_ARGS) -f $(HERE)/Dockerfile -t $(IMAGE) $(ALLGEBRA_TOPDIR)
 
+in: build
+	docker run -it --rm $(IMAGE)
+
 push: build
 	docker push $(IMAGE)
 
