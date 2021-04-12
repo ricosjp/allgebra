@@ -10,17 +10,38 @@ stages:
   - test
   - deploy
 
-build:
+build-cuda10_1:
   extends: .dind
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push
+    - make push/cuda10_1/clang11gcc7/mkl
+    - make push/cuda10_1/clang11gcc7/oss
   timeout: 3 hours
   tags:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
+
+build-cuda10_2:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/cuda10_2/gcc10/mkl
+    - make push/cuda10_2/gcc10/oss
+  tags:
+    - docker
+
+build-cuda11_0:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/cuda11_0/gcc10/mkl
+    - make push/cuda11_0/gcc10/oss
+  tags:
+    - docker
 
 release:
   extends: .dind
