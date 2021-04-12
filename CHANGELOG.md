@@ -11,6 +11,10 @@ Added
 ------
 - README for utilities/allgebra_get_device_cc
 
+Changed
+-------
+- Cleanup Makefile, split build CI task into each CUDA versions https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/35
+
 20.12.2 - 2020/12/29
 =====================
 

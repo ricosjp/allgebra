@@ -1,120 +1,111 @@
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
-include $(ALLGEBRA_TOPDIR)/common.mk
+REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang11gcc7 \
+                       cuda10_2 cuda10_2/gcc10 \
+                       cuda11_0 cuda11_0/gcc10
 
-TARGETS := cuda10_1 cuda10_1/clang11gcc7 cuda10_1/clang11gcc7/mkl cuda10_1/clang11gcc7/oss \
-           cuda10_2 cuda10_2/gcc10 cuda10_2/gcc10/mkl cuda10_2/gcc10/oss \
-           cuda11_0 cuda11_0/gcc10 cuda11_0/gcc10/mkl cuda11_0/gcc10/oss
+TARGETS := cuda10_1/clang11gcc7/mkl cuda10_1/clang11gcc7/oss \
+           cuda10_2/gcc10/mkl cuda10_2/gcc10/oss \
+           cuda11_0/gcc10/mkl cuda11_0/gcc10/oss
+
+PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
 
-.PHONY: $(TARGETS) $(RELEASE_TARGETS)
+.PHONY: $(REQUIREMENT_TARGETS) $(TARGETS) $(PUSH_TARGETS) $(RELEASE_TARGETS)
 all: $(TARGETS)
 
+#
+# Build layered containers
+#
+# For example, `cuda10_1` is used for `cuda10_1/clang11gcc7`, and it is used in `cuda10_1/clang11gcc7/mkl`.
+# Acutual build command is rewritten in common.mk, which will be included in each target's Makefile
+#
+
 cuda10_1:
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda10_1/clang11gcc7: cuda10_1
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda10_2:
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda10_2/gcc10: cuda10_2
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda10_2/gcc10/mkl: cuda10_2/gcc10
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda10_2/gcc10/oss: cuda10_2/gcc10
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda11_0:
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda11_0/gcc10: cuda11_0
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda11_0/gcc10/mkl: cuda11_0/gcc10
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
 cuda11_0/gcc10/oss: cuda11_0/gcc10
-	$(MAKE) -C $@
+	$(MAKE) -C $@ build
 
-push: $(TARGETS)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_1:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_1-clang11gcc7:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_1-clang11gcc7-mkl:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_1-clang11gcc7-oss:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_2:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_2-gcc10:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_2-gcc10-mkl:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda10_2-gcc10-oss:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda11_0:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda11_0-gcc10:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda11_0-gcc10-mkl:$(CI_COMMIT_REF_NAME)
-	docker push $(CI_REGISTRY_IMAGE)/cuda11_0-gcc10-oss:$(CI_COMMIT_REF_NAME)
+#
+# Push containers to GitLab registry on RICOS (registry.ritc.jp/ricos/allgebra)
+#
+# These targets are used to share built images between CI tasks.
+# While the above build tasks do not require GPU but require high performance CPU to build LLVM,
+# Testing these containers using ./examples requires GPU.
+#
+
+push/cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7/mkl
+	$(MAKE) -C $< push
+
+push/cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7/oss
+	$(MAKE) -C $< push
+
+push/cuda10_2/gcc10/mkl: cuda10_2/gcc10/mkl
+	$(MAKE) -C $< push
+
+push/cuda10_2/gcc10/oss: cuda10_2/gcc10/oss
+	$(MAKE) -C $< push
+
+push/cuda11_0/gcc10/mkl: cuda11_0/gcc10/mkl
+	$(MAKE) -C $< push
+
+push/cuda11_0/gcc10/oss: cuda11_0/gcc10/oss
+	$(MAKE) -C $< push
+
+push: $(PUSH_TARGETS)
 
 #
 # Release to GitHub container registry (ghcr.io)
 #
 
-# Generate `--build-arg="ARG=$(ARG)"` options for release build
-DOCKER_BUILD_ARGS := $(foreach ARG,ALLGEBRA_VERSION GIT_HASH BUILD_DATE,--build-arg="$(ARG)=$($(ARG))")
-DOCKER_BUILD_ARGS += --build-arg="REGISTRY=$(CI_REGISTRY_IMAGE)" --build-arg="TAG=$(CI_COMMIT_REF_NAME)"
+release/cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7/mkl
+	make -C $< release/push
 
-release/cuda10_1/clang11gcc7/mkl:
-	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1-clang11gcc7-mkl" \
-		-f release.Dockerfile \
-		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/mkl:$(CI_COMMIT_REF_NAME) \
-		$(ALLGEBRA_TOPDIR)
+release/cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7/oss
+	$(MAKE) -C $< release/push
 
-release/cuda10_1/clang11gcc7/oss:
-	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_1-clang11gcc7-oss" \
-		-f release.Dockerfile \
-		-t $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/oss:$(CI_COMMIT_REF_NAME) \
-		$(ALLGEBRA_TOPDIR)
+release/cuda10_2/gcc10/mkl: cuda10_2/gcc10/mkl
+	$(MAKE) -C $< release/push
 
-release/cuda10_2/gcc10/mkl:
-	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_2-gcc10-mkl" \
-		-f release.Dockerfile \
-		-t $(PUBLIC_REGISTRY)/cuda10_2/gcc10/mkl:$(CI_COMMIT_REF_NAME) \
-		$(ALLGEBRA_TOPDIR)
+release/cuda10_2/gcc10/oss: cuda10_2/gcc10/oss
+	$(MAKE) -C $< release/push
 
-release/cuda10_2/gcc10/oss:
-	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda10_2-gcc10-oss" \
-		-f release.Dockerfile \
-		-t $(PUBLIC_REGISTRY)/cuda10_2/gcc10/oss:$(CI_COMMIT_REF_NAME) \
-		$(ALLGEBRA_TOPDIR)
+release/cuda11_0/gcc10/mkl: cuda11_0/gcc10/mkl
+	$(MAKE) -C $< release/push
 
-release/cuda11_0/gcc10/mkl:
-	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda11_0-gcc10-mkl" \
-		-f release.Dockerfile \
-		-t $(PUBLIC_REGISTRY)/cuda11_0/gcc10/mkl:$(CI_COMMIT_REF_NAME) \
-		$(ALLGEBRA_TOPDIR)
-
-release/cuda11_0/gcc10/oss:
-	docker build \
-		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=cuda11_0-gcc10-oss" \
-		-f release.Dockerfile \
-		-t $(PUBLIC_REGISTRY)/cuda11_0/gcc10/oss:$(CI_COMMIT_REF_NAME) \
-		$(ALLGEBRA_TOPDIR)
+release/cuda11_0/gcc10/oss: cuda11_0/gcc10/oss
+	$(MAKE) -C $< release/push
 
 release: $(RELEASE_TARGETS)
-	docker push $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/mkl:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda10_1/clang11gcc7/oss:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda10_2/gcc10/mkl:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda10_2/gcc10/oss:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda11_0/gcc10/mkl:$(CI_COMMIT_REF_NAME)
-	docker push $(PUBLIC_REGISTRY)/cuda11_0/gcc10/oss:$(CI_COMMIT_REF_NAME)
