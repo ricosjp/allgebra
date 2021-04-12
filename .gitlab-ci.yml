@@ -43,6 +43,24 @@ build-cuda11_0:
   tags:
     - docker
 
+build-clang-format:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/clang-format
+  tags:
+    - docker
+
+build-doxygen:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/doxygen
+  tags:
+    - docker
+
 release:
   extends: .dind
   stage: deploy
@@ -129,6 +147,18 @@ cuda11_0-gcc10-mkl-test:
     - make -C /examples/gfortran_openacc test
   tags:
     - gpu
+
+clang-format-version:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/clang-format:${CI_COMMIT_REF_NAME}
+  script:
+    - clang-format --version
+
+doxygen-version:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/doxygen:${CI_COMMIT_REF_NAME}
+  script:
+    - doxygen --version
 
 keep-changelog:
   image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
