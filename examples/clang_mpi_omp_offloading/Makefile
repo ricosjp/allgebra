@@ -32,7 +32,7 @@ omp_offloading.out: omp_offloading.cpp
 
 run:
 	mpic++ $(OMP_FLAGS) $(CXX_FLAGS) omp_offloading.cpp -o omp_offloading.out
-	mpirun --allow-run-as-root -np 2 ./omp_offloading.out 1000000
+	mpirun --allow-run-as-root -np 2 ./omp_offloading.out 100000000
 # 	./omp_offloading_cublas.out 1000000
 # 	./omp_offloading_math.out 1000000
 

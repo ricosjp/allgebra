@@ -8,12 +8,15 @@
 #include <cstdlib> // atoi, malloc
 #include <iostream>
 #include <mpi.h>
+#include <omp.h>
 
 int main(int argc, char **argv) {
   int my_rank, numproc;
   MPI_Init(NULL,NULL);
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
   MPI_Comm_size(MPI_COMM_WORLD, &numproc);
+
+  omp_set_default_device(my_rank);
 
   int size = 0;
   if (argc == 2) {
