@@ -8,6 +8,8 @@
 #include <cstdlib> // atoi, malloc
 #include <iostream>
 #include <cublas_v2.h>
+#include <mpi.h>
+#include <omp.h>
 
 int main(int argc, char **argv) {
   int size = 0;
@@ -17,6 +19,17 @@ int main(int argc, char **argv) {
     std::cout << "error, $1 is vector size" << std::endl;
     return 1;
   }
+
+  int my_rank, numproc;
+  MPI_Init(NULL,NULL);
+  MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &numproc);
+
+  size_t devices = omp_get_num_devices();
+  size_t device = my_rank % devices;
+  omp_set_default_device(device);
+
+  std::cout << "rank = " << my_rank << ", device = " << device << std::endl;
 
   double *x = (double *)malloc(sizeof(double) * size);
   double *y = (double *)malloc(sizeof(double) * size);
@@ -28,22 +41,26 @@ int main(int argc, char **argv) {
 
   double dot = 0.0;
 
-  cublasHandle_t h;
-  cublasCreate(&h);
-
 #pragma omp target enter data map (to: x[0:size], y[0:size])
 #pragma omp target data use_device_ptr(x, y)
-  cublasDdot(h, size, x, 1, y, 1, &dot);
+  {
+    cublasHandle_t h;
+    cublasCreate(&h);
+    cublasDdot(h, size, x, 1, y, 1, &dot);
+    cublasDestroy(h);
+  }
 
-  cublasDestroy(h);
+  MPI_Allreduce(&dot,&dot,1,MPI_DOUBLE,MPI_SUM,MPI_COMM_WORLD);
 
-  if (dot != 2.0 * size) {
+  if (dot != 2.0 * size * numproc) {
     std::cout << "dot = " << dot << std::endl;
     std::cout << "error!" << std::endl;
+    MPI_Finalize();
     return 1;
   } else {
     std::cout << "dot = " << dot << std::endl;
     std::cout << "Pass!" << std::endl;
+    MPI_Finalize();
     return 0;
   }
 }

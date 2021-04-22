@@ -1,12 +1,11 @@
 # OpenMP Offloading Example for C++, clang, MPI
 
+in allgebra:
 ```
-make install_mpi
-make
+sh ./install_mpi.sh
+make -j
 make test
 ```
-
-
 
 |Example                                                 | Description                                   |
 |:-------------------------------------------------------|:----------------------------------------------|
