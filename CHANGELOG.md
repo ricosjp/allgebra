@@ -9,6 +9,7 @@ Unreleased
 
 Added
 ------
+- Add MPI example code https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/38
 - README for utilities/allgebra_get_device_cc
 
 Changed
