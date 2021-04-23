@@ -80,7 +80,10 @@ cuda10_1-clang11gcc7-mkl-test:
   before_script:
     - nvidia-smi
   script:
-    - cd /examples/clang_omp_offloading
+    - make -C /examples/clang_omp_offloading test
+    - cd /examples/mpi_clang_omp_offloading
+    - sh ./install_mpi.sh
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
     - make test
   tags:
     - gpu
@@ -91,7 +94,10 @@ cuda10_1-clang11gcc7-oss-test:
   before_script:
     - nvidia-smi
   script:
-    - cd /examples/clang_omp_offloading
+    - make -C /examples/clang_omp_offloading test
+    - cd /examples/mpi_clang_omp_offloading
+    - sh ./install_mpi.sh
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
     - make test
   tags:
     - gpu
