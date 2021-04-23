@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 
   MPI_Allreduce(&ret,&ret,1,MPI_DOUBLE,MPI_SUM,MPI_COMM_WORLD);
 
-  if (std::abs(ret - std::sin(2.0) * size * my_rank) > 1.0e-6) {
+  if (std::abs(ret - std::sin(2.0) * size * numproc) > 1.0e-6) {
     std::cout << "ret = " << ret << std::endl;
     std::cout << "error!" << std::endl;
     MPI_Finalize();

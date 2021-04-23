@@ -30,10 +30,10 @@ omp_offloading_math.out: omp_offloading_math.cpp
 test: $(TARGET)
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 2 ./omp_offloading.out 10000000
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 2 ./omp_offloading_cublas.out 10000000
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 2 ./omp_offloading_cublas.out 10000000
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 2 ./omp_offloading_math.out 10000000
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 3 ./omp_offloading.out 10000000
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 3 ./omp_offloading_cublas.out 10000000
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 3 ./omp_offloading_cublas.out 10000000
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 3 ./omp_offloading_math.out 10000000
 
 debug: $(TARGET)
 	LIBOMPTARGET_DEBUG=1 ./omp_offloading_cublas.out 1000000
