@@ -40,6 +40,9 @@ build:
 in: build
 	docker run -it --rm -v $(ALLGEBRA_TOPDIR)/examples:/examples $(IMAGE)
 
+in-gpu: build
+	docker run -it --rm --gpus=all -v $(ALLGEBRA_TOPDIR)/examples:/examples $(IMAGE)
+
 push: build
 	docker push $(IMAGE)
 
