@@ -9,12 +9,24 @@ CI_REGISTRY_IMAGE  ?= registry.ritc.jp/ricos/allgebra
 CI_COMMIT_REF_NAME ?= manual_deploy
 
 ALLGEBRA_VERSION := 20.12.2
+ALLGEBRA_TOPDIR  := $(shell git rev-parse --show-toplevel)
 GIT_HASH         := $(shell git rev-parse HEAD)
 BUILD_DATE       := $(shell date --rfc-3339=ns)
 
 #
-# Following definitions assumes $(TARGET) is defined in parent Makefile
+# Following definitions assumes
 #
+# - $(TARGET)
+# - $(HERE)
+#
+# are defined in parent Makefile
+#
+ifndef TARGET
+$(error Variable "TARGET" is not set for common.mk)
+endif
+ifndef HERE
+$(error Variable "HERE" is not set for common.mk)
+endif
 
 ESCAPED       = $(subst /,-,$(TARGET))
 IMAGE         = $(CI_REGISTRY_IMAGE)/$(ESCAPED):$(CI_COMMIT_REF_NAME)
@@ -26,7 +38,7 @@ build:
 	docker build $(DOCKER_BUILD_ARGS) -f $(HERE)/Dockerfile -t $(IMAGE) $(ALLGEBRA_TOPDIR)
 
 in: build
-	docker run -it --rm $(IMAGE)
+	docker run -it --rm -v $(ALLGEBRA_TOPDIR)/examples:/examples $(IMAGE)
 
 push: build
 	docker push $(IMAGE)
