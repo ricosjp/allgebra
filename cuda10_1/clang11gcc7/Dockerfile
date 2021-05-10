@@ -7,7 +7,10 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda10_1:${TAG} AS build
+#
+# Intermediate container for building LLVM 11
+#
+FROM ${REGISTRY}/cuda10_1:${TAG} AS build_llvm
 
 RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-project-11.0.1.src.tar.xz \
  && tar xf llvm-project-11.0.1.src.tar.xz \
@@ -37,9 +40,12 @@ RUN cd llvm-project-11.0.1.src \
  && cmake --build build_omp --target install \
  && rm -rf /llvm-project-11.0.1.src
 
+#
+# CUDA 10.1 with LLVM 11
+#
 FROM ${REGISTRY}/cuda10_1:${TAG} AS release
 
-COPY --from=build /usr/local/llvm-11.0.1 /usr/local/llvm-11.0.1
+COPY --from=build_llvm /usr/local/llvm-11.0.1 /usr/local/llvm-11.0.1
 
 # LLVM 11.0.1 environements
 RUN echo "/usr/local/llvm-11.0.1/lib" > /etc/ld.so.conf.d/llvm-11.0.1.conf \
