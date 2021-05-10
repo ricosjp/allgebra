@@ -53,6 +53,46 @@ Container for reproducible document generation
 docker pull ghcr.io/ricosjp/allgebra/doxygen:latest
 ```
 
+How to build container
+------------------------
+
+### Get this repository
+
+```
+# Use HTTP
+git clone https://github.com/ricosjp/allgebra.git
+# Use SSH
+git clone git@github.com:ricosjp/allgebra.git
+# Use GitHub CLI
+gh repo clone ricosjp/allgebra
+```
+
+### Build all containers
+
+```
+make
+```
+
+### Build a specific container
+
+```
+make -C cuda10_1/clang11gcc7/mkl build
+```
+
+This will build depenedent containers automatically.
+
+### Run into a built container
+
+```
+make -C cuda10_1/clang11gcc7/mkl in
+```
+
+will start bash in the container. Or, with GPU:
+
+```
+make -C cuda10_1/clang11gcc7/mkl in-gpu
+```
+
 License
 --------
 
