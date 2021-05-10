@@ -13,6 +13,7 @@ Added
 
 Changed
 -------
+- Add `make in` target, and "How to build container" section in README https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/40
 - Upgrade to LLVM 11.0.1 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/36
 - Build clang-format and doxygen container on CI https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/34
 - Cleanup Makefile, split build CI task into each CUDA versions https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/35
