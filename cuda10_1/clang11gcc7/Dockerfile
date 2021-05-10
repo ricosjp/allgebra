@@ -64,7 +64,7 @@ RUN git clone -b v4.1.0 --depth=1 https://github.com/open-mpi/ompi.git
 WORKDIR /build/ompi
 RUN ./autogen.pl \
  && ./configure CC=clang CXX=clang++ --with-cuda --disable-mpi-fortran --prefix=/usr/local/ompi-4.1.0 \
- && make install -j
+ && make install -j $(nproc)
 
 #
 # CUDA 10.1 with LLVM 11
