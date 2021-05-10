@@ -19,21 +19,18 @@ TARGET := omp_offloading.out omp_offloading_cublas.out omp_offloading_math.out
 all: $(TARGET)
 
 omp_offloading.out: omp_offloading.cpp
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib $(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@
+	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@
 
 omp_offloading_cublas.out: omp_offloading_cublas.cpp
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib $(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ $(CUDA_LIBS)
+	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ $(CUDA_LIBS)
  
 omp_offloading_math.out: omp_offloading_math.cpp
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib $(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ 
+	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ 
 
 test: $(TARGET)
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 2 ./omp_offloading.out 10000000
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 2 ./omp_offloading_cublas.out 10000000
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 2 ./omp_offloading_math.out 10000000
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 3 ./omp_offloading.out 10000000
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 3 ./omp_offloading_cublas.out 10000000
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/lib mpirun --allow-run-as-root -np 3 ./omp_offloading_math.out 10000000
+	mpirun --allow-run-as-root -np 2 ./omp_offloading.out 10000000
+	mpirun --allow-run-as-root -np 2 ./omp_offloading_cublas.out 10000000
+	mpirun --allow-run-as-root -np 2 ./omp_offloading_math.out 10000000
 
 debug: $(TARGET)
 	LIBOMPTARGET_DEBUG=1 ./omp_offloading_cublas.out 1000000
