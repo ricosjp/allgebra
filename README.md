@@ -79,7 +79,12 @@ make
 make -C cuda10_1/clang11gcc7/mkl build
 ```
 
-This will build depenedent containers automatically.
+This will create containers with tag `registry.ritc.jp/ricos/allgebra/cuda10_1-clang11gcc7-oss:manual_deploy`.
+The registry URL `registry.ritc.jp` and tag `manual_deploy` are set using [GitLab CI environment variables][gitlab-ci-env] in [common.mk](./common.mk),
+which will be loaded in each `Makefile`s.
+Depenedent containers will be built automatically.
+
+[gitlab-ci-env]: https://docs.gitlab.com/ee/ci/variables/#list-all-environment-variables
 
 ### Run into a built container
 
