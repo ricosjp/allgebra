@@ -4,15 +4,21 @@
 # https://github.com/ricosjp/allgebra
 #
 
-SM := $(shell allgebra_get_device_cc)
-ifeq ($(SM),)
-$(error "allgebra_get_device_cc does not find GPU")
+#
+# Detect the compute capability of system's GPU
+#
+# See also the official document
+# https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capability
+#
+COMPUTE_CAPABILITY := $(shell allgebra_get_device_cc)
+ifeq ($(COMPUTE_CAPABILITY),)
+$(error "allgebra_get_device_cc failed to find GPU")
 endif
 
 # GCC OpenMP Offloading Settings
 CXX       := mpic++
 CXX_FLAGS := -O3 -std=c++11 -lm
-OMP_FLAGS := -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_$(SM)
+OMP_FLAGS := -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_$(COMPUTE_CAPABILITY)
 
 # Additional CUDA libraries for cuBLAS example
 CUDA_LIBS := -lcuda -lcublas -lcudart
