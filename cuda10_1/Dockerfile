@@ -24,11 +24,11 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/bin/gfortran-7 /usr/bin/gfortran
 ENV FC /usr/bin/gfortran
 
-RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.18.4/cmake-3.18.4-Linux-x86_64.tar.gz \
- && tar xf cmake-3.18.4-Linux-x86_64.tar.gz \
- && mv cmake-3.18.4-Linux-x86_64/bin/* /usr/bin/ \
- && mv cmake-3.18.4-Linux-x86_64/share/cmake-3.18 /usr/share/ \
- && rm -rf cmake-3.18.4-Linux-x86_64*
+RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.20.2/cmake-3.20.2-linux-x86_64.tar.gz \
+ && tar xf cmake-3.20.2-linux-x86_64.tar.gz \
+ && mv cmake-3.20.2-linux-x86_64/bin/* /usr/bin/ \
+ && mv cmake-3.20.2-linux-x86_64/share/cmake-3.20 /usr/share/ \
+ && rm -rf cmake-3.20.2-linux-x86_64*
 
 # CUDA 10.1 environements
 ENV CPATH              /usr/local/cuda-10.1/include
