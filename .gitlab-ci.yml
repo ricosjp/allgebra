@@ -170,3 +170,10 @@ keep-changelog:
   except:
     - latest
     - tags
+
+clang_format:
+    image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
+    stage: build
+    script:
+      - check-format.sh
+    allow_failure: true
