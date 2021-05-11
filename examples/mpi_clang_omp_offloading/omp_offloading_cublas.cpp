@@ -6,8 +6,8 @@
  */
 
 #include <cstdlib> // atoi, malloc
-#include <iostream>
 #include <cublas_v2.h>
+#include <iostream>
 #include <mpi.h>
 #include <omp.h>
 
@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
   }
 
   int my_rank, numproc;
-  MPI_Init(NULL,NULL);
+  MPI_Init(NULL, NULL);
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
   MPI_Comm_size(MPI_COMM_WORLD, &numproc);
 
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 
   double dot = 0.0;
 
-#pragma omp target enter data map (to: x[0:size], y[0:size])
+#pragma omp target enter data map(to : x [0:size], y [0:size])
 #pragma omp target data use_device_ptr(x, y)
   {
     cublasHandle_t h;
@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
     cublasDestroy(h);
   }
 
-  MPI_Allreduce(&dot,&dot,1,MPI_DOUBLE,MPI_SUM,MPI_COMM_WORLD);
+  MPI_Allreduce(&dot, &dot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 
   if (dot != 2.0 * size * numproc) {
     std::cout << "dot = " << dot << std::endl;

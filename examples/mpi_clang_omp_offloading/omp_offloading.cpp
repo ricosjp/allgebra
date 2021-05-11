@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   }
 
   int my_rank, numproc;
-  MPI_Init(NULL,NULL);
+  MPI_Init(NULL, NULL);
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
   MPI_Comm_size(MPI_COMM_WORLD, &numproc);
 
@@ -40,12 +40,12 @@ int main(int argc, char **argv) {
 
   double dot = 0.0;
 
-  #pragma omp target teams distribute parallel for reduction(+ : dot) map (to: x[0:size], y[0:size]) map(tofrom: dot)
+#pragma omp target teams distribute parallel for reduction(+ : dot) map (to: x[0:size], y[0:size]) map(tofrom: dot)
   for (int i = 0; i < size; i++) {
-      dot += x[i] * y[i];
+    dot += x[i] * y[i];
   }
 
-  MPI_Allreduce(&dot,&dot,1,MPI_DOUBLE,MPI_SUM,MPI_COMM_WORLD);
+  MPI_Allreduce(&dot, &dot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 
   if (dot != 2.0 * size * numproc) {
     std::cout << "dot = " << dot << std::endl;
