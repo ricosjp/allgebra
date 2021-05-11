@@ -7,6 +7,9 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+21.05.0 - 2021/05/11
+=====================
+
 Added
 ------
 - Add MPI example code https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/38
