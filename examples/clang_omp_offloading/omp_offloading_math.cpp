@@ -5,8 +5,8 @@
  * https://github.com/ricosjp/allgebra
  */
 
+#include <cmath>   // atoi, malloc
 #include <cstdlib> // atoi, malloc
-#include <cmath> // atoi, malloc
 #include <iostream>
 
 int main(int argc, char **argv) {
@@ -27,9 +27,9 @@ int main(int argc, char **argv) {
 
   double ret = 0.0;
 
-  #pragma omp target teams distribute parallel for reduction(+ : ret) map (to: x[0:size]) map(tofrom: ret)
+#pragma omp target teams distribute parallel for reduction(+ : ret) map (to: x[0:size]) map(tofrom: ret)
   for (int i = 0; i < size; i++) {
-      ret += std::sin(x[i]);
+    ret += std::sin(x[i]);
   }
 
   if (std::abs(ret - std::sin(2.0) * size) > 1.0e-6) {

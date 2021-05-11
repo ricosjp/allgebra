@@ -27,11 +27,11 @@ int main(int argc, char **argv) {
 
   double dot = 0.0;
 
-  #pragma acc data copy(x [0:size], y [0:size])
+#pragma acc data copy(x [0:size], y [0:size])
   {
-    #pragma acc kernels
+#pragma acc kernels
     {
-      #pragma acc loop reduction(+ : dot)
+#pragma acc loop reduction(+ : dot)
       for (int i = 0; i < size; i++) {
         dot += x[i] * y[i];
       }

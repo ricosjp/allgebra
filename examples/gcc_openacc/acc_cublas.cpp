@@ -6,8 +6,8 @@
  */
 
 #include <cstdlib> // atoi, malloc
-#include <iostream>
 #include <cublas.h>
+#include <iostream>
 
 int main(int argc, char **argv) {
 
@@ -29,12 +29,10 @@ int main(int argc, char **argv) {
 
   double dot = 0.0;
 
-  #pragma acc data copy(x [0:size], y [0:size])
+#pragma acc data copy(x [0:size], y [0:size])
   {
-    #pragma acc host_data use_device(x, y)
-    {
-      dot = cublasDdot(size, x, 1, y, 1);
-    }
+#pragma acc host_data use_device(x, y)
+    { dot = cublasDdot(size, x, 1, y, 1); }
   }
 
   if (dot != 2.0 * size) {
