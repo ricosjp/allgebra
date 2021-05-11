@@ -103,28 +103,28 @@ push: $(PUSH_TARGETS)
 # Release to GitHub container registry (ghcr.io)
 #
 
-release/cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7/mkl
-	make -C $< release/push
+release/cuda10_1/clang11gcc7/mkl:
+	$(MAKE) -C cuda10_1/clang11gcc7/mkl release/push
 
-release/cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7/oss
-	$(MAKE) -C $< release/push
+release/cuda10_1/clang11gcc7/oss:
+	$(MAKE) -C cuda10_1/clang11gcc7/oss release/push
 
-release/cuda10_2/gcc10/mkl: cuda10_2/gcc10/mkl
-	$(MAKE) -C $< release/push
+release/cuda10_2/gcc10/mkl:
+	$(MAKE) -C cuda10_2/gcc10/mkl release/push
 
-release/cuda10_2/gcc10/oss: cuda10_2/gcc10/oss
-	$(MAKE) -C $< release/push
+release/cuda10_2/gcc10/oss:
+	$(MAKE) -C cuda10_2/gcc10/oss release/push
 
-release/cuda11_0/gcc10/mkl: cuda11_0/gcc10/mkl
-	$(MAKE) -C $< release/push
+release/cuda11_0/gcc10/mkl:
+	$(MAKE) -C cuda11_0/gcc10/mkl release/push
 
-release/cuda11_0/gcc10/oss: cuda11_0/gcc10/oss
-	$(MAKE) -C $< release/push
+release/cuda11_0/gcc10/oss:
+	$(MAKE) -C cuda11_0/gcc10/oss release/push
 
-release/clang-format: clang-format
-	$(MAKE) -C $< release/push
+release/clang-format:
+	$(MAKE) -C clang-format release/push
 
-release/doxygen: doxygen
-	$(MAKE) -C $< release/push
+release/doxygen:
+	$(MAKE) -C doxygen release/push
 
 release: $(RELEASE_TARGETS)
