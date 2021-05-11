@@ -1,4 +1,4 @@
-# Copyright 2020 RICOS Co. Ltd.
+# Copyright 2021 RICOS Co. Ltd.
 #
 # This file is a part of ricosjp/allgebra, distributed under Apache-2.0 License
 # https://github.com/ricosjp/allgebra
@@ -23,7 +23,7 @@ omp_offloading.out: omp_offloading.cpp
 
 omp_offloading_cublas.out: omp_offloading_cublas.cpp
 	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ $(CUDA_LIBS)
- 
+
 omp_offloading_math.out: omp_offloading_math.cpp
 	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ 
 
