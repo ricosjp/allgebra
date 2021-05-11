@@ -7,6 +7,10 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Changes
+--------
+- Update cmake to 3.20.2
+
 21.05.0 - 2021/05/11
 =====================
 
