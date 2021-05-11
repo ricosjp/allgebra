@@ -27,9 +27,9 @@ int main(int argc, char **argv) {
 
   double dot = 0.0;
 
-  #pragma omp target teams distribute parallel for reduction(+ : dot) map (to: x[0:size], y[0:size]) map(tofrom: dot)
+#pragma omp target teams distribute parallel for reduction(+ : dot) map (to: x[0:size], y[0:size]) map(tofrom: dot)
   for (int i = 0; i < size; i++) {
-      dot += x[i] * y[i];
+    dot += x[i] * y[i];
   }
 
   if (dot != 2.0 * size) {
