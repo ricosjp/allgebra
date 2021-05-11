@@ -47,6 +47,7 @@ push: build
 	docker push $(IMAGE)
 
 release/build:
+	docker pull $(IMAGE)
 	docker build \
 		$(DOCKER_BUILD_ARGS) --build-arg="TARGET=$(ESCAPED)" \
 		-f $(ALLGEBRA_TOPDIR)/release.Dockerfile \
