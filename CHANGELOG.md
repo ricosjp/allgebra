@@ -9,10 +9,12 @@ Unreleased
 
 Added
 ------
+- Add MPI example code https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/38
 - README for utilities/allgebra_get_device_cc
 
 Changed
 -------
+- Remove error comment of `allgebra_get_device_cc` https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/38
 - Add `make in` target, and "How to build container" section in README https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/40
 - Upgrade to LLVM 11.0.1 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/36
 - Build clang-format and doxygen container on CI https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/34
