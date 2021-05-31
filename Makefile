@@ -1,11 +1,12 @@
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
-REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang11gcc7 \
+REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang11gcc7 cuda10_1/clang12 \
                        cuda10_2 cuda10_2/gcc10 \
                        cuda11_0 cuda11_0/gcc10
 
 TARGETS := cuda10_1/clang11gcc7/mkl cuda10_1/clang11gcc7/oss \
+           cuda10_1/clang12/mkl cuda10_1/clang12/oss \
            cuda10_2/gcc10/mkl cuda10_2/gcc10/oss \
            cuda11_0/gcc10/mkl cuda11_0/gcc10/oss \
            clang-format doxygen
@@ -33,6 +34,15 @@ cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7
 	$(MAKE) -C $@ build
 
 cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7
+	$(MAKE) -C $@ build
+
+cuda10_1/clang12: cuda10_1
+	$(MAKE) -C $@ build
+
+cuda10_1/clang12/mkl: cuda10_1/clang12
+	$(MAKE) -C $@ build
+
+cuda10_1/clang12/oss: cuda10_1/clang12
 	$(MAKE) -C $@ build
 
 cuda10_2:
@@ -77,6 +87,12 @@ push/cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7/mkl
 	$(MAKE) -C $< push
 
 push/cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7/oss
+	$(MAKE) -C $< push
+
+push/cuda10_1/clang12/mkl: cuda10_1/clang12/mkl
+	$(MAKE) -C $< push
+
+push/cuda10_1/clang12/oss: cuda10_1/clang12/oss
 	$(MAKE) -C $< push
 
 push/cuda10_2/gcc10/mkl: cuda10_2/gcc10/mkl
