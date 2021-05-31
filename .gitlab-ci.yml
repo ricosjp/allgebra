@@ -10,13 +10,26 @@ stages:
   - test
   - deploy
 
-build-cuda10_1:
+build-cuda10_1-clang11gcc7:
   extends: .dind
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - make push/cuda10_1/clang11gcc7/mkl
     - make push/cuda10_1/clang11gcc7/oss
+  timeout: 3 hours
+  tags:
+    - docker
+    - cpu-ge-8
+    - mem-ge-32gb
+
+build-cuda10_1-clang12:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/cuda10_1/clang12/mkl
+    - make push/cuda10_1/clang12/oss
   timeout: 3 hours
   tags:
     - docker
@@ -88,6 +101,28 @@ cuda10_1-clang11gcc7-mkl-test:
 cuda10_1-clang11gcc7-oss-test:
   stage: test
   image: ${CI_REGISTRY_IMAGE}/cuda10_1-clang11gcc7-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/clang_omp_offloading test
+    - make -C /examples/mpi_clang_omp_offloading test
+  tags:
+    - gpu
+
+cuda10_1-clang12-mkl-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda10_1-clang12-mkl:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/clang_omp_offloading test
+    - make -C /examples/mpi_clang_omp_offloading test
+  tags:
+    - gpu
+
+cuda10_1-clang12-oss-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda10_1-clang12-oss:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
