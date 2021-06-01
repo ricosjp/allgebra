@@ -1,11 +1,11 @@
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
-REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang11gcc7 \
+REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang12 \
                        cuda10_2 cuda10_2/gcc10 \
                        cuda11_0 cuda11_0/gcc10
 
-TARGETS := cuda10_1/clang11gcc7/mkl cuda10_1/clang11gcc7/oss \
+TARGETS := cuda10_1/clang12/mkl cuda10_1/clang12/oss \
            cuda10_2/gcc10/mkl cuda10_2/gcc10/oss \
            cuda11_0/gcc10/mkl cuda11_0/gcc10/oss \
            clang-format doxygen
@@ -19,20 +19,20 @@ all: $(TARGETS)
 #
 # Build layered containers
 #
-# For example, `cuda10_1` is used for `cuda10_1/clang11gcc7`, and it is used in `cuda10_1/clang11gcc7/mkl`.
+# For example, `cuda10_1` is used for `cuda10_1/clang12`, and it is used in `cuda10_1/clang12/mkl`.
 # Acutual build command is rewritten in common.mk, which will be included in each target's Makefile
 #
 
 cuda10_1:
 	$(MAKE) -C $@ build
 
-cuda10_1/clang11gcc7: cuda10_1
+cuda10_1/clang12: cuda10_1
 	$(MAKE) -C $@ build
 
-cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7
+cuda10_1/clang12/mkl: cuda10_1/clang12
 	$(MAKE) -C $@ build
 
-cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7
+cuda10_1/clang12/oss: cuda10_1/clang12
 	$(MAKE) -C $@ build
 
 cuda10_2:
@@ -73,10 +73,10 @@ doxygen:
 # Testing these containers using ./examples requires GPU.
 #
 
-push/cuda10_1/clang11gcc7/mkl: cuda10_1/clang11gcc7/mkl
+push/cuda10_1/clang12/mkl: cuda10_1/clang12/mkl
 	$(MAKE) -C $< push
 
-push/cuda10_1/clang11gcc7/oss: cuda10_1/clang11gcc7/oss
+push/cuda10_1/clang12/oss: cuda10_1/clang12/oss
 	$(MAKE) -C $< push
 
 push/cuda10_2/gcc10/mkl: cuda10_2/gcc10/mkl
@@ -103,11 +103,11 @@ push: $(PUSH_TARGETS)
 # Release to GitHub container registry (ghcr.io)
 #
 
-release/cuda10_1/clang11gcc7/mkl:
-	$(MAKE) -C cuda10_1/clang11gcc7/mkl release/push
+release/cuda10_1/clang12/mkl:
+	$(MAKE) -C cuda10_1/clang12/mkl release/push
 
-release/cuda10_1/clang11gcc7/oss:
-	$(MAKE) -C cuda10_1/clang11gcc7/oss release/push
+release/cuda10_1/clang12/oss:
+	$(MAKE) -C cuda10_1/clang12/oss release/push
 
 release/cuda10_2/gcc10/mkl:
 	$(MAKE) -C cuda10_2/gcc10/mkl release/push

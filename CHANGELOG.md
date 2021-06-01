@@ -9,7 +9,8 @@ Unreleased
 
 Changes
 --------
-- Update cmake to 3.20.2
+- Update LLVM to 12.0.0 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/43
+- Update cmake to 3.20.2 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/42
 
 21.05.0 - 2021/05/11
 =====================

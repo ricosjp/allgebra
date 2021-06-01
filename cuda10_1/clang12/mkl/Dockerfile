@@ -7,7 +7,7 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda10_1-clang11gcc7:${TAG}
+FROM ${REGISTRY}/cuda10_1-clang12:${TAG}
 
 # Intel MKL
 RUN apt-get update && apt-get install -y \
