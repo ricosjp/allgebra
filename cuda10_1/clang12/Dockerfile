@@ -26,7 +26,13 @@ RUN cd llvm-project-12.0.0.src \
     llvm \
  && cmake --build build/ --target install
 
-# FIXME
+# FIXME: Remove this part
+#
+# This is an hack for building llvm/openmp with GNU headers.
+# Debian/Ubuntu distributions use `/usr/include/x86_64-linux-gnu/{sys,bits,gnu}`
+# instead of `/usr/include/{sys,bits,gnu}` to support multiple hardware by single filesystem,
+# but the above `clang` does not seek there.
+#
 RUN cd /usr/include \
  && ln -s x86_64-linux-gnu/sys \
  && ln -s x86_64-linux-gnu/bits \
