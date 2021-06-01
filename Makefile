@@ -103,6 +103,12 @@ push: $(PUSH_TARGETS)
 # Release to GitHub container registry (ghcr.io)
 #
 
+release/cuda10_1/clang12/mkl:
+	$(MAKE) -C cuda10_1/clang12/mkl release/push
+
+release/cuda10_1/clang12/oss:
+	$(MAKE) -C cuda10_1/clang12/oss release/push
+
 release/cuda10_2/gcc10/mkl:
 	$(MAKE) -C cuda10_2/gcc10/mkl release/push
 
