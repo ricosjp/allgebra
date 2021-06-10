@@ -14,10 +14,12 @@ Following image tags are pushed from private GitLab CI to public GitHub Containe
 - `latest`
   - Corresponds to `latest` branch. **DO NOT USE** unless you are watching all changes in the `latest` branch.
 
+[semver]: https://semver.org/
+
 Images
 --------
 
-Named in `allgebra/{CUDA}/{Compiler}/{Math}` format:
+Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 
 | Image name                                                            | CUDA | Compiler            | Math      |
 |:----------------------------------------------------------------------|:----:|:-------------------:|:---------:|
@@ -47,8 +49,19 @@ In addition, there are support containers for reproducible development
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
 [doxygen]: https://www.doxygen.nl/index.html
 
-Build containers
------------------
+OpenMP Offloading, OpenACC
+---------------------------
+The OSS compilers in allgebra containers (gcc, gfortran and clang) are compiled with OpenMP and OpenACC supports.
+There are several examples in this repository, and they are also copied into the above containers.
+
+| Compiler         | OpenMP Offloading                                             | OpenACC                                         |
+|:-----------------|:--------------------------------------------------------------|:------------------------------------------------|
+| clang/libomp     | [clang_omp_offloading](./examples/clang_omp_offloading)       | -                                               |
+| gcc/libgomp      | [gcc_omp_offloading](./examples/gcc_omp_offloading)           | [gcc_openacc](./examples/gcc_openacc)           |
+| gfortran/libgomp | [gfortran_omp_offloading](./examples/gfortran_omp_offloading) | [gfortran_openacc](./examples/gfortran_openacc) |
+
+Build containers manually
+--------------------------
 See [DEVELOPMENT.md](./DEVELOPMENT.md)
 
 License
