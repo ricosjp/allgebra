@@ -7,6 +7,9 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+21.06.0 - 2021/06/10
+=====================
+
 Changes
 --------
 - Update LLVM to 12.0.0 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/43
