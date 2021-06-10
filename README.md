@@ -86,7 +86,7 @@ ret = 909297
 Pass!
 ```
 
-[allgebra_get_device_cc](../../utilities) command is contained in the allgebra containers,
+[allgebra_get_device_cc](./utilities) command is contained in the allgebra containers,
 and it detects the [compute capability](compute capability) of your GPU using CUDA API.
 On a system with NVIDIA TITAN V (compute capability 7.0), for example, it returns `70`:
 
