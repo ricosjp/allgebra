@@ -97,9 +97,9 @@ root@3f6b34672c01:/# allgebra_get_device_cc
 
 This output is used to generate the flag `-Xopenmp-target -march=sm_70` in above example.
 
-With Singurality
+With Singularity
 -----------------
-[Singurality](https://sylabs.io/singularity/) is a container runtime focused on HPC and AI.
+[Singularity](https://sylabs.io/singularity/) is a container runtime focused on HPC and AI.
 Since singularity supports Docker and OCI container images, allgebra containers can be used as it is.
 
 ```
