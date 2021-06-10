@@ -6,17 +6,20 @@ Docker images for developing C++ and Fortran HPC programs
 Naming rule of tags
 --------------------
 
-Following image tags are pushed from GitLab CI to GitHub Packages (ghcr.io):
+Following image tags are pushed from private GitLab CI to public GitHub Container Registry (ghcr.io):
 
-- `20.10.0` and `YY.MM.X` formatted tags
-  - Corresponds to each release formatted `{year}.{month}.{patch}`.
+- `{year}.{month}.{patch}` formatted tags, e.g. `20.10.0`
+  - Be sure that **it is not a [semantic versioning][semver]**. Every release can be a breaking change. You should use containers with a fixed tag.
+  - See [CHANGELOG](./CHANGELOG.md) for detail about changes
 - `latest`
-  - Corresponds to `latest` branch. This will be fragile. Please use released tags.
+  - Corresponds to `latest` branch. **DO NOT USE** unless you are watching all changes in the `latest` branch.
+
+[semver]: https://semver.org/
 
 Images
 --------
 
-Named in `allgebra/{CUDA}/{Compiler}/{Math}` format:
+Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 
 | Image name                                                            | CUDA | Compiler            | Math      |
 |:----------------------------------------------------------------------|:----:|:-------------------:|:---------:|
@@ -34,69 +37,100 @@ Named in `allgebra/{CUDA}/{Compiler}/{Math}` format:
 [cuda11_0/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Fmkl
 [cuda11_0/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Foss
 
-Support Images
----------------
+In addition, there are support containers for reproducible development
 
-### allgebra/clang-format
+| Image name                                                     | Application                 |
+|:---------------------------------------------------------------|:----------------------------|
+| [ghcr.io/ricosjp/allgebra/clang-format][allgebra/clang-format] | [clang-format][clang-format]|
+| [ghcr.io/ricosjp/allgebra/doxygen][allgebra/doxygen]           | [doxygen][doxygen]          |
 
-Container for reproducible code formatting
+[allgebra/clang-format]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fclang-format
+[allgebra/doxygen]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fdoxygen
+[clang-format]: https://clang.llvm.org/docs/ClangFormat.html
+[doxygen]: https://www.doxygen.nl/index.html
 
-```
-docker pull ghcr.io/ricosjp/allgebra/clang-format:latest
-```
+OpenMP Offloading, OpenACC examples
+------------------------------------
+The OSS compilers in allgebra containers (gcc, gfortran and clang) are compiled with OpenMP and OpenACC supports.
+There are several examples in this repository, and they are also copied into the above containers.
 
-### allgebra/doxygen
+| Compiler         | OpenMP Offloading                                             | OpenACC                                         |
+|:-----------------|:--------------------------------------------------------------|:------------------------------------------------|
+| clang/libomp     | [clang_omp_offloading](./examples/clang_omp_offloading)       | -                                               |
+| gcc/libgomp      | [gcc_omp_offloading](./examples/gcc_omp_offloading)           | [gcc_openacc](./examples/gcc_openacc)           |
+| gfortran/libgomp | [gfortran_omp_offloading](./examples/gfortran_omp_offloading) | [gfortran_openacc](./examples/gfortran_openacc) |
 
-Container for reproducible document generation
+The requirements of these examples are following:
 
-```
-docker pull ghcr.io/ricosjp/allgebra/doxygen:latest
-```
+- Use Linux
+- Install [Docker](https://docs.docker.com/engine/install/)
+- Install [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker)
 
-How to build container
-------------------------
-
-### Get this repository
-
-```
-# Use HTTP
-git clone https://github.com/ricosjp/allgebra.git
-# Use SSH
-git clone git@github.com:ricosjp/allgebra.git
-# Use GitHub CLI
-gh repo clone ricosjp/allgebra
-```
-
-### Build all containers
+You can build and run e.g. the clang with OpenMP Offloading example as following:
 
 ```
-make
+$ docker run --rm -it --gpus=all ghcr.io/ricosjp/allgebra/cuda10_1/clang12/oss:21.06.0
+root@41b65ab23aaf:/# cd /examples/clang_omp_offloading
+root@41b65ab23aaf:/examples/clang_omp_offloading# make test
+clang++ -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70 -O3 -std=c++11 -lm omp_offloading.cpp -o omp_offloading.out
+clang++ -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70 -O3 -std=c++11 -lm omp_offloading_cublas.cpp -o omp_offloading_cublas.out -lcuda -lcublas -lcudart
+clang++ -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70 -O3 -std=c++11 -lm omp_offloading_math.cpp -o omp_offloading_math.out
+./omp_offloading.out 1000000
+dot = 2e+06
+Pass!
+./omp_offloading_cublas.out 1000000
+dot = 2e+06
+Pass!
+./omp_offloading_math.out 1000000
+ret = 909297
+Pass!
 ```
 
-### Build a specific container
+[allgebra_get_device_cc](../../utilities) command is contained in the allgebra containers,
+and it detects the [compute capability](compute capability) of your GPU using CUDA API.
+On a system with NVIDIA TITAN V (compute capability 7.0), for example, it returns `70`:
 
 ```
-make -C cuda10_1/clang12/mkl build
+root@3f6b34672c01:/# allgebra_get_device_cc
+70
 ```
 
-This will create containers with tag `registry.ritc.jp/ricos/allgebra/cuda10_1-clang12-oss:manual_deploy`.
-The registry URL `registry.ritc.jp` and tag `manual_deploy` are set using [GitLab CI environment variables][gitlab-ci-env] in [common.mk](./common.mk),
-which will be loaded in each `Makefile`s.
-Depenedent containers will be built automatically.
+This output is used to generate the flag `-Xopenmp-target -march=sm_70` in above example.
 
-[gitlab-ci-env]: https://docs.gitlab.com/ee/ci/variables/#list-all-environment-variables
-
-### Run into a built container
+With Singularity
+-----------------
+[Singularity](https://sylabs.io/singularity/) is a container runtime focused on HPC and AI.
+Since singularity supports Docker and OCI container images, allgebra containers can be used as it is.
 
 ```
-make -C cuda10_1/clang12/mkl in
+singularity run --nv docker://ghcr.io/ricosjp/allgebra/cuda10_1/clang12/mkl:latest
 ```
 
-will start bash in the container. Or, with GPU:
+`--nv` is an option for using NVIDIA GPU in the container.
+See the [official document](https://singularity.hpcng.org/user-docs/3.7/gpu.html#nvidia-gpus-cuda) for detail.
+
+You can build a SIF (Singularity Image Format) file from an allgebra container:
 
 ```
-make -C cuda10_1/clang12/mkl in-gpu
+singularity build allgebra_clang_mkl.sif docker://ghcr.io/ricosjp/allgebra/cuda10_1/clang12/mkl:latest
 ```
+
+and run it:
+
+```
+singularity run --nv allgebra_clang_mkl.sif
+```
+
+`--nv` option is required for `singularity run` and not for `singularity build`
+since `singularity build` only download the container and converts it.
+
+Be sure that this `allgebra_clang_mkl.sif` contains CUDA and MKL binaries.
+You have to accept the [End User License Agreement of CUDA][EULA_CUDA],
+and follow the [Intel Simplified Software License][ISSL].
+
+Build containers manually
+--------------------------
+See [DEVELOPMENT.md](./DEVELOPMENT.md)
 
 License
 --------

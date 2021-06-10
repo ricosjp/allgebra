@@ -19,3 +19,6 @@
 
 # cmake
 build*/
+
+# Singurality
+*.sif
