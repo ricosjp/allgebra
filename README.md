@@ -18,17 +18,17 @@ Images
 
 Named in `allgebra/{CUDA}/{Compiler}/{Math}` format:
 
-| Image name                                                                    | CUDA | Compiler                   | Math      |
-|:------------------------------------------------------------------------------|:----:|:--------------------------:|:---------:|
-| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/mkl][cuda10_1/clang11gcc7/mkl] | 10.1 | clang 11, gcc 7, nvcc 10.1 | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda10_1/clang11gcc7/oss][cuda10_1/clang11gcc7/oss] | 10.1 | clang 11, gcc 7, nvcc 10.1 | OpenBLAS  |
-| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/mkl][cuda10_2/gcc10/mkl]             | 10.2 | gcc 10.2, nvcc 10.2        | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/oss][cuda10_2/gcc10/oss]             | 10.2 | gcc 10.2, nvcc 10.2        | OpenBLAS  |
-| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/mkl][cuda11_0/gcc10/mkl]             | 11.0 | gcc 10.2, nvcc 11.0        | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/oss][cuda11_0/gcc10/oss]             | 11.0 | gcc 10.2, nvcc 11.0        | OpenBLAS  |
+| Image name                                                            | CUDA | Compiler            | Math      |
+|:----------------------------------------------------------------------|:----:|:-------------------:|:---------:|
+| [ghcr.io/ricosjp/allgebra/cuda10_1/clang12/mkl][cuda10_1/clang12/mkl] | 10.1 | clang 12, nvcc 10.1 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda10_1/clang12/oss][cuda10_1/clang12/oss] | 10.1 | clang 12, nvcc 10.1 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/mkl][cuda10_2/gcc10/mkl]     | 10.2 | gcc 10.2, nvcc 10.2 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/oss][cuda10_2/gcc10/oss]     | 10.2 | gcc 10.2, nvcc 10.2 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/mkl][cuda11_0/gcc10/mkl]     | 11.0 | gcc 10.2, nvcc 11.0 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/oss][cuda11_0/gcc10/oss]     | 11.0 | gcc 10.2, nvcc 11.0 | OpenBLAS  |
 
-[cuda10_1/clang11gcc7/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang11gcc7%2Fmkl
-[cuda10_1/clang11gcc7/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang11gcc7%2Foss
+[cuda10_1/clang12/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Fmkl
+[cuda10_1/clang12/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Foss
 [cuda10_2/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_2%2Fgcc10%2Fmkl
 [cuda10_2/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_2%2Fgcc10%2Foss
 [cuda11_0/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Fmkl
@@ -76,10 +76,10 @@ make
 ### Build a specific container
 
 ```
-make -C cuda10_1/clang11gcc7/mkl build
+make -C cuda10_1/clang12/mkl build
 ```
 
-This will create containers with tag `registry.ritc.jp/ricos/allgebra/cuda10_1-clang11gcc7-oss:manual_deploy`.
+This will create containers with tag `registry.ritc.jp/ricos/allgebra/cuda10_1-clang12-oss:manual_deploy`.
 The registry URL `registry.ritc.jp` and tag `manual_deploy` are set using [GitLab CI environment variables][gitlab-ci-env] in [common.mk](./common.mk),
 which will be loaded in each `Makefile`s.
 Depenedent containers will be built automatically.
@@ -89,13 +89,13 @@ Depenedent containers will be built automatically.
 ### Run into a built container
 
 ```
-make -C cuda10_1/clang11gcc7/mkl in
+make -C cuda10_1/clang12/mkl in
 ```
 
 will start bash in the container. Or, with GPU:
 
 ```
-make -C cuda10_1/clang11gcc7/mkl in-gpu
+make -C cuda10_1/clang12/mkl in-gpu
 ```
 
 License
