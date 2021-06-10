@@ -34,7 +34,10 @@ RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.20.2/cmake-3.
 ENV CPATH              /usr/local/cuda-10.1/include
 ENV C_INCLUDE_PATH     /usr/local/cuda-10.1/include
 ENV CPLUS_INCLUDE_PATH /usr/local/cuda-10.1/include
-ENV LIBRARY_PATH       /usr/local/cuda-10.1/lib64
+
+# Singurality `--nv` option tries to mount host's `libcuda.so` at `/.singurality.d/libs`, which `ld` does not search.
+# This is not necessary for Docker's `--gpus=all` since it mounts them where ld can find e.g. `/usr/lib/x86_64-linux-gnu/`.
+ENV LIBRARY_PATH /usr/local/cuda-10.1/lib64:/.singularity.d/libs/
 
 # To validate container is well-constructed
 COPY examples/ /examples

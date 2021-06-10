@@ -7,6 +7,10 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Changes
+--------
+- Add /.singurality.d/libs in LIBRARY_PATH https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/44
+
 21.06.0 - 2021/06/10
 =====================
 
