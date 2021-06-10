@@ -60,6 +60,43 @@ There are several examples in this repository, and they are also copied into the
 | gcc/libgomp      | [gcc_omp_offloading](./examples/gcc_omp_offloading)           | [gcc_openacc](./examples/gcc_openacc)           |
 | gfortran/libgomp | [gfortran_omp_offloading](./examples/gfortran_omp_offloading) | [gfortran_openacc](./examples/gfortran_openacc) |
 
+The requirements of these examples are following:
+
+- Use Linux
+- Install [Docker](https://docs.docker.com/engine/install/)
+- Install [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker)
+
+For example, you can build and run the clang with OpenMP Offloading example as following:
+
+```
+$ docker run --rm -it --gpus=all ghcr.io/ricosjp/allgebra/cuda10_1/clang12/oss:21.06.0
+root@41b65ab23aaf:/# cd /examples/clang_omp_offloading
+root@41b65ab23aaf:/examples/clang_omp_offloading# make test
+clang++ -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70 -O3 -std=c++11 -lm omp_offloading.cpp -o omp_offloading.out
+clang++ -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70 -O3 -std=c++11 -lm omp_offloading_cublas.cpp -o omp_offloading_cublas.out -lcuda -lcublas -lcudart
+clang++ -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -march=sm_70 -O3 -std=c++11 -lm omp_offloading_math.cpp -o omp_offloading_math.out
+./omp_offloading.out 1000000
+dot = 2e+06
+Pass!
+./omp_offloading_cublas.out 1000000
+dot = 2e+06
+Pass!
+./omp_offloading_math.out 1000000
+ret = 909297
+Pass!
+```
+
+[allgebra_get_device_cc](../../utilities) command is contained in the allgebra containers,
+and it detects the [compute capability](compute capability) of your GPU using CUDA API.
+On a system with NVIDIA TITAN V (compute capability 7.0), for example, it returns `70`:
+
+```
+root@3f6b34672c01:/# allgebra_get_device_cc
+70
+```
+
+This output is used to generate the flag `-Xopenmp-target -march=sm_70` in above example.
+
 Build containers manually
 --------------------------
 See [DEVELOPMENT.md](./DEVELOPMENT.md)
