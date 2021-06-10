@@ -35,69 +35,21 @@ Named in `allgebra/{CUDA}/{Compiler}/{Math}` format:
 [cuda11_0/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Fmkl
 [cuda11_0/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Foss
 
-Support Images
----------------
+In addition, there are support containers for reproducible development
 
-### allgebra/clang-format
+| Image name                                                     | Application                 |
+|:---------------------------------------------------------------|:----------------------------|
+| [ghcr.io/ricosjp/allgebra/clang-format][allgebra/clang-format] | [clang-format][clang-format]|
+| [ghcr.io/ricosjp/allgebra/doxygen][allgebra/doxygen]           | [doxygen][doxygen]          |
 
-Container for reproducible code formatting
+[allgebra/clang-format]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fclang-format
+[allgebra/doxygen]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fdoxygen
+[clang-format]: https://clang.llvm.org/docs/ClangFormat.html
+[doxygen]: https://www.doxygen.nl/index.html
 
-```
-docker pull ghcr.io/ricosjp/allgebra/clang-format:latest
-```
-
-### allgebra/doxygen
-
-Container for reproducible document generation
-
-```
-docker pull ghcr.io/ricosjp/allgebra/doxygen:latest
-```
-
-How to build container
-------------------------
-
-### Get this repository
-
-```
-# Use HTTP
-git clone https://github.com/ricosjp/allgebra.git
-# Use SSH
-git clone git@github.com:ricosjp/allgebra.git
-# Use GitHub CLI
-gh repo clone ricosjp/allgebra
-```
-
-### Build all containers
-
-```
-make
-```
-
-### Build a specific container
-
-```
-make -C cuda10_1/clang12/mkl build
-```
-
-This will create containers with tag `registry.ritc.jp/ricos/allgebra/cuda10_1-clang12-oss:manual_deploy`.
-The registry URL `registry.ritc.jp` and tag `manual_deploy` are set using [GitLab CI environment variables][gitlab-ci-env] in [common.mk](./common.mk),
-which will be loaded in each `Makefile`s.
-Depenedent containers will be built automatically.
-
-[gitlab-ci-env]: https://docs.gitlab.com/ee/ci/variables/#list-all-environment-variables
-
-### Run into a built container
-
-```
-make -C cuda10_1/clang12/mkl in
-```
-
-will start bash in the container. Or, with GPU:
-
-```
-make -C cuda10_1/clang12/mkl in-gpu
-```
+Build containers
+-----------------
+See [DEVELOPMENT.md](./DEVELOPMENT.md)
 
 License
 --------
