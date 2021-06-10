@@ -6,12 +6,13 @@ Docker images for developing C++ and Fortran HPC programs
 Naming rule of tags
 --------------------
 
-Following image tags are pushed from GitLab CI to GitHub Packages (ghcr.io):
+Following image tags are pushed from private GitLab CI to public GitHub Container Registry (ghcr.io):
 
-- `20.10.0` and `YY.MM.X` formatted tags
-  - Corresponds to each release formatted `{year}.{month}.{patch}`.
+- `{year}.{month}.{patch}` formatted tags, e.g. `20.10.0`
+  - Be sure that **it is not a [semantic versioning][semver]**. Every release can be a breaking change. You should use containers with a fixed tag.
+  - See [CHANGELOG](./CHANGELOG.md) for detail about changes
 - `latest`
-  - Corresponds to `latest` branch. This will be fragile. Please use released tags.
+  - Corresponds to `latest` branch. **DO NOT USE** unless you are watching all changes in the `latest` branch.
 
 Images
 --------
