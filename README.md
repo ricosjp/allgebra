@@ -97,6 +97,37 @@ root@3f6b34672c01:/# allgebra_get_device_cc
 
 This output is used to generate the flag `-Xopenmp-target -march=sm_70` in above example.
 
+With Singurality
+-----------------
+[Singurality](https://sylabs.io/singularity/) is a container runtime focused on HPC and AI.
+Since singularity supports Docker and OCI container images, allgebra containers can be used as it is.
+
+```
+singularity run --nv docker://ghcr.io/ricosjp/allgebra/cuda10_1/clang12/mkl:latest
+```
+
+`--nv` is an option for using NVIDIA GPU in the container.
+See the [official document](https://singularity.hpcng.org/user-docs/3.7/gpu.html#nvidia-gpus-cuda) for detail.
+
+You can build a SIF (Singularity Image Format) file from an allgebra container:
+
+```
+singularity build allgebra_clang_mkl.sif docker://ghcr.io/ricosjp/allgebra/cuda10_1/clang12/mkl:latest
+```
+
+and run it:
+
+```
+singularity run --nv allgebra_clang_mkl.sif
+```
+
+`--nv` option is required for `singularity run` and not for `singularity build`
+since `singularity build` only download the container and converts it.
+
+Be sure that this `allgebra_clang_mkl.sif` contains CUDA and MKL binaries.
+You have to accept the [End User License Agreement of CUDA][EULA_CUDA],
+and follow the [Intel Simplified Software License][ISSL].
+
 Build containers manually
 --------------------------
 See [DEVELOPMENT.md](./DEVELOPMENT.md)
