@@ -49,8 +49,8 @@ In addition, there are support containers for reproducible development
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
 [doxygen]: https://www.doxygen.nl/index.html
 
-OpenMP Offloading, OpenACC
----------------------------
+OpenMP Offloading, OpenACC examples
+------------------------------------
 The OSS compilers in allgebra containers (gcc, gfortran and clang) are compiled with OpenMP and OpenACC supports.
 There are several examples in this repository, and they are also copied into the above containers.
 
@@ -66,7 +66,7 @@ The requirements of these examples are following:
 - Install [Docker](https://docs.docker.com/engine/install/)
 - Install [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker)
 
-For example, you can build and run the clang with OpenMP Offloading example as following:
+You can build and run e.g. the clang with OpenMP Offloading example as following:
 
 ```
 $ docker run --rm -it --gpus=all ghcr.io/ricosjp/allgebra/cuda10_1/clang12/oss:21.06.0
