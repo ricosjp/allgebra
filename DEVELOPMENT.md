@@ -10,10 +10,6 @@ Use HTTP
 
 ```
 git clone https://github.com/ricosjp/allgebra.git
-# Use SSH
-git clone git@github.com:ricosjp/allgebra.git
-# Use GitHub CLI
-gh repo clone ricosjp/allgebra
 ```
 
 Use SSH
