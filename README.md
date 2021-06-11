@@ -63,6 +63,7 @@ There are several examples in this repository, and they are also copied into the
 The requirements of these examples are following:
 
 - Use Linux
+  - If you'd like to use WSL2, see [Use allgebra on WSL](./WSL.md)
 - Install [Docker](https://docs.docker.com/engine/install/)
 - Install [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker)
 
