@@ -77,7 +77,7 @@ RUN ./autogen.pl \
  && make install -j $(nproc)
 
 #
-# CUDA 10.1 with LLVM 12
+# CUDA 11.4 with LLVM 12
 #
 FROM ${REGISTRY}/cuda11_4:${TAG} AS release
 
