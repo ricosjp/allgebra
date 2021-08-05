@@ -43,6 +43,19 @@ build-cuda11_0:
   tags:
     - docker
 
+build-cuda11_4-clang12:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/cuda11_4/clang12/mkl
+    - make push/cuda11_4/clang12/oss
+  timeout: 3 hours
+  tags:
+    - docker
+    - cpu-ge-8
+    - mem-ge-32gb
+
 build-clang-format:
   extends: .dind
   stage: build
@@ -145,6 +158,28 @@ cuda11_0-gcc10-mkl-test:
     - make -C /examples/gcc_openacc test
     - make -C /examples/gfortran_omp_offloading test
     - make -C /examples/gfortran_openacc test
+  tags:
+    - gpu
+
+cuda11_4-clang12-mkl-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda11_4-clang12-mkl:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/clang_omp_offloading test
+    - make -C /examples/mpi_clang_omp_offloading test
+  tags:
+    - gpu
+
+cuda11_4-clang12-oss-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda11_4-clang12-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/clang_omp_offloading test
+    - make -C /examples/mpi_clang_omp_offloading test
   tags:
     - gpu
 

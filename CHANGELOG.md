@@ -7,6 +7,7 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+- Create CUDA 11.4 based image based on CUDA 10.1 image https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/47
 - Update LLVM to 12.0.1 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/46
 
 21.06.1 - 2021/06/11
