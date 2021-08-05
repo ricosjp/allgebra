@@ -7,7 +7,7 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
-21.08.1 - 2021/08/05
+21.08.0 - 2021/08/05
 =====================
 
 Added
