@@ -38,6 +38,8 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 [cuda10_2/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_2%2Fgcc10%2Foss
 [cuda11_0/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Fmkl
 [cuda11_0/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Foss
+[cuda11_4/clang12/mkl]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Fmkl
+[cuda11_4/clang12/oss]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Foss
 
 In addition, there are support containers for reproducible development
 
