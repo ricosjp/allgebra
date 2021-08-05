@@ -29,6 +29,8 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 | [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/oss][cuda10_2/gcc10/oss]     | 10.2 | gcc 10.2, nvcc 10.2 | OpenBLAS  |
 | [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/mkl][cuda11_0/gcc10/mkl]     | 11.0 | gcc 10.2, nvcc 11.0 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/oss][cuda11_0/gcc10/oss]     | 11.0 | gcc 10.2, nvcc 11.0 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/mkl][cuda11_4/clang12/mkl] | 11.4 | clang 12, nvcc 11.4 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/oss][cuda11_4/clang12/oss] | 11.4 | clang 12, nvcc 11.4 | OpenBLAS  |
 
 [cuda10_1/clang12/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Fmkl
 [cuda10_1/clang12/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Foss
