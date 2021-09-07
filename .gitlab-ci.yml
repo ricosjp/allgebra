@@ -195,6 +195,12 @@ doxygen-version:
   script:
     - doxygen --version
 
+poetry-version:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/poetry:${CI_COMMIT_REF_NAME}
+  script:
+    - poetry --version
+
 keep-changelog:
   image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
   stage: build
