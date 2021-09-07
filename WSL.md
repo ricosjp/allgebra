@@ -1,20 +1,19 @@
 Use allgebra in Windows Subsystem for Linux (WSL)
 =================================================
 
-Currently (2021/6), it is still hard to use CUDA on WSL which allgebra closely depends on.
+Currently (2021/9), it is still hard to use CUDA on WSL which allgebra closely depends on.
 
 [CUDA on WSL document](https://docs.nvidia.com/cuda/wsl-user-guide/index.html) says
 > Ensure that you install Build version 20145 or higher. We recommend being on WIP OS 21332 and higher with Linux Kernel 5.4.91+ for the best performance.
 
-This requires [Windows Insider Program][WIP] with **dev channel**, which is highly unstable.
-We do not encourage you to use allgebra on WSL unless CUDA on WSL can be used with beta channel of Windows Insider Program.
+This requires [Windows Insider Program][WIP] with beta channel, which is also known as [Windows 11](https://www.microsoft.com/en-us/windows/)
 
 [WIP]: https://insider.windows.com/en-us/getting-started
 
 Usage
 ------
 
-- Use [Windows 10 Insider Preview][WIP] with dev channel
+- Enable [Windows 10 Insider Preview][WIP] with beta channel, and run Windows Update
 - Install [NVIDIA Drivers for CUDA on WSL, including DirectML Support](https://developer.nvidia.com/cuda/wsl/download)
 - Install [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
   - Use WSL mode instead of Hyper-V mode
