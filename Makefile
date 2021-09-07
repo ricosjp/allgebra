@@ -10,7 +10,7 @@ TARGETS := cuda10_1/clang12/mkl cuda10_1/clang12/oss \
            cuda10_2/gcc10/mkl cuda10_2/gcc10/oss \
            cuda11_0/gcc10/mkl cuda11_0/gcc10/oss \
            cuda11_4/clang12/mkl cuda11_4/clang12/oss \
-           clang-format doxygen
+           clang-format doxygen poetry
 
 PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
@@ -79,6 +79,9 @@ clang-format:
 doxygen:
 	$(MAKE) -C $@ build
 
+poetry:
+	$(MAKE) -C $@ build
+
 #
 # Push containers to GitLab registry on RICOS (registry.ritc.jp/ricos/allgebra)
 #
@@ -117,6 +120,9 @@ push/clang-format: clang-format
 push/doxygen: doxygen
 	$(MAKE) -C $< push
 
+push/poetry: poetry
+	$(MAKE) -C $< push
+
 push: $(PUSH_TARGETS)
 
 #
@@ -152,5 +158,8 @@ release/clang-format:
 
 release/doxygen:
 	$(MAKE) -C doxygen release/push
+
+release/poetry:
+	$(MAKE) -C poetry release/push
 
 release: $(RELEASE_TARGETS)
