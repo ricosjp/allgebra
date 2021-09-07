@@ -47,11 +47,14 @@ In addition, there are support containers for reproducible development
 |:---------------------------------------------------------------|:----------------------------|
 | [ghcr.io/ricosjp/allgebra/clang-format][allgebra/clang-format] | [clang-format][clang-format]|
 | [ghcr.io/ricosjp/allgebra/doxygen][allgebra/doxygen]           | [doxygen][doxygen]          |
+| [ghcr.io/ricosjp/allgebra/poetry][allgebra/poetry]             | [poetry][poetry]          |
 
 [allgebra/clang-format]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fclang-format
 [allgebra/doxygen]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fdoxygen
+[allgebra/poetry]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fpoetry
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
 [doxygen]: https://www.doxygen.nl/index.html
+[poetry]: https://github.com/python-poetry/poetry
 
 OpenMP Offloading, OpenACC examples
 ------------------------------------
