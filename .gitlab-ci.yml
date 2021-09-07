@@ -74,6 +74,15 @@ build-doxygen:
   tags:
     - docker
 
+build-poetry:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/poetry
+  tags:
+    - docker
+
 release:
   extends: .dind
   stage: deploy
@@ -194,6 +203,12 @@ doxygen-version:
   image: ${CI_REGISTRY_IMAGE}/doxygen:${CI_COMMIT_REF_NAME}
   script:
     - doxygen --version
+
+poetry-version:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/poetry:${CI_COMMIT_REF_NAME}
+  script:
+    - poetry --version
 
 keep-changelog:
   image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1

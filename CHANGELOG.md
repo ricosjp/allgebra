@@ -7,6 +7,10 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Added
+------
+- poetry container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/49
+
 21.08.0 - 2021/08/05
 =====================
 
