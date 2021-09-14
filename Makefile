@@ -124,6 +124,12 @@ push/cuda11_4/clang12/mkl: cuda11_4/clang12/mkl
 push/cuda11_4/clang12/oss: cuda11_4/clang12/oss
 	$(MAKE) -C $< push
 
+push/cuda11_4/gcc10/mkl: cuda11_4/gcc10/mkl
+	$(MAKE) -C $< push
+
+push/cuda11_4/gcc10/oss: cuda11_4/gcc10/oss
+	$(MAKE) -C $< push
+
 push/clang-format: clang-format
 	$(MAKE) -C $< push
 
