@@ -4,12 +4,13 @@ ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang12 \
                        cuda10_2 cuda10_2/gcc10 \
                        cuda11_0 cuda11_0/gcc10 \
-                       cuda11_4 cuda11_4/clang12
+                       cuda11_4 cuda11_4/gcc10 cuda11_4/clang12
 
 TARGETS := cuda10_1/clang12/mkl cuda10_1/clang12/oss \
            cuda10_2/gcc10/mkl cuda10_2/gcc10/oss \
            cuda11_0/gcc10/mkl cuda11_0/gcc10/oss \
            cuda11_4/clang12/mkl cuda11_4/clang12/oss \
+           cuda11_4/gcc10/mkl cuda11_4/gcc10/oss \
            clang-format doxygen poetry
 
 PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
@@ -71,6 +72,15 @@ cuda11_4/clang12/mkl: cuda11_4/clang12
 	$(MAKE) -C $@ build
 
 cuda11_4/clang12/oss: cuda11_4/clang12
+	$(MAKE) -C $@ build
+
+cuda11_4/gcc10: cuda11_4
+	$(MAKE) -C $@ build
+
+cuda11_4/gcc10/mkl: cuda11_4/gcc10
+	$(MAKE) -C $@ build
+
+cuda11_4/gcc10/oss: cuda11_4/gcc10
 	$(MAKE) -C $@ build
 
 clang-format:
@@ -152,6 +162,12 @@ release/cuda11_4/clang12/mkl:
 
 release/cuda11_4/clang12/oss:
 	$(MAKE) -C cuda11_4/clang12/oss release/push
+
+release/cuda11_4/gcc10/mkl:
+	$(MAKE) -C cuda11_4/gcc10/mkl release/push
+
+release/cuda11_4/gcc10/oss:
+	$(MAKE) -C cuda11_4/gcc10/oss release/push
 
 release/clang-format:
 	$(MAKE) -C clang-format release/push
