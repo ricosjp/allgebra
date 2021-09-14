@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     curl git pkg-config make \
     ninja-build \
     python3 \
+    git-buildpackage \
+    debhelper \
+    patchelf \
  && apt-get autoremove \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*

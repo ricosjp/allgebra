@@ -14,6 +14,9 @@ RUN apt-get update && apt-get install -y \
     gfortran-7 \
     libelf-dev ninja-build \
     python3 \
+    git-buildpackage \
+    debhelper \
+    patchelf \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
