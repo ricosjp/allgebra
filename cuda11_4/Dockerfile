@@ -42,3 +42,8 @@ COPY examples/ /examples
 # Utility for allgebra
 COPY utilities /utilities
 RUN make -C /utilities install
+
+ENV ALLGEBRA_CUDA_INSTALL_DIR /usr/loca/cuda-11.4
+ENV ALLGEBRA_CUDA_VERSION 11.4
+ENV ALLGEBRA_CUDA_VERSION_MAJOR 11
+ENV ALLGEBRA_CUDA_VERSION_MINOR 4
