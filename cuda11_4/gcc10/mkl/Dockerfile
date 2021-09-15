@@ -7,7 +7,7 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda10_2-gcc10:${TAG}
+FROM ${REGISTRY}/cuda11_4-gcc10:${TAG}
 
 # Intel MKL
 RUN apt-get update && apt-get install -y \

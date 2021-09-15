@@ -23,26 +23,6 @@ build-cuda10_1-clang12:
     - cpu-ge-8
     - mem-ge-32gb
 
-build-cuda10_2:
-  extends: .dind
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/cuda10_2/gcc10/mkl
-    - make push/cuda10_2/gcc10/oss
-  tags:
-    - docker
-
-build-cuda11_0:
-  extends: .dind
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/cuda11_0/gcc10/mkl
-    - make push/cuda11_0/gcc10/oss
-  tags:
-    - docker
-
 build-cuda11_4-clang12:
   extends: .dind
   stage: build
@@ -55,6 +35,16 @@ build-cuda11_4-clang12:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
+
+build-cuda11_4-gcc10:
+  extends: .dind
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - make push/cuda11_4/gcc10/mkl
+    - make push/cuda11_4/gcc10/oss
+  tags:
+    - docker
 
 build-clang-format:
   extends: .dind
@@ -118,58 +108,6 @@ cuda10_1-clang12-oss-test:
   tags:
     - gpu
 
-cuda10_2-gcc10-oss-test:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda10_2-gcc10-oss:${CI_COMMIT_REF_NAME}
-  before_script:
-    - nvidia-smi
-  script:
-    - make -C /examples/gcc_omp_offloading test
-    - make -C /examples/gcc_openacc test
-    - make -C /examples/gfortran_omp_offloading test
-    - make -C /examples/gfortran_openacc test
-  tags:
-    - gpu
-
-cuda10_2-gcc10-mkl-test:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda10_2-gcc10-oss:${CI_COMMIT_REF_NAME}
-  before_script:
-    - nvidia-smi
-  script:
-    - make -C /examples/gcc_omp_offloading test
-    - make -C /examples/gcc_openacc test
-    - make -C /examples/gfortran_omp_offloading test
-    - make -C /examples/gfortran_openacc test
-  tags:
-    - gpu
-
-cuda11_0-gcc10-oss-test:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_0-gcc10-oss:${CI_COMMIT_REF_NAME}
-  before_script:
-    - nvidia-smi
-  script:
-    - make -C /examples/gcc_omp_offloading test
-    - make -C /examples/gcc_openacc test
-    - make -C /examples/gfortran_omp_offloading test
-    - make -C /examples/gfortran_openacc test
-  tags:
-    - gpu
-
-cuda11_0-gcc10-mkl-test:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_0-gcc10-oss:${CI_COMMIT_REF_NAME}
-  before_script:
-    - nvidia-smi
-  script:
-    - make -C /examples/gcc_omp_offloading test
-    - make -C /examples/gcc_openacc test
-    - make -C /examples/gfortran_omp_offloading test
-    - make -C /examples/gfortran_openacc test
-  tags:
-    - gpu
-
 cuda11_4-clang12-mkl-test:
   stage: test
   image: ${CI_REGISTRY_IMAGE}/cuda11_4-clang12-mkl:${CI_COMMIT_REF_NAME}
@@ -189,6 +127,32 @@ cuda11_4-clang12-oss-test:
   script:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
+  tags:
+    - gpu
+
+cuda11_4-gcc10-oss-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda11_4-gcc10-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/gcc_omp_offloading test
+    - make -C /examples/gcc_openacc test
+    - make -C /examples/gfortran_omp_offloading test
+    - make -C /examples/gfortran_openacc test
+  tags:
+    - gpu
+
+cuda11_4-gcc10-mkl-test:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/cuda11_4-gcc10-oss:${CI_COMMIT_REF_NAME}
+  before_script:
+    - nvidia-smi
+  script:
+    - make -C /examples/gcc_omp_offloading test
+    - make -C /examples/gcc_openacc test
+    - make -C /examples/gfortran_omp_offloading test
+    - make -C /examples/gfortran_openacc test
   tags:
     - gpu
 
