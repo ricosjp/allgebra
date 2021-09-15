@@ -25,21 +25,17 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 |:----------------------------------------------------------------------|:----:|:-------------------:|:---------:|
 | [ghcr.io/ricosjp/allgebra/cuda10_1/clang12/mkl][cuda10_1/clang12/mkl] | 10.1 | clang 12, nvcc 10.1 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda10_1/clang12/oss][cuda10_1/clang12/oss] | 10.1 | clang 12, nvcc 10.1 | OpenBLAS  |
-| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/mkl][cuda10_2/gcc10/mkl]     | 10.2 | gcc 10.2, nvcc 10.2 | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda10_2/gcc10/oss][cuda10_2/gcc10/oss]     | 10.2 | gcc 10.2, nvcc 10.2 | OpenBLAS  |
-| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/mkl][cuda11_0/gcc10/mkl]     | 11.0 | gcc 10.2, nvcc 11.0 | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda11_0/gcc10/oss][cuda11_0/gcc10/oss]     | 11.0 | gcc 10.2, nvcc 11.0 | OpenBLAS  |
 | [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/mkl][cuda11_4/clang12/mkl] | 11.4 | clang 12, nvcc 11.4 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/oss][cuda11_4/clang12/oss] | 11.4 | clang 12, nvcc 11.4 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/mkl][cuda11_4/gcc10/mkl]     | 11.4 | gcc 10.3, nvcc 11.4 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/oss][cuda11_4/gcc10/oss]     | 11.4 | gcc 10.3, nvcc 11.4 | OpenBLAS  |
 
 [cuda10_1/clang12/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Fmkl
 [cuda10_1/clang12/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Foss
-[cuda10_2/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_2%2Fgcc10%2Fmkl
-[cuda10_2/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_2%2Fgcc10%2Foss
-[cuda11_0/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Fmkl
-[cuda11_0/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_0%2Fgcc10%2Foss
 [cuda11_4/clang12/mkl]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Fmkl
 [cuda11_4/clang12/oss]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Foss
+[cuda11_4/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_4%2Fgcc10%2Fmkl
+[cuda11_4/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_4%2Fgcc10%2Foss
 
 In addition, there are support containers for reproducible development
 
@@ -135,6 +131,23 @@ since `singularity build` only download the container and converts it.
 Be sure that this `allgebra_clang_mkl.sif` contains CUDA and MKL binaries.
 You have to accept the [End User License Agreement of CUDA][EULA_CUDA],
 and follow the [Intel Simplified Software License][ISSL].
+
+`ALLGEBRA_*` environment values
+--------------------------------
+
+In order to identify the CUDA and LLVM versions in container, following environment variables are defined:
+
+| name                        | example                | description |
+|:----------------------------|:-----------------------|:------------|
+| ALLGEBRA_CUDA_INSTALL_DIR   | /usr/local/cuda-11.4   | The top directory where CUDA framework is installed |
+| ALLGEBRA_CUDA_VERSION       | 11.4                   | Installed CUDA version |
+| ALLGEBRA_CUDA_VERSION_MAJOR | 11                     | The major version of CUDA |
+| ALLGEBRA_CUDA_VERSION_MINOR | 4                      | The minor version of CUDA |
+| ALLGEBRA_LLVM_INSTALL_DIR   | /usr/local/llvm-12.0.1 | The top directory where LLVM framework is installed |
+| ALLGEBRA_LLVM_VERSION       | 12.0.1                 | Installed LLVM version |
+| ALLGEBRA_LLVM_VERSION_MAJOR | 12                     | The major version of LLVM |
+| ALLGEBRA_LLVM_VERSION_MINOR | 0                      | The minor version of LLVM |
+| ALLGEBRA_LLVM_VERSION_PATCH | 1                      | The patch version of LLVM |
 
 Build containers manually
 --------------------------
