@@ -9,8 +9,9 @@ Unreleased
 
 Added
 ------
-- poetry container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/49
+- ALLGEBRA_CUDA_INSTALL_DIR and other environment values https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/50
 - CUDA 11.4 with GCC 10 container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/51
+- poetry container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/49
 
 Removed
 --------

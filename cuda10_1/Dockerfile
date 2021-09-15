@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
     gfortran-7 \
     libelf-dev ninja-build \
     python3 \
+    git-buildpackage \
+    debhelper \
+    patchelf \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -45,3 +48,8 @@ COPY examples/ /examples
 # Utility for allgebra
 COPY utilities /utilities
 RUN make -C /utilities install
+
+ENV ALLGEBRA_CUDA_INSTALL_DIR /usr/loca/cuda-10.1
+ENV ALLGEBRA_CUDA_VERSION 10.1
+ENV ALLGEBRA_CUDA_VERSION_MAJOR 10
+ENV ALLGEBRA_CUDA_VERSION_MINOR 1
