@@ -132,18 +132,18 @@ Be sure that this `allgebra_clang_mkl.sif` contains CUDA and MKL binaries.
 You have to accept the [End User License Agreement of CUDA][EULA_CUDA],
 and follow the [Intel Simplified Software License][ISSL].
 
-`ALLGEBRA_*` environment values
---------------------------------
+`ALLGEBRA_*` environment variables
+-----------------------------------
 
 In order to identify the CUDA and LLVM versions in container, following environment variables are defined:
 
 | name                        | example                | description |
 |:----------------------------|:-----------------------|:------------|
-| ALLGEBRA_CUDA_INSTALL_DIR   | /usr/local/cuda-11.4   | The top directory where CUDA framework is installed |
+| ALLGEBRA_CUDA_INSTALL_DIR   | /usr/local/cuda-11.4   | The top directory where CUDA is installed |
 | ALLGEBRA_CUDA_VERSION       | 11.4                   | Installed CUDA version |
 | ALLGEBRA_CUDA_VERSION_MAJOR | 11                     | The major version of CUDA |
 | ALLGEBRA_CUDA_VERSION_MINOR | 4                      | The minor version of CUDA |
-| ALLGEBRA_LLVM_INSTALL_DIR   | /usr/local/llvm-12.0.1 | The top directory where LLVM framework is installed |
+| ALLGEBRA_LLVM_INSTALL_DIR   | /usr/local/llvm-12.0.1 | The top directory where LLVM is installed |
 | ALLGEBRA_LLVM_VERSION       | 12.0.1                 | Installed LLVM version |
 | ALLGEBRA_LLVM_VERSION_MAJOR | 12                     | The major version of LLVM |
 | ALLGEBRA_LLVM_VERSION_MINOR | 0                      | The minor version of LLVM |
