@@ -10,6 +10,11 @@ Unreleased
 Added
 ------
 - poetry container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/49
+- CUDA 11.4 with GCC 10 container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/51
+
+Removed
+--------
+- Drop CUDA 11.0, 10.2 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/51
 
 21.08.0 - 2021/08/05
 =====================

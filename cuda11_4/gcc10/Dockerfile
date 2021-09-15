@@ -7,7 +7,7 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda11_0:${TAG}
+FROM ${REGISTRY}/cuda11_4:${TAG}
 
 RUN apt-get update && apt-get install -y \
     gcc-10-offload-nvptx g++-10 gfortran-10 \
@@ -16,11 +16,11 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Override GCC10 by GCC7
-RUN ln -s /usr/bin/gfortran-10 /usr/bin/gfortran \
- && rm /usr/bin/gcc /usr/bin/g++ \
+RUN rm -f /usr/bin/gcc /usr/bin/g++ /usr/bin/gfortran \
+ && ln -s /usr/bin/gfortran-10 /usr/bin/gfortran \
  && ln -s /usr/bin/gcc-10 /usr/bin/gcc \
  && ln -s /usr/bin/g++-10 /usr/bin/g++
 
-ENV CC /usr/bin/gcc
+ENV CC  /usr/bin/gcc
 ENV CXX /usr/bin/g++
-ENV FC /usr/bin/gfortran
+ENV FC  /usr/bin/gfortran
