@@ -18,6 +18,7 @@ Added
 
 Removed
 --------
+- Remove gfortran-7 in CUDA 10.1 and CUDA 11.4 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/52
 - Drop CUDA 11.0, 10.2 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/51
 
 21.08.0 - 2021/08/05
