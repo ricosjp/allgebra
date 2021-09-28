@@ -11,7 +11,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     curl git pkg-config make \
-    gfortran-7 \
     libelf-dev ninja-build \
     python3 \
     git-buildpackage \
@@ -19,10 +18,6 @@ RUN apt-get update && apt-get install -y \
     patchelf \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
-
-# GCC-Fortran
-RUN ln -s /usr/bin/gfortran-7 /usr/bin/gfortran
-ENV FC /usr/bin/gfortran
 
 RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.20.2/cmake-3.20.2-linux-x86_64.tar.gz \
  && tar xf cmake-3.20.2-linux-x86_64.tar.gz \
