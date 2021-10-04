@@ -1,11 +1,9 @@
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
-REQUIREMENT_TARGETS := cuda10_1 cuda10_1/clang12 \
-                       cuda11_4 cuda11_4/gcc10 cuda11_4/clang12
+REQUIREMENT_TARGETS := cuda11_4 cuda11_4/gcc10 cuda11_4/clang12
 
-TARGETS := cuda10_1/clang12/mkl cuda10_1/clang12/oss \
-           cuda11_4/clang12/mkl cuda11_4/clang12/oss \
+TARGETS := cuda11_4/clang12/mkl cuda11_4/clang12/oss \
            cuda11_4/gcc10/mkl cuda11_4/gcc10/oss \
            clang-format doxygen poetry
 
@@ -21,18 +19,6 @@ all: $(TARGETS)
 # For example, `cuda10_1` is used for `cuda10_1/clang12`, and it is used in `cuda10_1/clang12/mkl`.
 # Acutual build command is rewritten in common.mk, which will be included in each target's Makefile
 #
-
-cuda10_1:
-	$(MAKE) -C $@ build
-
-cuda10_1/clang12: cuda10_1
-	$(MAKE) -C $@ build
-
-cuda10_1/clang12/mkl: cuda10_1/clang12
-	$(MAKE) -C $@ build
-
-cuda10_1/clang12/oss: cuda10_1/clang12
-	$(MAKE) -C $@ build
 
 cuda11_4:
 	$(MAKE) -C $@ build
@@ -72,12 +58,6 @@ poetry:
 # Testing these containers using ./examples requires GPU.
 #
 
-push/cuda10_1/clang12/mkl: cuda10_1/clang12/mkl
-	$(MAKE) -C $< push
-
-push/cuda10_1/clang12/oss: cuda10_1/clang12/oss
-	$(MAKE) -C $< push
-
 push/cuda11_4/clang12/mkl: cuda11_4/clang12/mkl
 	$(MAKE) -C $< push
 
@@ -104,12 +84,6 @@ push: $(PUSH_TARGETS)
 #
 # Release to GitHub container registry (ghcr.io)
 #
-
-release/cuda10_1/clang12/mkl:
-	$(MAKE) -C cuda10_1/clang12/mkl release/push
-
-release/cuda10_1/clang12/oss:
-	$(MAKE) -C cuda10_1/clang12/oss release/push
 
 release/cuda11_4/clang12/mkl:
 	$(MAKE) -C cuda11_4/clang12/mkl release/push

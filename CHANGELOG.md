@@ -7,6 +7,10 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Removed
+--------
+- Drop CUDA 10.1 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/53
+
 21.09.0 - 2021/09/15
 =====================
 
