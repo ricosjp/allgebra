@@ -23,15 +23,11 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 
 | Image name                                                            | CUDA | Compiler            | Math      |
 |:----------------------------------------------------------------------|:----:|:-------------------:|:---------:|
-| [ghcr.io/ricosjp/allgebra/cuda10_1/clang12/mkl][cuda10_1/clang12/mkl] | 10.1 | clang 12, nvcc 10.1 | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda10_1/clang12/oss][cuda10_1/clang12/oss] | 10.1 | clang 12, nvcc 10.1 | OpenBLAS  |
 | [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/mkl][cuda11_4/clang12/mkl] | 11.4 | clang 12, nvcc 11.4 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/oss][cuda11_4/clang12/oss] | 11.4 | clang 12, nvcc 11.4 | OpenBLAS  |
 | [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/mkl][cuda11_4/gcc10/mkl]     | 11.4 | gcc 10.3, nvcc 11.4 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/oss][cuda11_4/gcc10/oss]     | 11.4 | gcc 10.3, nvcc 11.4 | OpenBLAS  |
 
-[cuda10_1/clang12/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Fmkl
-[cuda10_1/clang12/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda10_1%2Fclang12%2Foss
 [cuda11_4/clang12/mkl]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Fmkl
 [cuda11_4/clang12/oss]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Foss
 [cuda11_4/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_4%2Fgcc10%2Fmkl
