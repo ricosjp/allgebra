@@ -175,8 +175,10 @@ poetry-version:
     - poetry --version
 
 keep-changelog:
-  image: ghcr.io/ricosjp/allgebra/clang-format:20.10.1
+  image: alpine:latest
   stage: build
+  before_script:
+    - apk add git
   script:
     - git fetch
     - "! git diff --exit-code origin/latest CHANGELOG.md"

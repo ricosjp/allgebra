@@ -7,6 +7,14 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Added
+------
+- ALLGEBRA_CUDA_VERSION_PATCH environment variable https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/54
+
+Changed
+--------
+- Use alpine for keep changelog job https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/56
+
 Removed
 --------
 - Drop CUDA 10.1 containers https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/53
