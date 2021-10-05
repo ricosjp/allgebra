@@ -25,11 +25,15 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 |:----------------------------------------------------------------------|:----:|:-------------------:|:---------:|
 | [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/mkl][cuda11_4/clang12/mkl] | 11.4 | clang 12, nvcc 11.4 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda11_4/clang12/oss][cuda11_4/clang12/oss] | 11.4 | clang 12, nvcc 11.4 | OpenBLAS  |
-| [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/mkl][cuda11_4/gcc10/mkl]     | 11.4 | gcc 10.3, nvcc 11.4 | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/oss][cuda11_4/gcc10/oss]     | 11.4 | gcc 10.3, nvcc 11.4 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/clang13/mkl][cuda11_4/clang13/mkl] | 11.4 | clang 13, nvcc 11.4 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/clang13/oss][cuda11_4/clang13/oss] | 11.4 | clang 13, nvcc 11.4 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/mkl][cuda11_4/gcc10/mkl]     | 11.4 | gcc 10, nvcc 11.4 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda11_4/gcc10/oss][cuda11_4/gcc10/oss]     | 11.4 | gcc 10, nvcc 11.4 | OpenBLAS  |
 
 [cuda11_4/clang12/mkl]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Fmkl
 [cuda11_4/clang12/oss]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang12%2Foss
+[cuda11_4/clang13/mkl]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang13%2Fmkl
+[cuda11_4/clang13/oss]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_4%2Fclang13%2Foss
 [cuda11_4/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_4%2Fgcc10%2Fmkl
 [cuda11_4/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_4%2Fgcc10%2Foss
 
@@ -139,6 +143,7 @@ In order to identify the CUDA and LLVM versions in container, following environm
 | ALLGEBRA_CUDA_VERSION       | 11.4                   | Installed CUDA version |
 | ALLGEBRA_CUDA_VERSION_MAJOR | 11                     | The major version of CUDA |
 | ALLGEBRA_CUDA_VERSION_MINOR | 4                      | The minor version of CUDA |
+| ALLGEBRA_CUDA_VERSION_PATCH | 1                      | The patch version of CUDA |
 | ALLGEBRA_LLVM_INSTALL_DIR   | /usr/local/llvm-12.0.1 | The top directory where LLVM is installed |
 | ALLGEBRA_LLVM_VERSION       | 12.0.1                 | Installed LLVM version |
 | ALLGEBRA_LLVM_VERSION_MAJOR | 12                     | The major version of LLVM |
