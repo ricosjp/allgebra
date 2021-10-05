@@ -9,6 +9,7 @@ Unreleased
 
 Added
 ------
+- LLVM 13.0.0 image https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/55
 - ALLGEBRA_CUDA_VERSION_PATCH environment variable https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/54
 
 Changed
