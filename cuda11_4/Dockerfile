@@ -10,7 +10,7 @@ FROM nvidia/cuda:11.4.1-devel-ubuntu20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    curl git pkg-config make \
+    curl git pkg-config make ccache \
     libelf-dev ninja-build \
     python3 \
     git-buildpackage \
