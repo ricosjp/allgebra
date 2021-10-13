@@ -7,18 +7,27 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
-21.10.0 - 2021/10/05
+21.10.1 - 2021/10/14
 =====================
 
 Added
 ------
 - Add ccache https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/57
+
+Changed
+--------
+- cmake is upgrade to 3.21.3 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/57
+
+21.10.0 - 2021/10/05
+=====================
+
+Added
+------
 - LLVM 13.0.0 image https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/55
 - ALLGEBRA_CUDA_VERSION_PATCH environment variable https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/54
 
 Changed
 --------
-- cmake is upgrade to 3.21.3 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/57
 - Use alpine for keep changelog job https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/56
 
 Removed
