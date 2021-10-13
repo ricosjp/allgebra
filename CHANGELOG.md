@@ -12,11 +12,13 @@ Unreleased
 
 Added
 ------
+- Add ccache https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/57
 - LLVM 13.0.0 image https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/55
 - ALLGEBRA_CUDA_VERSION_PATCH environment variable https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/54
 
 Changed
 --------
+- cmake is upgrade to 3.21.3 https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/57
 - Use alpine for keep changelog job https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/56
 
 Removed
