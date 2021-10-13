@@ -10,7 +10,7 @@ FROM nvidia/cuda:11.4.1-devel-ubuntu20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    curl git pkg-config make \
+    curl git pkg-config make ccache \
     libelf-dev ninja-build \
     python3 \
     git-buildpackage \
@@ -19,11 +19,11 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.20.2/cmake-3.20.2-linux-x86_64.tar.gz \
- && tar xf cmake-3.20.2-linux-x86_64.tar.gz \
- && mv cmake-3.20.2-linux-x86_64/bin/* /usr/bin/ \
- && mv cmake-3.20.2-linux-x86_64/share/cmake-3.20 /usr/share/ \
- && rm -rf cmake-3.20.2-linux-x86_64*
+RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3-linux-x86_64.tar.gz \
+ && tar xf cmake-3.21.3-linux-x86_64.tar.gz \
+ && mv cmake-3.21.3-linux-x86_64/bin/* /usr/bin/ \
+ && mv cmake-3.21.3-linux-x86_64/share/cmake-3.21 /usr/share/ \
+ && rm -rf cmake-3.21.3-linux-x86_64*
 
 # CUDA 11.4 environements
 ENV CPATH              /usr/local/cuda-11.4/include
