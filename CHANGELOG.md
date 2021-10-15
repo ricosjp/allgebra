@@ -7,6 +7,9 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+21.10.2 - 2021/10/16
+=====================
+
 Added
 ------
 - Add cmake, make, and ninja in doxygen container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/58
