@@ -10,6 +10,7 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
+    cmake make ninja \
     git doxygen graphviz \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
