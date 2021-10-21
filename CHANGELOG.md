@@ -12,6 +12,7 @@ Unreleased
 
 Added
 ------
+- Add example of control gpu thread by openmp offloading https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/60
 - Add cmake, make, and ninja in doxygen container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/58
 
 21.10.1 - 2021/10/14
