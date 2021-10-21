@@ -25,7 +25,7 @@ CUDA_LIBS := -lcuda -lcublas -lcudart
 
 .PHONY: test prof clean
 
-TARGET := omp_offloading.out omp_offloading_cublas.out omp_offloading_math.out
+TARGET := omp_offloading.out omp_offloading_cublas.out omp_offloading_math.out omp_offloading_control_thread.out
 all: $(TARGET)
 
 omp_offloading.out: omp_offloading.cpp
@@ -37,10 +37,14 @@ omp_offloading_cublas.out: omp_offloading_cublas.cpp
 omp_offloading_math.out: omp_offloading_math.cpp
 	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ 
 
+omp_offloading_control_thread.out: omp_offloading_control_thread.cpp
+	$(CXX) $(OMP_FLAGS) $(CXX_FLAGS) $< -o $@ 
+
 test: $(TARGET)
 	./omp_offloading.out 1000000
 	./omp_offloading_cublas.out 1000000
 	./omp_offloading_math.out 1000000
+	./omp_offloading_control_thread..out 1000000
 
 debug: $(TARGET)
 	LIBOMPTARGET_DEBUG=1 ./omp_offloading_cublas.out 1000000
