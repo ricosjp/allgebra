@@ -18,11 +18,10 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  if(omp_is_initial_device()){
+  if (omp_is_initial_device()) {
     printf("CPU now\n");
-  }
-  else{
-      return 1;
+  } else {
+    return 1;
   }
 
   double *x = (double *)malloc(sizeof(double) * size);
@@ -35,22 +34,25 @@ int main(int argc, char **argv) {
 
   double dot = 0.0;
 
-  printf("devices %d / %d\n", omp_get_default_device(), omp_get_num_devices()-1);
+  printf("devices %d / %d\n", omp_get_default_device(),
+         omp_get_num_devices() - 1);
 
   printf("GPU start\n");
-  #pragma omp target teams distribute parallel for reduction(+ : dot) map (to: x[0:size], y[0:size]) map(tofrom: dot)
+#pragma omp target teams distribute parallel for reduction(+ : dot) map (to: x[0:size], y[0:size]) map(tofrom: dot)
   for (int i = 0; i < size; i++) {
 
-      if(omp_is_initial_device()){
-          printf("omp offloading is not work\n");
-      }
-      else{
-          int tid = omp_get_team_num() * omp_get_num_threads() + omp_get_thread_num();
-          // cat use std::cout in omp target
-          printf("i=%d: tid = %d (team %d/%d, thread %d/%d)\n", i, tid, omp_get_team_num(), omp_get_num_teams()-1, omp_get_thread_num(), omp_get_num_threads()-1);
-      }
+    if (omp_is_initial_device()) {
+      printf("omp offloading is not work\n");
+    } else {
+      int tid =
+          omp_get_team_num() * omp_get_num_threads() + omp_get_thread_num();
+      // cat use std::cout in omp target
+      printf("i=%d: tid = %d (team %d/%d, thread %d/%d)\n", i, tid,
+             omp_get_team_num(), omp_get_num_teams() - 1, omp_get_thread_num(),
+             omp_get_num_threads() - 1);
+    }
 
-      dot += x[i] * y[i];
+    dot += x[i] * y[i];
   }
 
   if (dot != 2.0 * size) {
