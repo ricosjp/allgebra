@@ -44,7 +44,7 @@ test: $(TARGET)
 	./omp_offloading.out 1000000
 	./omp_offloading_cublas.out 1000000
 	./omp_offloading_math.out 1000000
-	./omp_offloading_control_thread..out 1000000
+	./omp_offloading_control_thread.out 300
 
 debug: $(TARGET)
 	LIBOMPTARGET_DEBUG=1 ./omp_offloading_cublas.out 1000000
