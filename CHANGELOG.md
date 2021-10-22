@@ -7,12 +7,22 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
-21.10.2 - 2021/10/16
+21.10.3 - 2021/10/22
 =====================
 
 Added
 ------
 - Add example of control gpu thread by openmp offloading https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/60
+
+Changed
+-------
+- cmake 3.21.3 for doxygen container
+
+21.10.2 - 2021/10/16
+=====================
+
+Added
+------
 - Add cmake, make, and ninja in doxygen container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/58
 
 21.10.1 - 2021/10/14
