@@ -55,15 +55,6 @@ build-clang-format:
   tags:
     - docker
 
-build-doxygen:
-  extends: .dind
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/doxygen
-  tags:
-    - docker
-
 build-poetry:
   extends: .dind
   stage: build
@@ -161,12 +152,6 @@ clang-format-version:
   image: ${CI_REGISTRY_IMAGE}/clang-format:${CI_COMMIT_REF_NAME}
   script:
     - clang-format --version
-
-doxygen-version:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/doxygen:${CI_COMMIT_REF_NAME}
-  script:
-    - doxygen --version
 
 poetry-version:
   stage: test
