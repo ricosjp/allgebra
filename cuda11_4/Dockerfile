@@ -9,13 +9,21 @@ FROM nvidia/cuda:11.4.1-devel-ubuntu20.04
 # workaround for tzdata
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Keep package list sorted
 RUN apt-get update && apt-get install -y \
-    curl git pkg-config make ccache \
-    libelf-dev ninja-build \
-    python3 \
-    git-buildpackage \
+    ccache \
+    curl \
     debhelper \
+    doxygen \
+    git \
+    git-buildpackage \
+    graphviz \
+    libelf-dev \
+    make \
+    ninja-build \
     patchelf \
+    pkg-config \
+    python3 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
