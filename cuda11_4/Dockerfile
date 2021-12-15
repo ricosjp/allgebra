@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     debhelper \
     doxygen \
+    gfortran-10 \
     git \
     git-buildpackage \
     graphviz \
@@ -26,6 +27,9 @@ RUN apt-get update && apt-get install -y \
     python3 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+RUN ln -s /usr/bin/gfortran-10 /usr/bin/gfortran
+ENV FC /usr/bin/gfortran
 
 RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3-linux-x86_64.tar.gz \
  && tar xf cmake-3.21.3-linux-x86_64.tar.gz \
