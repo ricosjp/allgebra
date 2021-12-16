@@ -6,7 +6,7 @@ REQUIREMENT_TARGETS := cuda11_4 cuda11_4/gcc10 cuda11_4/clang12 cuda11_4/clang13
 TARGETS := cuda11_4/clang12/mkl cuda11_4/clang12/oss \
            cuda11_4/clang13/mkl cuda11_4/clang13/oss \
            cuda11_4/gcc10/mkl cuda11_4/gcc10/oss \
-           clang-format doxygen poetry
+           clang-format poetry
 
 PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
@@ -54,9 +54,6 @@ cuda11_4/gcc10/oss: cuda11_4/gcc10
 clang-format:
 	$(MAKE) -C $@ build
 
-doxygen:
-	$(MAKE) -C $@ build
-
 poetry:
 	$(MAKE) -C $@ build
 
@@ -89,9 +86,6 @@ push/cuda11_4/gcc10/oss: cuda11_4/gcc10/oss
 push/clang-format: clang-format
 	$(MAKE) -C $< push
 
-push/doxygen: doxygen
-	$(MAKE) -C $< push
-
 push/poetry: poetry
 	$(MAKE) -C $< push
 
@@ -121,9 +115,6 @@ release/cuda11_4/gcc10/oss:
 
 release/clang-format:
 	$(MAKE) -C clang-format release/push
-
-release/doxygen:
-	$(MAKE) -C doxygen release/push
 
 release/poetry:
 	$(MAKE) -C poetry release/push

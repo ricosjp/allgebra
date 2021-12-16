@@ -55,15 +55,6 @@ build-clang-format:
   tags:
     - docker
 
-build-doxygen:
-  extends: .dind
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/doxygen
-  tags:
-    - docker
-
 build-poetry:
   extends: .dind
   stage: build
@@ -95,7 +86,7 @@ cuda11_4-clang12-mkl-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-clang12-oss-test:
   stage: test
@@ -106,7 +97,7 @@ cuda11_4-clang12-oss-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-clang13-mkl-test:
   stage: test
@@ -117,7 +108,7 @@ cuda11_4-clang13-mkl-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-clang13-oss-test:
   stage: test
@@ -128,7 +119,7 @@ cuda11_4-clang13-oss-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-gcc10-oss-test:
   stage: test
@@ -141,7 +132,7 @@ cuda11_4-gcc10-oss-test:
     - make -C /examples/gfortran_omp_offloading test
     - make -C /examples/gfortran_openacc test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-gcc10-mkl-test:
   stage: test
@@ -154,19 +145,13 @@ cuda11_4-gcc10-mkl-test:
     - make -C /examples/gfortran_omp_offloading test
     - make -C /examples/gfortran_openacc test
   tags:
-    - gpu
+    - sm_61
 
 clang-format-version:
   stage: test
   image: ${CI_REGISTRY_IMAGE}/clang-format:${CI_COMMIT_REF_NAME}
   script:
     - clang-format --version
-
-doxygen-version:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/doxygen:${CI_COMMIT_REF_NAME}
-  script:
-    - doxygen --version
 
 poetry-version:
   stage: test
