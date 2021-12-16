@@ -7,6 +7,9 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+21.12.0 - 2021/12/17
+=====================
+
 Added
 ------
 - Add gcc-10, gfortran-10 and doxygen in every container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/62
