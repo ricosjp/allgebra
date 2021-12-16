@@ -13,12 +13,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     ccache \
     curl \
-    debhelper \
     doxygen \
     g++-10 \
     gfortran-10 \
     git \
-    git-buildpackage \
     graphviz \
     libelf-dev \
     make \
