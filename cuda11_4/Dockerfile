@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     debhelper \
     doxygen \
+    g++-10 \
     gfortran-10 \
     git \
     git-buildpackage \
@@ -28,8 +29,11 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN ln -s /usr/bin/gfortran-10 /usr/bin/gfortran
-ENV FC /usr/bin/gfortran
+# Override GCC10 by GCC7
+RUN rm -f /usr/bin/gcc /usr/bin/g++ /usr/bin/gfortran \
+ && ln -s /usr/bin/gcc-10 /usr/bin/gcc \
+ && ln -s /usr/bin/g++-10 /usr/bin/g++ \
+ && ln -s /usr/bin/gfortran-10 /usr/bin/gfortran
 
 RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3-linux-x86_64.tar.gz \
  && tar xf cmake-3.21.3-linux-x86_64.tar.gz \

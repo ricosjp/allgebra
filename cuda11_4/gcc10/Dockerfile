@@ -10,7 +10,6 @@ ARG TAG
 FROM ${REGISTRY}/cuda11_4:${TAG}
 
 RUN apt-get update && apt-get install -y \
-    g++-10 \
     gcc-10-offload-nvptx \
     libelf-dev \
     nvptx-tools \
@@ -21,9 +20,6 @@ RUN apt-get update && apt-get install -y \
 RUN rm -f /usr/bin/gcc /usr/bin/g++ \
  && ln -s /usr/bin/gcc-10 /usr/bin/gcc \
  && ln -s /usr/bin/g++-10 /usr/bin/g++
-
-ENV CC  /usr/bin/gcc
-ENV CXX /usr/bin/g++
 
 ENV ALLGEBRA_GCC_INSTALL_DIR /usr
 ENV ALLGEBRA_GCC_VERSION 10.3.0
