@@ -9,7 +9,7 @@ Unreleased
 
 Added
 ------
-- Add gfortran-10 and doxygen in every container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/62
+- Add gcc-10, gfortran-10 and doxygen in every container https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/62
 
 Removed
 --------
