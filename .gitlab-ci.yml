@@ -86,7 +86,7 @@ cuda11_4-clang12-mkl-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-clang12-oss-test:
   stage: test
@@ -97,7 +97,7 @@ cuda11_4-clang12-oss-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-clang13-mkl-test:
   stage: test
@@ -108,7 +108,7 @@ cuda11_4-clang13-mkl-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-clang13-oss-test:
   stage: test
@@ -119,7 +119,7 @@ cuda11_4-clang13-oss-test:
     - make -C /examples/clang_omp_offloading test
     - make -C /examples/mpi_clang_omp_offloading test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-gcc10-oss-test:
   stage: test
@@ -132,7 +132,7 @@ cuda11_4-gcc10-oss-test:
     - make -C /examples/gfortran_omp_offloading test
     - make -C /examples/gfortran_openacc test
   tags:
-    - gpu
+    - sm_61
 
 cuda11_4-gcc10-mkl-test:
   stage: test
@@ -145,7 +145,7 @@ cuda11_4-gcc10-mkl-test:
     - make -C /examples/gfortran_omp_offloading test
     - make -C /examples/gfortran_openacc test
   tags:
-    - gpu
+    - sm_61
 
 clang-format-version:
   stage: test
