@@ -89,7 +89,7 @@ ENV PATH /usr/local/llvm-12.0.1/bin:$PATH
 ENV CC   /usr/local/llvm-12.0.1/bin/clang
 ENV CXX  /usr/local/llvm-12.0.1/bin/clang++
 
-ENV ALLGEBRA_LLVM_INSTALL_DIR /usr/loca/llvm-12.0.1
+ENV ALLGEBRA_LLVM_INSTALL_DIR /usr/local/llvm-12.0.1
 ENV ALLGEBRA_LLVM_VERSION 12.0.1
 ENV ALLGEBRA_LLVM_VERSION_MAJOR 12
 ENV ALLGEBRA_LLVM_VERSION_MINOR 0
@@ -106,7 +106,7 @@ RUN echo "/usr/local/ompi-4.1.0/lib" > /etc/ld.so.conf.d/ompi-4.1.0.conf && ldco
 RUN mv /usr/local/ompi-4.1.0/lib/pkgconfig/* /usr/lib/pkgconfig/
 ENV PATH /usr/local/ompi-4.1.0/bin:$PATH
 
-ENV ALLGEBRA_OMPI_INSTALL_DIR /usr/loca/ompi-4.1.0
+ENV ALLGEBRA_OMPI_INSTALL_DIR /usr/local/ompi-4.1.0
 ENV ALLGEBRA_OMPI_VERSION 4.1.0
 ENV ALLGEBRA_OMPI_VERSION_MAJOR 4
 ENV ALLGEBRA_OMPI_VERSION_MINOR 1

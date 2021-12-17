@@ -7,6 +7,10 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Fixed
+-----
+- Typo in `ALLGEBRA_*` variables https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/63
+
 21.12.0 - 2021/12/17
 =====================
 
