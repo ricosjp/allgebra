@@ -7,6 +7,11 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Removed
+--------
+- LLVM12 container has drop https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/64
+
+
 21.12.1 - 2021/12/18
 =====================
 
