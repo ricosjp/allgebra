@@ -6,6 +6,9 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 
 Unreleased
 ===========
+Fixed
+-----
+- Rebuild 22.02.0 (because CUDA GPG Key is updated) https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/66
 
 22.02.0 - 2022/02/09
 =====================
