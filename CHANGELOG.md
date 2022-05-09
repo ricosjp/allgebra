@@ -7,6 +7,9 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+22.05.1 - 2022/05/09
+=====================
+
 Added
 ------
 
