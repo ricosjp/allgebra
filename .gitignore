@@ -22,3 +22,5 @@ build*/
 
 # Singurality
 *.sif
+
+.vscode/

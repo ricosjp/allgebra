@@ -55,6 +55,9 @@ COPY examples/ /examples
 COPY utilities /utilities
 RUN make -C /utilities install
 
+# Setting git config
+RUN echo "[safe]\n\tdirectory = *" > /root/.gitconfig
+
 ENV ALLGEBRA_CUDA_INSTALL_DIR /usr/local/cuda-11.4
 ENV ALLGEBRA_CUDA_VERSION 11.4.1
 ENV ALLGEBRA_CUDA_VERSION_MAJOR 11
