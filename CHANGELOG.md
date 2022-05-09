@@ -7,7 +7,17 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Added
+------
+
+- Add clang-tidy <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/68>
+- Integrate suppoert tool containers for main container <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/68>
 - Add /root/.gitconfig to use git command for root user <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/67>
+
+Removed
+--------
+
+- Delete supprt containers (clang format, poetry) <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/68>
 
 22.05.0 - 2022/05/02
 =====================

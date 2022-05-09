@@ -33,23 +33,16 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 [cuda11_4/gcc10/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_4%2Fgcc10%2Fmkl
 [cuda11_4/gcc10/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_4%2Fgcc10%2Foss
 
-In addition, there are support containers for reproducible development
+In addition, there are support tools in each containers.
 
-| Image name                                                     | Application                 |
-|:---------------------------------------------------------------|:----------------------------|
-| [ghcr.io/ricosjp/allgebra/clang-format][allgebra/clang-format] | [clang-format][clang-format]|
-| [ghcr.io/ricosjp/allgebra/doxygen][allgebra/doxygen]           | [doxygen][doxygen]          |
-| [ghcr.io/ricosjp/allgebra/poetry][allgebra/poetry]             | [poetry][poetry]          |
-
-[allgebra/clang-format]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fclang-format
-[allgebra/doxygen]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fdoxygen
-[allgebra/poetry]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fpoetry
-[clang-format]: https://clang.llvm.org/docs/ClangFormat.html
-[doxygen]: https://www.doxygen.nl/index.html
-[poetry]: https://github.com/python-poetry/poetry
+- [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
+- [clang-tidy](https://clang.llvm.org/extra/clang-tidy/)
+- [doxygen](https://www.doxygen.nl/index.html)
+- [poetry](https://github.com/python-poetry/poetry)
 
 OpenMP Offloading, OpenACC examples
 ------------------------------------
+
 The OSS compilers in allgebra containers (gcc, gfortran and clang) are compiled with OpenMP and OpenACC supports.
 There are several examples in this repository, and they are also copied into the above containers.
 
@@ -99,6 +92,7 @@ This output is used to generate the flag `-Xopenmp-target -march=sm_70` in above
 
 With Singularity
 -----------------
+
 [Singularity](https://sylabs.io/singularity/) is a container runtime focused on HPC and AI.
 Since singularity supports Docker and OCI container images, allgebra containers can be used as it is.
 
@@ -148,6 +142,7 @@ In order to identify the CUDA and LLVM versions in container, following environm
 
 Build containers manually
 --------------------------
+
 See [DEVELOPMENT.md](./DEVELOPMENT.md)
 
 License
@@ -159,7 +154,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+<http://www.apache.org/licenses/LICENSE-2.0>
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -168,6 +163,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 ### CAUTION
+
 Be sure that you need to accept [end user license agreements of CUDA][EULA_CUDA],
 and [Intel Simplified Software License][ISSL] to use these containers.
 You can find patched source code of GPL applications

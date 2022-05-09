@@ -4,8 +4,7 @@ ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 REQUIREMENT_TARGETS := cuda11_4 cuda11_4/gcc10 cuda11_4/clang13
 
 TARGETS := cuda11_4/clang13/mkl cuda11_4/clang13/oss \
-           cuda11_4/gcc10/mkl cuda11_4/gcc10/oss \
-           clang-format poetry
+           cuda11_4/gcc10/mkl cuda11_4/gcc10/oss 
 
 PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
@@ -41,12 +40,6 @@ cuda11_4/gcc10/mkl: cuda11_4/gcc10
 cuda11_4/gcc10/oss: cuda11_4/gcc10
 	$(MAKE) -C $@ build
 
-clang-format:
-	$(MAKE) -C $@ build
-
-poetry:
-	$(MAKE) -C $@ build
-
 #
 # Push containers to GitLab registry on RICOS (registry.ritc.jp/ricos/allgebra)
 #
@@ -67,12 +60,6 @@ push/cuda11_4/gcc10/mkl: cuda11_4/gcc10/mkl
 push/cuda11_4/gcc10/oss: cuda11_4/gcc10/oss
 	$(MAKE) -C $< push
 
-push/clang-format: clang-format
-	$(MAKE) -C $< push
-
-push/poetry: poetry
-	$(MAKE) -C $< push
-
 push: $(PUSH_TARGETS)
 
 #
@@ -90,11 +77,5 @@ release/cuda11_4/gcc10/mkl:
 
 release/cuda11_4/gcc10/oss:
 	$(MAKE) -C cuda11_4/gcc10/oss release/push
-
-release/clang-format:
-	$(MAKE) -C clang-format release/push
-
-release/poetry:
-	$(MAKE) -C poetry release/push
 
 release: $(RELEASE_TARGETS)
