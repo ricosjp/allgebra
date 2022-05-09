@@ -33,24 +33,6 @@ build-cuda11_4-gcc10:
   tags:
     - docker
 
-build-clang-format:
-  extends: .dind
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/clang-format
-  tags:
-    - docker
-
-build-poetry:
-  extends: .dind
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/poetry
-  tags:
-    - docker
-
 release:
   extends: .dind
   stage: deploy
@@ -111,18 +93,6 @@ cuda11_4-gcc10-mkl-test:
     - make -C /examples/gfortran_openacc test
   tags:
     - sm_61
-
-clang-format-version:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/clang-format:${CI_COMMIT_REF_NAME}
-  script:
-    - clang-format --version
-
-poetry-version:
-  stage: test
-  image: ${CI_REGISTRY_IMAGE}/poetry:${CI_COMMIT_REF_NAME}
-  script:
-    - poetry --version
 
 keep-changelog:
   image: alpine:latest
