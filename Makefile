@@ -1,10 +1,10 @@
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
-REQUIREMENT_TARGETS := cuda11_4 cuda11_4/gcc10 cuda11_4/clang13
+REQUIREMENT_TARGETS := cuda11_6 cuda11_6/gcc10 cuda11_6/clang13
 
-TARGETS := cuda11_4/clang13/mkl cuda11_4/clang13/oss \
-           cuda11_4/gcc10/mkl cuda11_4/gcc10/oss 
+TARGETS := cuda11_6/clang13/mkl cuda11_6/clang13/oss \
+           cuda11_6/gcc10/mkl cuda11_6/gcc10/oss 
 
 PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
@@ -19,25 +19,25 @@ all: $(TARGETS)
 # Acutual build command is rewritten in common.mk, which will be included in each target's Makefile
 #
 
-cuda11_4:
+cuda11_6:
 	$(MAKE) -C $@ build
 
-cuda11_4/clang13: cuda11_4
+cuda11_6/clang13: cuda11_6
 	$(MAKE) -C $@ build
 
-cuda11_4/clang13/mkl: cuda11_4/clang13
+cuda11_6/clang13/mkl: cuda11_6/clang13
 	$(MAKE) -C $@ build
 
-cuda11_4/clang13/oss: cuda11_4/clang13
+cuda11_6/clang13/oss: cuda11_6/clang13
 	$(MAKE) -C $@ build
 
-cuda11_4/gcc10: cuda11_4
+cuda11_6/gcc10: cuda11_6
 	$(MAKE) -C $@ build
 
-cuda11_4/gcc10/mkl: cuda11_4/gcc10
+cuda11_6/gcc10/mkl: cuda11_6/gcc10
 	$(MAKE) -C $@ build
 
-cuda11_4/gcc10/oss: cuda11_4/gcc10
+cuda11_6/gcc10/oss: cuda11_6/gcc10
 	$(MAKE) -C $@ build
 
 #
@@ -48,16 +48,16 @@ cuda11_4/gcc10/oss: cuda11_4/gcc10
 # Testing these containers using ./examples requires GPU.
 #
 
-push/cuda11_4/clang13/mkl: cuda11_4/clang13/mkl
+push/cuda11_6/clang13/mkl: cuda11_6/clang13/mkl
 	$(MAKE) -C $< push
 
-push/cuda11_4/clang13/oss: cuda11_4/clang13/oss
+push/cuda11_6/clang13/oss: cuda11_6/clang13/oss
 	$(MAKE) -C $< push
 
-push/cuda11_4/gcc10/mkl: cuda11_4/gcc10/mkl
+push/cuda11_6/gcc10/mkl: cuda11_6/gcc10/mkl
 	$(MAKE) -C $< push
 
-push/cuda11_4/gcc10/oss: cuda11_4/gcc10/oss
+push/cuda11_6/gcc10/oss: cuda11_6/gcc10/oss
 	$(MAKE) -C $< push
 
 push: $(PUSH_TARGETS)
@@ -66,16 +66,16 @@ push: $(PUSH_TARGETS)
 # Release to GitHub container registry (ghcr.io)
 #
 
-release/cuda11_4/clang13/mkl:
-	$(MAKE) -C cuda11_4/clang13/mkl release/push
+release/cuda11_6/clang13/mkl:
+	$(MAKE) -C cuda11_6/clang13/mkl release/push
 
-release/cuda11_4/clang13/oss:
-	$(MAKE) -C cuda11_4/clang13/oss release/push
+release/cuda11_6/clang13/oss:
+	$(MAKE) -C cuda11_6/clang13/oss release/push
 
-release/cuda11_4/gcc10/mkl:
-	$(MAKE) -C cuda11_4/gcc10/mkl release/push
+release/cuda11_6/gcc10/mkl:
+	$(MAKE) -C cuda11_6/gcc10/mkl release/push
 
-release/cuda11_4/gcc10/oss:
-	$(MAKE) -C cuda11_4/gcc10/oss release/push
+release/cuda11_6/gcc10/oss:
+	$(MAKE) -C cuda11_6/gcc10/oss release/push
 
 release: $(RELEASE_TARGETS)

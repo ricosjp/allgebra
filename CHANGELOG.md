@@ -7,6 +7,16 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 Unreleased
 ===========
 
+Added
+------
+
+- Update CUDA11.4.1 -> CUDA11.6.2 <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/69>
+
+Removed
+--------
+
+- CUDA 11.4.1 has drop <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/69>
+
 22.05.1 - 2022/05/09
 =====================
 

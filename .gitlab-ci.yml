@@ -10,26 +10,26 @@ stages:
   - test
   - deploy
 
-build-cuda11_4-clang13:
+build-cuda11_6-clang13:
   extends: .dind
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/cuda11_4/clang13/mkl
-    - make push/cuda11_4/clang13/oss
+    - make push/cuda11_6/clang13/mkl
+    - make push/cuda11_6/clang13/oss
   timeout: 3 hours
   tags:
     - docker
     - cpu-ge-8
     - mem-ge-32gb
 
-build-cuda11_4-gcc10:
+build-cuda11_6-gcc10:
   extends: .dind
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/cuda11_4/gcc10/mkl
-    - make push/cuda11_4/gcc10/oss
+    - make push/cuda11_6/gcc10/mkl
+    - make push/cuda11_6/gcc10/oss
   tags:
     - docker
 
@@ -46,9 +46,9 @@ release:
     - latest
     - tags
 
-cuda11_4-clang13-mkl-test:
+cuda11_6-clang13-mkl-test:
   stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_4-clang13-mkl:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/cuda11_6-clang13-mkl:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
@@ -57,9 +57,9 @@ cuda11_4-clang13-mkl-test:
   tags:
     - sm_61
 
-cuda11_4-clang13-oss-test:
+cuda11_6-clang13-oss-test:
   stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_4-clang13-oss:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/cuda11_6-clang13-oss:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
@@ -68,9 +68,9 @@ cuda11_4-clang13-oss-test:
   tags:
     - sm_61
 
-cuda11_4-gcc10-oss-test:
+cuda11_6-gcc10-oss-test:
   stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_4-gcc10-oss:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/cuda11_6-gcc10-oss:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
@@ -81,9 +81,9 @@ cuda11_4-gcc10-oss-test:
   tags:
     - sm_61
 
-cuda11_4-gcc10-mkl-test:
+cuda11_6-gcc10-mkl-test:
   stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_4-gcc10-oss:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/cuda11_6-gcc10-oss:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
