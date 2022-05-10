@@ -7,19 +7,19 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda11_4:${TAG}
+FROM ${REGISTRY}/cuda11_6:${TAG}
 
 RUN apt-get update && apt-get install -y \
     gcc-10-offload-nvptx \
     libelf-dev \
     nvptx-tools \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Override GCC10 by GCC7
 RUN rm -f /usr/bin/gcc /usr/bin/g++ \
- && ln -s /usr/bin/gcc-10 /usr/bin/gcc \
- && ln -s /usr/bin/g++-10 /usr/bin/g++
+    && ln -s /usr/bin/gcc-10 /usr/bin/gcc \
+    && ln -s /usr/bin/g++-10 /usr/bin/g++
 
 ENV ALLGEBRA_GCC_INSTALL_DIR /usr
 ENV ALLGEBRA_GCC_VERSION 10.3.0

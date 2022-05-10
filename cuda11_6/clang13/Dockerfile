@@ -10,7 +10,7 @@ ARG TAG
 #
 # Intermediate container for building LLVM 13
 #
-FROM ${REGISTRY}/cuda11_4:${TAG} AS build
+FROM ${REGISTRY}/cuda11_6:${TAG} AS build
 
 RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.1/llvm-project-13.0.1.src.tar.xz \
    && tar xf llvm-project-13.0.1.src.tar.xz \

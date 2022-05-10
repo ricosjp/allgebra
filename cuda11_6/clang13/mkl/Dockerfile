@@ -7,10 +7,10 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda11_4-clang13:${TAG}
+FROM ${REGISTRY}/cuda11_6-clang13:${TAG}
 
 # Intel MKL
 RUN apt-get update && apt-get install -y \
     intel-mkl \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*

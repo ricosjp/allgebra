@@ -7,11 +7,11 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda11_4-gcc10:${TAG}
+FROM ${REGISTRY}/cuda11_6-gcc10:${TAG}
 
 # OSS OpenBLAS
 RUN apt-get update && apt-get install -y \
     libopenblas-openmp-dev \
     liblapacke-dev \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
