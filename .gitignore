@@ -19,7 +19,7 @@
 
 # cmake
 build*/
-allgebra_in/cuda*
+allgebra_template/cuda*
 
 # Singurality
 *.sif
