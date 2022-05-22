@@ -10,82 +10,82 @@ ARG TAG
 #
 # Intermediate container for building LLVM ${CLANG_MAJOR}
 #
-FROM ${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}:${TAG} AS build
+FROM \${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}:\${TAG} AS build
 
-RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src.tar.xz \
-   && tar xf llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src.tar.xz \
+RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src.tar.xz \\
+   && tar xf llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src.tar.xz \\
    && rm llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src.tar.xz
 
 # Install LLVM ${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH} into /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}
-RUN cd llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src \
-   && cmake -Wno-dev -Bbuild -G Ninja \
-   -DCMAKE_BUILD_TYPE=Release \
-   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/ \
-   -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
-   -DLLVM_ENABLE_PROJECTS=clang \
-   llvm \
+RUN cd llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src \\
+   && cmake -Wno-dev -Bbuild -G Ninja \\
+   -DCMAKE_BUILD_TYPE=Release \\
+   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/ \\
+   -DLLVM_TARGETS_TO_BUILD=\"X86;NVPTX\" \\
+   -DLLVM_ENABLE_PROJECTS=clang \\
+   llvm \\
    && cmake --build build/ --target install
 
 # FIXME: Remove this part
 #
 # This is an hack for building llvm/openmp with GNU headers.
-# Debian/Ubuntu distributions use `/usr/include/x86_64-linux-gnu/{sys,bits,gnu}`
-# instead of `/usr/include/{sys,bits,gnu}` to support multiple hardware by single filesystem,
-# but the above `clang` does not seek there.
+# Debian/Ubuntu distributions use \`/usr/include/x86_64-linux-gnu/{sys,bits,gnu}\`
+# instead of \`/usr/include/{sys,bits,gnu}\` to support multiple hardware by single filesystem,
+# but the above \`clang\` does not seek there.
 #
-RUN cd /usr/include \
-   && ln -s x86_64-linux-gnu/sys \
-   && ln -s x86_64-linux-gnu/bits \
+RUN cd /usr/include \\
+   && ln -s x86_64-linux-gnu/sys \\
+   && ln -s x86_64-linux-gnu/bits \\
    && ln -s x86_64-linux-gnu/gnu
 
 # Build libomptarget
-RUN cd llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src \
-   && cmake -Wno-dev -Bbuild_omp -G Ninja \
-   -DCMAKE_BUILD_TYPE=Debug \
-   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/ \
-   -DCMAKE_C_COMPILER=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang \
-   -DCMAKE_CXX_COMPILER=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang++ \
-   -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=all \
-   openmp \
-   && cmake --build build_omp --target install \
+RUN cd llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src \\
+   && cmake -Wno-dev -Bbuild_omp -G Ninja \\
+   -DCMAKE_BUILD_TYPE=Debug \\
+   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/ \\
+   -DCMAKE_C_COMPILER=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang \\
+   -DCMAKE_CXX_COMPILER=/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang++ \\
+   -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=all \\
+   openmp \\
+   && cmake --build build_omp --target install \\
    && rm -rf /llvm-project-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.src
 
 # LLVM ${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH} environements
-RUN echo "/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/lib" > /etc/ld.so.conf.d/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.conf \
+RUN echo \"/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/lib\" > /etc/ld.so.conf.d/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.conf \\
    && ldconfig
-ENV PATH /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin:$PATH
+ENV PATH /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin:\$PATH
 ENV CC   /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang
 ENV CXX  /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang++
 
 #
 # Build and install OpenMPI
 #
-RUN apt update -y \
-   && apt install -y --allow-change-held-packages \
-   autoconf m4 automake libtool flex \
-   libnccl2 libnccl-dev \
-   ssh \
-   && apt-get clean \
+RUN apt update -y \\
+   && apt install -y --allow-change-held-packages \\
+   autoconf m4 automake libtool flex \\
+   libnccl2 libnccl-dev \\
+   ssh \\
+   && apt-get clean \\
    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
 RUN git clone -b v${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH} --depth=1 https://github.com/open-mpi/ompi.git
 
 WORKDIR /build/ompi
-RUN ./autogen.pl \
-   && ./configure CC=clang CXX=clang++ --with-cuda --disable-mpi-fortran --prefix=/usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH} \
-   && make install -j $(nproc)
+RUN ./autogen.pl \\
+   && ./configure CC=clang CXX=clang++ --with-cuda --disable-mpi-fortran --prefix=/usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH} \\
+   && make install -j \$(nproc)
 
 #
 # CUDA 11.6 with LLVM ${CLANG_MAJOR}
 #
-FROM ${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}:${TAG} AS release
+FROM \${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}:\${TAG} AS release
 
 # LLVM ${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH} environements
 COPY --from=build /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH} /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}
-RUN echo "/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/lib" > /etc/ld.so.conf.d/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.conf \
+RUN echo \"/usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/lib\" > /etc/ld.so.conf.d/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}.conf \\
    && ldconfig
-ENV PATH /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin:$PATH
+ENV PATH /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin:\$PATH
 ENV CC   /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang
 ENV CXX  /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/bin/clang++
 
@@ -97,14 +97,14 @@ ENV ALLGEBRA_LLVM_VERSION_PATCH ${CLANG_PATCH}
 
 # Skip CPATH because this path should be treated as system directory
 # See GCC manual for detail https://gcc.gnu.org/onlinedocs/cpp/Environment-Variables.html
-ENV C_INCLUDE_PATH     /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/include:$C_INCLUDE_PATH
-ENV CPLUS_INCLUDE_PATH /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/include:$CPLUS_INCLUDE_PATH
+ENV C_INCLUDE_PATH     /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/include:\$C_INCLUDE_PATH
+ENV CPLUS_INCLUDE_PATH /usr/local/llvm-${CLANG_MAJOR}.${CLANG_MINOR}.${CLANG_PATCH}/include:\$CPLUS_INCLUDE_PATH
 
 # OpenMPI environements
 COPY --from=build /usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH} /usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}
-RUN echo "/usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}/lib" > /etc/ld.so.conf.d/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}.conf && ldconfig
+RUN echo \"/usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}/lib\" > /etc/ld.so.conf.d/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}.conf && ldconfig
 RUN mv /usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}/lib/pkgconfig/* /usr/lib/pkgconfig/
-ENV PATH /usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}/bin:$PATH
+ENV PATH /usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}/bin:\$PATH
 
 ENV ALLGEBRA_OMPI_INSTALL_DIR /usr/local/ompi-${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}
 ENV ALLGEBRA_OMPI_VERSION ${OMPI_MAJOR}.${OMPI_MINOR}.${OMPI_PATCH}

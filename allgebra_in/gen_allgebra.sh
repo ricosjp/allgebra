@@ -48,7 +48,6 @@ ALLGEBRA_TARGET=${TARGET_DIR}; eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DI
 # cuda clang
 TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${CLANG_MAJOR}
 mkdir -p $TARGET_DIR
-#eval "echo \"$(cat ./Dockerfile.clang.in)\"" > $TARGET_DIR/Dockerfile
 eval "echo \"$(cat ./Dockerfile.clang.in)\"" > $TARGET_DIR/Dockerfile
 ALLGEBRA_TARGET=${TARGET_DIR}; eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
 
