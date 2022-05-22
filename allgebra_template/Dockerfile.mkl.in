@@ -7,7 +7,7 @@
 ARG REGISTRY
 ARG TAG
 
-FROM \${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}-${TARGET_COMPILER}${CLANG_MAJOR}:\${TAG}
+FROM \${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}-${TARGET_COMPILER}${TARGET_MAJOR}:\${TAG}
 
 # Intel MKL
 RUN apt-get update && apt-get install -y \\
