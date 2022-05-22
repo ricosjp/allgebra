@@ -93,7 +93,7 @@ ENV ALLGEBRA_LLVM_INSTALL_DIR /usr/local/llvm-13.0.1
 ENV ALLGEBRA_LLVM_VERSION 13.0.1
 ENV ALLGEBRA_LLVM_VERSION_MAJOR 13
 ENV ALLGEBRA_LLVM_VERSION_MINOR 0
-ENV ALLGEBRA_LLVM_VERSION_PATCH 0
+ENV ALLGEBRA_LLVM_VERSION_PATCH 1
 
 # Skip CPATH because this path should be treated as system directory
 # See GCC manual for detail https://gcc.gnu.org/onlinedocs/cpp/Environment-Variables.html
