@@ -1,4 +1,7 @@
+#!/bin/bash
+
 OS_VERSION=20.04
+
 CUDA_MAJOR=11
 CUDA_MINOR=6
 CUDA_PATCH=2
@@ -20,6 +23,10 @@ CMAKE_MINOR=21
 CMAKE_PATCH=3
 
 rm -rf ./cuda${CUDA_MAJOR}_${CUDA_MINOR}
+
+#
+# generate blas files
+#
 
 # cuda clang mkl
 TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${CLANG_MAJOR}/mkl
@@ -45,6 +52,10 @@ mkdir -p $TARGET_DIR
 TARGET_COMPILER=gcc; eval "echo \"$(cat ./Dockerfile.oss.in)\"" > $TARGET_DIR/Dockerfile
 ALLGEBRA_TARGET=${TARGET_DIR}; eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
 
+#
+# generate gcc/clang files
+#
+
 # cuda clang
 TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${CLANG_MAJOR}
 mkdir -p $TARGET_DIR
@@ -52,8 +63,14 @@ eval "echo \"$(cat ./Dockerfile.clang.in)\"" > $TARGET_DIR/Dockerfile
 ALLGEBRA_TARGET=${TARGET_DIR}; eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
 
 # cuda gcc
+TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/gcc${CLANG_MAJOR}
+mkdir -p $TARGET_DIR
+eval "echo \"$(cat ./Dockerfile.gcc.in)\"" > $TARGET_DIR/Dockerfile
+ALLGEBRA_TARGET=${TARGET_DIR}; eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
 
-# cuda
+#
+# generate cuda files
+#
 TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}
 mkdir -p $TARGET_DIR
 eval "echo \"$(cat ./Dockerfile.cuda.in)\"" > ${TARGET_DIR}/Dockerfile
