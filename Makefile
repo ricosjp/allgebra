@@ -1,10 +1,14 @@
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
-REQUIREMENT_TARGETS := cuda11_6 cuda11_6/gcc10 cuda11_6/clang13
+TARGET_CUDA=cuda11_6
+TARGET_CLANG=clang13
+TARGET_GCC=gcc10
 
-TARGETS := cuda11_6/clang13/mkl cuda11_6/clang13/oss \
-           cuda11_6/gcc10/mkl cuda11_6/gcc10/oss 
+REQUIREMENT_TARGETS := $(TARGET_CUDA) $(TARGET_CUDA)/$(TARGET_GCC) $(TARGET_CUDA)/$(TARGET_CLANG)g
+
+TARGETS := $(TARGET_CUDA)/$(TARGET_CLANG)g/mkl $(TARGET_CUDA)/clang13/oss \
+           $(TARGET_CUDA)/$(TARGET_GCC)/mkl $(TARGET_CUDA)/$(TARGET_GCC)/oss 
 
 PUSH_TARGETS    := $(foreach TARGET,$(TARGETS),push/$(TARGET))
 RELEASE_TARGETS := $(foreach TARGET,$(TARGETS),release/$(TARGET))
@@ -19,25 +23,25 @@ all: $(TARGETS)
 # Acutual build command is rewritten in common.mk, which will be included in each target's Makefile
 #
 
-cuda11_6:
+$(TARGET_CUDA):
 	$(MAKE) -C $@ build
 
-cuda11_6/clang13: cuda11_6
+$(TARGET_CUDA)/$(TARGET_CLANG): $(TARGET_CUDA)
 	$(MAKE) -C $@ build
 
-cuda11_6/clang13/mkl: cuda11_6/clang13
+$(TARGET_CUDA)/$(TARGET_CLANG)/mkl: $(TARGET_CUDA)/$(TARGET_CLANG)
 	$(MAKE) -C $@ build
 
-cuda11_6/clang13/oss: cuda11_6/clang13
+$(TARGET_CUDA)/$(TARGET_CLANG)/oss: $(TARGET_CUDA)/$(TARGET_CLANG)
 	$(MAKE) -C $@ build
 
-cuda11_6/gcc10: cuda11_6
+$(TARGET_CUDA)/$(TARGET_GCC): $(TARGET_CUDA)
 	$(MAKE) -C $@ build
 
-cuda11_6/gcc10/mkl: cuda11_6/gcc10
+$(TARGET_CUDA)/$(TARGET_GCC)/mkl: $(TARGET_CUDA)/$(TARGET_GCC)
 	$(MAKE) -C $@ build
 
-cuda11_6/gcc10/oss: cuda11_6/gcc10
+$(TARGET_CUDA)/$(TARGET_GCC)/oss: $(TARGET_CUDA)/$(TARGET_GCC)
 	$(MAKE) -C $@ build
 
 #
@@ -48,16 +52,16 @@ cuda11_6/gcc10/oss: cuda11_6/gcc10
 # Testing these containers using ./examples requires GPU.
 #
 
-push/cuda11_6/clang13/mkl: cuda11_6/clang13/mkl
+push/$(TARGET_CUDA)/$(TARGET_CLANG)/mkl: $(TARGET_CUDA)/$(TARGET_CLANG)/mkl
 	$(MAKE) -C $< push
 
-push/cuda11_6/clang13/oss: cuda11_6/clang13/oss
+push/$(TARGET_CUDA)/$(TARGET_CLANG)/oss: $(TARGET_CUDA)/$(TARGET_CLANG)/oss
 	$(MAKE) -C $< push
 
-push/cuda11_6/gcc10/mkl: cuda11_6/gcc10/mkl
+push/$(TARGET_CUDA)/$(TARGET_GCC)/mkl: $(TARGET_CUDA)/$(TARGET_GCC)/mkl
 	$(MAKE) -C $< push
 
-push/cuda11_6/gcc10/oss: cuda11_6/gcc10/oss
+push/$(TARGET_CUDA)/$(TARGET_GCC)/oss: $(TARGET_CUDA)/$(TARGET_GCC)/oss
 	$(MAKE) -C $< push
 
 push: $(PUSH_TARGETS)
@@ -66,16 +70,16 @@ push: $(PUSH_TARGETS)
 # Release to GitHub container registry (ghcr.io)
 #
 
-release/cuda11_6/clang13/mkl:
-	$(MAKE) -C cuda11_6/clang13/mkl release/push
+release/$(TARGET_CUDA)/$(TARGET_CLANG)/mkl:
+	$(MAKE) -C $(TARGET_CUDA)/$(TARGET_CLANG)/mkl release/push
 
-release/cuda11_6/clang13/oss:
-	$(MAKE) -C cuda11_6/clang13/oss release/push
+release/$(TARGET_CUDA)/$(TARGET_CLANG)/oss:
+	$(MAKE) -C $(TARGET_CUDA)/$(TARGET_CLANG)/oss release/push
 
-release/cuda11_6/gcc10/mkl:
-	$(MAKE) -C cuda11_6/gcc10/mkl release/push
+release/$(TARGET_CUDA)/$(TARGET_GCC)/mkl:
+	$(MAKE) -C $(TARGET_CUDA)/$(TARGET_GCC)/mkl release/push
 
-release/cuda11_6/gcc10/oss:
-	$(MAKE) -C cuda11_6/gcc10/oss release/push
+release/$(TARGET_CUDA)/$(TARGET_GCC)/oss:
+	$(MAKE) -C $(TARGET_CUDA)/$(TARGET_GCC)/oss release/push
 
 release: $(RELEASE_TARGETS)

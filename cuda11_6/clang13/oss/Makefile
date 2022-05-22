@@ -4,4 +4,3 @@ ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 TARGET := cuda11_6/clang13/oss
 
 include $(ALLGEBRA_TOPDIR)/common.mk
-
