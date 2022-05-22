@@ -23,7 +23,7 @@ all: $(TARGETS)
 # Acutual build command is rewritten in common.mk, which will be included in each target's Makefile
 #
 
-$(CUDA_VERSION):
+$(TARGET_CUDA):
 	$(MAKE) -C $@ build
 
 $(TARGET_CUDA)/$(TARGET_CLANG): $(TARGET_CUDA)
