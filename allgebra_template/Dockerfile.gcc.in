@@ -7,7 +7,7 @@
 ARG REGISTRY
 ARG TAG
 
-FROM \\${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}:\\${TAG}
+FROM \${REGISTRY}/cuda${CUDA_MAJOR}_${CUDA_MINOR}:\${TAG}
 
 RUN apt-get update && apt-get install -y \\
     gcc-${GCC_MAJOR}-offload-nvptx \\
