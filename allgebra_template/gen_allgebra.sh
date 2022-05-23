@@ -6,9 +6,9 @@ CUDA_MAJOR=11
 CUDA_MINOR=6
 CUDA_PATCH=2
 
-CLANG_MAJOR=13
-CLANG_MINOR=0
-CLANG_PATCH=1
+LLVM_MAJOR=13
+LLVM_MINOR=0
+LLVM_PATCH=1
 
 GCC_MAJOR=10
 GCC_MINOR=3
@@ -29,15 +29,15 @@ rm -rf ./cuda${CUDA_MAJOR}_${CUDA_MINOR}
 #
 
 # cuda clang mkl
-TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${CLANG_MAJOR}/mkl
-TARGET_COMPILER=clang; TARGET_MAJOR=${CLANG_MAJOR}; ALLGEBRA_TARGET=${TARGET_DIR}
+TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${LLVM_MAJOR}/mkl
+TARGET_COMPILER=clang; TARGET_MAJOR=${LLVM_MAJOR}; ALLGEBRA_TARGET=${TARGET_DIR}
 mkdir -p $TARGET_DIR
 eval "echo \"$(cat ./Dockerfile.mkl.in)\"" > $TARGET_DIR/Dockerfile
 eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
 
 # cuda clang oss
-TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${CLANG_MAJOR}/oss
-TARGET_COMPILER=clang; TARGET_MAJOR=${CLANG_MAJOR}; ALLGEBRA_TARGET=${TARGET_DIR}
+TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${LLVM_MAJOR}/oss
+TARGET_COMPILER=clang; TARGET_MAJOR=${LLVM_MAJOR}; ALLGEBRA_TARGET=${TARGET_DIR}
 mkdir -p $TARGET_DIR
 eval "echo \"$(cat ./Dockerfile.oss.in)\"" > $TARGET_DIR/Dockerfile
 eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
@@ -61,7 +61,7 @@ eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
 #
 
 # cuda clang
-TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${CLANG_MAJOR}
+TARGET_DIR=cuda${CUDA_MAJOR}_${CUDA_MINOR}/clang${LLVM_MAJOR}
 mkdir -p $TARGET_DIR
 eval "echo \"$(cat ./Dockerfile.clang.in)\"" > $TARGET_DIR/Dockerfile
 ALLGEBRA_TARGET=${TARGET_DIR}; eval "echo \"$(cat ./Makefile.in)\"" > $TARGET_DIR/Makefile
