@@ -8,7 +8,7 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda11_6-gcc10:${TAG}
+FROM ${REGISTRY}/cuda11_7-clang13:${TAG}
 
 # OSS OpenBLAS
 RUN apt-get update && apt-get install -y \

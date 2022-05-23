@@ -1,6 +1,6 @@
 HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
-TARGET := cuda11_6/gcc10/oss
+TARGET := cuda11_7/gcc11
 
 include $(ALLGEBRA_TOPDIR)/common.mk
