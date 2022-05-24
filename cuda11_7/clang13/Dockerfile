@@ -64,17 +64,17 @@ ENV CXX  /usr/local/llvm-13.0.1/bin/clang++
 RUN apt update -y \
    && apt install -y --allow-change-held-packages \
    autoconf m4 automake libtool flex \
-   libnccl2 libnccl-dev \
    ssh \
    && apt-get clean \
    && rm -rf /var/lib/apt/lists/*
+#libnccl2 libnccl-dev \ # cuda 11.7 is not released
 
 WORKDIR /build
-RUN git clone -b v4.1.0 --depth=1 https://github.com/open-mpi/ompi.git
+RUN git clone -b v4.1.3 --depth=1 https://github.com/open-mpi/ompi.git
 
 WORKDIR /build/ompi
 RUN ./autogen.pl \
-   && ./configure CC=clang CXX=clang++ --with-cuda --disable-mpi-fortran --prefix=/usr/local/ompi-4.1.0 \
+   && ./configure CC=clang CXX=clang++ --with-cuda --disable-mpi-fortran --prefix=/usr/local/ompi-4.1.3 \
    && make install -j $(nproc)
 
 #
@@ -102,13 +102,13 @@ ENV C_INCLUDE_PATH     /usr/local/llvm-13.0.1/include:$C_INCLUDE_PATH
 ENV CPLUS_INCLUDE_PATH /usr/local/llvm-13.0.1/include:$CPLUS_INCLUDE_PATH
 
 # OpenMPI environements
-COPY --from=build /usr/local/ompi-4.1.0 /usr/local/ompi-4.1.0
-RUN echo "/usr/local/ompi-4.1.0/lib" > /etc/ld.so.conf.d/ompi-4.1.0.conf && ldconfig
-RUN mv /usr/local/ompi-4.1.0/lib/pkgconfig/* /usr/lib/pkgconfig/
-ENV PATH /usr/local/ompi-4.1.0/bin:$PATH
+COPY --from=build /usr/local/ompi-4.1.3 /usr/local/ompi-4.1.3
+RUN echo "/usr/local/ompi-4.1.3/lib" > /etc/ld.so.conf.d/ompi-4.1.3.conf && ldconfig
+RUN mv /usr/local/ompi-4.1.3/lib/pkgconfig/* /usr/lib/pkgconfig/
+ENV PATH /usr/local/ompi-4.1.3/bin:$PATH
 
-ENV ALLGEBRA_OMPI_INSTALL_DIR /usr/local/ompi-4.1.0
-ENV ALLGEBRA_OMPI_VERSION 4.1.0
+ENV ALLGEBRA_OMPI_INSTALL_DIR /usr/local/ompi-4.1.3
+ENV ALLGEBRA_OMPI_VERSION 4.1.3
 ENV ALLGEBRA_OMPI_VERSION_MAJOR 4
 ENV ALLGEBRA_OMPI_VERSION_MINOR 1
-ENV ALLGEBRA_OMPI_VERSION_PATCH 0
+ENV ALLGEBRA_OMPI_VERSION_PATCH 3
