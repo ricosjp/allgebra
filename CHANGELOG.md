@@ -13,7 +13,7 @@ Unreleased
 Changed
 ------
 - update base container cuda11.7_ubuntu22.04 <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/71>
-    - Ubuntu 20.04 -> 20.04
+    - Ubuntu 20.04 -> 22.04
     - CUDA 11.6.0 -> 11.7.1
     - gcc 10 -> 12
     - cmake 3.21 -> 3.23
