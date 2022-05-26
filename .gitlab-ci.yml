@@ -10,13 +10,13 @@ stages:
   - test
   - deploy
 
-build-cuda11_7-clang13:
+build-cuda11_7-clang14:
   extends: .dind
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - make push/cuda11_7/clang13/mkl
-    - make push/cuda11_7/clang13/oss
+    - make push/cuda11_7/clang14/mkl
+    - make push/cuda11_7/clang14/oss
   timeout: 3 hours
   tags:
     - docker
@@ -46,9 +46,9 @@ release:
     - latest
     - tags
 
-cuda11_7-clang13-mkl-test:
+cuda11_7-clang14-mkl-test:
   stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_7-clang13-mkl:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/cuda11_7-clang14-mkl:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
@@ -57,9 +57,9 @@ cuda11_7-clang13-mkl-test:
   tags:
     - sm_61
 
-cuda11_7-clang13-oss-test:
+cuda11_7-clang14-oss-test:
   stage: test
-  image: ${CI_REGISTRY_IMAGE}/cuda11_7-clang13-oss:${CI_COMMIT_REF_NAME}
+  image: ${CI_REGISTRY_IMAGE}/cuda11_7-clang14-oss:${CI_COMMIT_REF_NAME}
   before_script:
     - nvidia-smi
   script:
