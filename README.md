@@ -28,10 +28,10 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 | [ghcr.io/ricosjp/allgebra/cuda11_7/gcc11/mkl][cuda11_7/gcc11/mkl]     | 11.7 | gcc 11, nvcc 11.7 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda11_7/gcc11/oss][cuda11_7/gcc11/oss]     | 11.7 | gcc 11, nvcc 11.7 | OpenBLAS  |
 
-[cuda11_7/clang13/mkl]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_7%2Fclang13%2Fmkl
-[cuda11_7/clang13/oss]: https://github.com/ricosjp/allgebra/pkgs/container/allgebra%2Fcuda11_7%2Fclang13%2Foss
-[cuda11_7/gcc11/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_7%2Fgcc11%2Fmkl
-[cuda11_7/gcc11/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_7%2Fgcc11%2Foss
+[cuda11_7/clang13/mkl]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_7%2Fclang13%2Fmkl
+[cuda11_7/clang13/oss]: https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_7%2Fclang13%2Foss
+[cuda11_7/gcc11/mkl]:   https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_7%2Fgcc11%2Fmkl
+[cuda11_7/gcc11/oss]:   https://github.com/orgs/ricosjp/packages/container/package/allgebra%2Fcuda11_7%2Fgcc11%2Foss
 
 In addition, there are support tools in each containers.
 

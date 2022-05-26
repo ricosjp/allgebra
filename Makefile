@@ -2,7 +2,7 @@ HERE := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 ALLGEBRA_TOPDIR := $(shell git rev-parse --show-toplevel)
 
 TARGET_CUDA=cuda11_7
-TARGET_CLANG=clang13
+TARGET_CLANG=clang14
 TARGET_GCC=gcc11
 
 REQUIREMENT_TARGETS := $(TARGET_CUDA) $(TARGET_CUDA)/$(TARGET_GCC) $(TARGET_CUDA)/$(TARGET_CLANG)
