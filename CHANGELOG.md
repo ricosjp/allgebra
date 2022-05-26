@@ -12,6 +12,7 @@ Unreleased
 
 Changed
 ------
+- Revert clang 14.0.4 -> 13.0.1, and fix makefile bug <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/73>
 - Update clang 13.0.1 -> 14.0.4 <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/72>
 
 22.05.3 - 2022/05/25
