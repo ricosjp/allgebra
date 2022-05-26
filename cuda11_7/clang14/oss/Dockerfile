@@ -8,10 +8,11 @@
 ARG REGISTRY
 ARG TAG
 
-FROM ${REGISTRY}/cuda11_7-clang13:${TAG}
+FROM ${REGISTRY}/cuda11_7-clang14:${TAG}
 
-# Intel MKL
+# OSS OpenBLAS
 RUN apt-get update && apt-get install -y \
-    intel-mkl \
+    libopenblas-openmp-dev \
+    liblapacke-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
