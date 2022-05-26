@@ -6,13 +6,14 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 
 Unreleased
 ===========
+- Update clang 13.0.1 -> 14.0.4 <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/72>
 
 22.05.3 - 2022/05/25
 =====================
 
 Changed
 ------
-- update base container cuda11.7_ubuntu22.04 <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/71>
+- Update base container cuda11.7_ubuntu22.04 <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/71>
     - Ubuntu 20.04 -> 22.04
     - CUDA 11.6.0 -> 11.7.1
     - gcc 10 -> 12
