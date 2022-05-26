@@ -6,6 +6,12 @@ Each release will be tagged as calendar versioning `{year}.{month}.{patch}` form
 
 Unreleased
 ===========
+
+22.05.4 - 2022/05/26
+=====================
+
+Changed
+------
 - Update clang 13.0.1 -> 14.0.4 <https://gitlab.ritc.jp/ricos/allgebra/-/merge_requests/72>
 
 22.05.3 - 2022/05/25
