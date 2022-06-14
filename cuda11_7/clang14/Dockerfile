@@ -13,15 +13,15 @@ ARG TAG
 #
 FROM ${REGISTRY}/cuda11_7:${TAG} AS build
 
-RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.4/llvm-project-14.0.4.src.tar.xz \
-   && tar xf llvm-project-14.0.4.src.tar.xz \
-   && rm llvm-project-14.0.4.src.tar.xz
+RUN curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.5/llvm-project-14.0.5.src.tar.xz \
+   && tar xf llvm-project-14.0.5.src.tar.xz \
+   && rm llvm-project-14.0.5.src.tar.xz
 
-# Install LLVM 14.0.4 into /usr/local/llvm-14.0.4
-RUN cd llvm-project-14.0.4.src \
+# Install LLVM 14.0.5 into /usr/local/llvm-14.0.5
+RUN cd llvm-project-14.0.5.src \
    && cmake -Wno-dev -Bbuild -G Ninja \
    -DCMAKE_BUILD_TYPE=Release \
-   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-14.0.4/ \
+   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-14.0.5/ \
    -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
    -DLLVM_ENABLE_PROJECTS=clang \
    llvm \
@@ -40,23 +40,23 @@ RUN cd /usr/include \
    && ln -s x86_64-linux-gnu/gnu
 
 # Build libomptarget
-RUN cd llvm-project-14.0.4.src \
+RUN cd llvm-project-14.0.5.src \
    && cmake -Wno-dev -Bbuild_omp -G Ninja \
    -DCMAKE_BUILD_TYPE=Debug \
-   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-14.0.4/ \
-   -DCMAKE_C_COMPILER=/usr/local/llvm-14.0.4/bin/clang \
-   -DCMAKE_CXX_COMPILER=/usr/local/llvm-14.0.4/bin/clang++ \
+   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-14.0.5/ \
+   -DCMAKE_C_COMPILER=/usr/local/llvm-14.0.5/bin/clang \
+   -DCMAKE_CXX_COMPILER=/usr/local/llvm-14.0.5/bin/clang++ \
    -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES=all \
    openmp \
    && cmake --build build_omp --target install \
-   && rm -rf /llvm-project-14.0.4.src
+   && rm -rf /llvm-project-14.0.5.src
 
-# LLVM 14.0.4 environements
-RUN echo "/usr/local/llvm-14.0.4/lib" > /etc/ld.so.conf.d/llvm-14.0.4.conf \
+# LLVM 14.0.5 environements
+RUN echo "/usr/local/llvm-14.0.5/lib" > /etc/ld.so.conf.d/llvm-14.0.5.conf \
    && ldconfig
-ENV PATH /usr/local/llvm-14.0.4/bin:$PATH
-ENV CC   /usr/local/llvm-14.0.4/bin/clang
-ENV CXX  /usr/local/llvm-14.0.4/bin/clang++
+ENV PATH /usr/local/llvm-14.0.5/bin:$PATH
+ENV CC   /usr/local/llvm-14.0.5/bin/clang
+ENV CXX  /usr/local/llvm-14.0.5/bin/clang++
 
 #
 # Build and install OpenMPI
@@ -82,24 +82,24 @@ RUN ./autogen.pl \
 #
 FROM ${REGISTRY}/cuda11_7:${TAG} AS release
 
-# LLVM 14.0.4 environements
-COPY --from=build /usr/local/llvm-14.0.4 /usr/local/llvm-14.0.4
-RUN echo "/usr/local/llvm-14.0.4/lib" > /etc/ld.so.conf.d/llvm-14.0.4.conf \
+# LLVM 14.0.5 environements
+COPY --from=build /usr/local/llvm-14.0.5 /usr/local/llvm-14.0.5
+RUN echo "/usr/local/llvm-14.0.5/lib" > /etc/ld.so.conf.d/llvm-14.0.5.conf \
    && ldconfig
-ENV PATH /usr/local/llvm-14.0.4/bin:$PATH
-ENV CC   /usr/local/llvm-14.0.4/bin/clang
-ENV CXX  /usr/local/llvm-14.0.4/bin/clang++
+ENV PATH /usr/local/llvm-14.0.5/bin:$PATH
+ENV CC   /usr/local/llvm-14.0.5/bin/clang
+ENV CXX  /usr/local/llvm-14.0.5/bin/clang++
 
-ENV ALLGEBRA_LLVM_INSTALL_DIR /usr/local/llvm-14.0.4
-ENV ALLGEBRA_LLVM_VERSION 14.0.4
+ENV ALLGEBRA_LLVM_INSTALL_DIR /usr/local/llvm-14.0.5
+ENV ALLGEBRA_LLVM_VERSION 14.0.5
 ENV ALLGEBRA_LLVM_VERSION_MAJOR 14
 ENV ALLGEBRA_LLVM_VERSION_MINOR 0
-ENV ALLGEBRA_LLVM_VERSION_PATCH 4
+ENV ALLGEBRA_LLVM_VERSION_PATCH 5
 
 # Skip CPATH because this path should be treated as system directory
 # See GCC manual for detail https://gcc.gnu.org/onlinedocs/cpp/Environment-Variables.html
-ENV C_INCLUDE_PATH     /usr/local/llvm-14.0.4/include:$C_INCLUDE_PATH
-ENV CPLUS_INCLUDE_PATH /usr/local/llvm-14.0.4/include:$CPLUS_INCLUDE_PATH
+ENV C_INCLUDE_PATH     /usr/local/llvm-14.0.5/include:$C_INCLUDE_PATH
+ENV CPLUS_INCLUDE_PATH /usr/local/llvm-14.0.5/include:$CPLUS_INCLUDE_PATH
 
 # OpenMPI environements
 COPY --from=build /usr/local/ompi-4.1.3 /usr/local/ompi-4.1.3
