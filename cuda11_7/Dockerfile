@@ -62,7 +62,8 @@ COPY utilities /utilities
 RUN make -C /utilities install
 
 # Setting git config
-RUN echo "[safe]\n\tdirectory = *" > /root/.gitconfig
+RUN echo "[safe]
+	directory = *" > /root/.gitconfig
 COPY check_format.sh /usr/bin
 
 ENV ALLGEBRA_CUDA_INSTALL_DIR /usr/local/cuda-11.7
