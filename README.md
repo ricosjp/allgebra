@@ -23,8 +23,8 @@ Named in `allgebra/{GPU}/{Compiler}/{Math}` format:
 
 | Image name                                                            | CUDA | Compiler            | Math      |
 |:----------------------------------------------------------------------|:----:|:-------------------:|:---------:|
-| [ghcr.io/ricosjp/allgebra/cuda11_7/clang14/mkl][cuda11_7/clang14/mkl] | 11.7 | clang 13, gcc 11, nvcc 11.7 | Intel MKL |
-| [ghcr.io/ricosjp/allgebra/cuda11_7/clang14/oss][cuda11_7/clang14/oss] | 11.7 | clang 13, gcc 11, nvcc 11.7 | OpenBLAS  |
+| [ghcr.io/ricosjp/allgebra/cuda11_7/clang14/mkl][cuda11_7/clang14/mkl] | 11.7 | clang 14, gcc 11, nvcc 11.7 | Intel MKL |
+| [ghcr.io/ricosjp/allgebra/cuda11_7/clang14/oss][cuda11_7/clang14/oss] | 11.7 | clang 14, gcc 11, nvcc 11.7 | OpenBLAS  |
 | [ghcr.io/ricosjp/allgebra/cuda11_7/gcc11/mkl][cuda11_7/gcc11/mkl]     | 11.7 | gcc 11, nvcc 11.7 | Intel MKL |
 | [ghcr.io/ricosjp/allgebra/cuda11_7/gcc11/oss][cuda11_7/gcc11/oss]     | 11.7 | gcc 11, nvcc 11.7 | OpenBLAS  |
 
